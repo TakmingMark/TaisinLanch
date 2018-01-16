@@ -16,4 +16,5 @@ public interface TextContent {
 	String sideDishOneLabelText = "°Æµæ¤@";
 	String sideDishSecondLabelText = "°Æµæ¤G";
 	String soupLabelText = "´ö«~";
+	String ingredientText="­¹§÷";
 }

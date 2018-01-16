@@ -14,13 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
+
+import Component.TextContent;
+
 import javax.swing.ImageIcon;
 
 public class IngredientView extends JPanel{
 	JFrame jFrame;
 	JPanel currentJPanel,previousJPanel;
 	JButton ingredientButton;
-	static ArrayList<IngredientInput> ingredientInputArrayList;
+	private ArrayList<IngredientInput> ingredientInputArrayList;
 
 	private IngredientView(JFrame jFrame) {
 		this.jFrame=jFrame;
@@ -35,12 +38,13 @@ public class IngredientView extends JPanel{
 		ingredientInputArrayList = new ArrayList<>();
 
 		initGroupLayout();
+		ingredientButton.doClick();
 	}
 
 	private void initGroupLayout() {
 		previousJPanel=currentJPanel;
 		currentJPanel = new JPanel();
-		ingredientButton = new JButton("Ingredient");
+		ingredientButton = new JButton(TextContent.ingredientText);
 		GroupLayout groupLayout = new GroupLayout(currentJPanel);
 		currentJPanel.setLayout(groupLayout);
 		
@@ -59,12 +63,13 @@ public class IngredientView extends JPanel{
 								.addGroup(sequentialGroup));
 		
 		ingredientButton.addActionListener(e -> ingredientButtonOnClick(groupLayout, parallelGroup, sequentialGroup));
-
+		
 		for (IngredientInput ingredientInput : ingredientInputArrayList) {
 			addIngredient(ingredientInput, groupLayout, parallelGroup, sequentialGroup);
 		}
 		
 		this.add(currentJPanel);
+		
 	}
 
 	private void addIngredient(IngredientInput ingredientInput, GroupLayout groupLayout, ParallelGroup parallelGroup,
@@ -99,8 +104,7 @@ public class IngredientView extends JPanel{
 		IngredientInput ingredientInput = new IngredientInput(ingredientTextFiel, cancelButton);
 		ingredientInputArrayList.add(ingredientInput);
 		cancelButton.addActionListener(e -> cancelButtonOnClick(ingredientInput));
-		addIngredient(ingredientInput, groupLayout, parallelGroup, sequentialGroup);
-
+	
 		rePaint();
 	}
 

@@ -47,11 +47,11 @@ public class MenuView {
 		monthComboBox = new JComboBox<>(TextContent.monthComboBoxText);
 		dayComboBox = new JComboBox<>(TextContent.dayComboBoxText);
 
-		mondy = new DayView(TextContent.weekText[0]);
-		tuesday = new DayView(TextContent.weekText[1]);
-		wednesday = new DayView(TextContent.weekText[2]);
-		thursday = new DayView(TextContent.weekText[3]);
-		friday = new DayView(TextContent.weekText[4]);
+		mondy = new DayView(frame,TextContent.weekText[0]);
+		tuesday = new DayView(frame,TextContent.weekText[1]);
+		wednesday = new DayView(frame,TextContent.weekText[2]);
+		thursday = new DayView(frame,TextContent.weekText[3]);
+		friday = new DayView(frame,TextContent.weekText[4]);
 
 		GroupLayout groupLayout = new GroupLayout(panel);
 		panel.setLayout(groupLayout);
