@@ -27,7 +27,6 @@ import javax.swing.border.TitledBorder;
 import javax.xml.soap.Text;
 
 import Component.ComponentListenerBuilder;
-import Component.Food;
 import Component.TextContent;
 
 public class MenuView {

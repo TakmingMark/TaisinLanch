@@ -1,0 +1,126 @@
+﻿{
+  "schoolName": "泰興國小",
+  "date": "2018/01/20",
+  "day": [
+    {
+      "name":"星期一",
+      "stapleFood":{
+        "name":"白飯",
+        "ingredient": []
+      },
+      "mainCourse":{
+        "name":"麻油炒雞肉",
+        "ingredient": [
+        "雞肉1斤"
+      ]
+      },
+      "sideDishOne":{
+        "name": "番茄炒蛋",
+        "ingredient": [
+        "番茄1斤"
+        ]
+      },
+     "sideDishSecond":{
+       "name": "炒菠菜",
+       "ingredient":[
+        "菠菜1斤"
+      ]
+     },
+     "soup":{
+       "name":"肉骨茶湯",
+       "ingredient":[
+         "白胡椒粒1小包",
+         "排骨1斤",
+         "肉骨茶包1包",
+        " 紅蘿蔔1斤"
+         ]
+     },
+      "acceptance": [
+        "香菜1把",
+        "蒜末1斤",
+        "蒜仁1斤",
+        "蛋半箱"
+      ]
+    },
+    {
+      "name":"星期二",
+      "stapleFood":{
+        "name":"白飯",
+        "ingredient": []
+      },
+      "mainCourse":{
+        "name":"麻油炒雞肉",
+        "ingredient": [
+        "雞肉2斤"
+      ]
+      },
+      "sideDishOne":{
+        "name": "番茄炒蛋",
+        "ingredient": [
+        "番茄2斤"
+        ]
+      },
+     "sideDishSecond":{
+       "name": "炒菠菜",
+       "ingredient":[
+        "菠菜2斤"
+      ]
+     },
+     "soup":{
+       "name":"肉骨茶湯",
+       "ingredient":[
+         "白胡椒粒2小包",
+         "排骨2斤",
+         "肉骨茶包2包",
+        " 紅蘿蔔2斤"
+         ]
+     },
+      "acceptance": [
+         "香菜2把",
+        "蒜末2斤",
+        "蒜仁2斤",
+        "蛋半箱"
+      ]
+    },
+    {
+      "name":"星期三",
+      "stapleFood":{
+        "name":"白飯",
+        "ingredient": []
+      },
+      "mainCourse":{
+        "name":"麻油炒雞肉",
+        "ingredient": [
+        "雞肉3斤"
+      ]
+      },
+      "sideDishOne":{
+        "name": "番茄炒蛋",
+        "ingredient": [
+        "番茄3斤"
+        ]
+      },
+     "sideDishSecond":{
+       "name": "炒菠菜",
+       "ingredient":[
+        "菠菜3斤"
+      ]
+     },
+     "soup":{
+       "name":"肉骨茶湯",
+       "ingredient":[
+         "白胡椒粒3小包",
+         "排骨3斤",
+         "肉骨茶包3包",
+        " 紅蘿蔔3斤"
+         ]
+     },
+      "acceptance": [
+        "香菜3把",
+        "蒜末3斤",
+        "蒜仁3斤",
+        "蛋半箱"
+      ]
+    }
+  ]
+}

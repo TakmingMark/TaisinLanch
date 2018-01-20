@@ -2,7 +2,7 @@ package Component;
 
 import java.util.ArrayList;
 
-public class Food {
+public class Foodtest {
 	private String date=null;
 	private String week=null;
 	private String stapleFood=null;
@@ -11,7 +11,7 @@ public class Food {
 	private ArrayList<String> ingredientList=null;
 	private ArrayList<String> seasoningList=null;
 	
-	public Food() {
+	public Foodtest() {
 		nonStapleFoodList=new ArrayList<>();
 		ingredientList=new ArrayList<>();
 		seasoningList=new ArrayList<>();

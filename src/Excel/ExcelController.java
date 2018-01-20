@@ -13,10 +13,10 @@ public class ExcelController {
 	}
 	
 	private void initExcelController() {
-		excelModel=ExcelModel.getExcelModelObject();
-		excelModel.setSchoolMenuExcelPath(schoolMenuExcelPath);
-		
-		excelModel.readSchoolMenuExcel();
+//		excelModel=ExcelModel.getExcelModelObject();
+//		excelModel.setSchoolMenuExcelPath(schoolMenuExcelPath);
+//		
+//		excelModel.readSchoolMenuExcel();
 	}
 	
 	public ExcelModel getExcelModel() {
