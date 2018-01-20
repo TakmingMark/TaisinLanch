@@ -1,5 +1,6 @@
 package Menu;
 
+import javax.naming.Context;
 import javax.swing.GroupLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -13,12 +14,14 @@ import Component.TextContent;
 class DayView extends JPanel {
 	private JFrame frame;
 	private JCheckBox dayCheckBox;
-	private JLabel stapleFoodLabel, mainCourseLabel, sideDishOneLabel, sideDishSecondLabel, soupLabel;
+	private JLabel stapleFoodLabel, mainCourseLabel, sideDishOneLabel, sideDishSecondLabel, soupLabel, acceptanceLabel;
 
 	private JTextField stapleFoodTextField, mainCourseTextField, sideDishOneTextField, sideDishSecondTextField,
 			soupTextField;
-	private IngredientView mainCourseIngredientView, sideDishOneIngredientView, sideDishSecondIngredientView,
+	private ZoomRowView mainCourseIngredientView, sideDishOneIngredientView, sideDishSecondIngredientView,
 			soupIngredientView;
+
+	private ZoomRowView acceptanceView;
 
 	DayView(JFrame frame, String dayCheckBoxName) {
 		this.frame = frame;
@@ -37,58 +40,57 @@ class DayView extends JPanel {
 		sideDishOneLabel = new JLabel(TextContent.sideDishOneLabelText);
 		sideDishSecondLabel = new JLabel(TextContent.sideDishSecondLabelText);
 		soupLabel = new JLabel(TextContent.soupLabelText);
+		
+		stapleFoodTextField = new JTextField(7);
+		mainCourseTextField = new JTextField(7);
+		sideDishOneTextField = new JTextField(7);
+		sideDishSecondTextField = new JTextField(7);
+		soupTextField = new JTextField(7);
 
-		stapleFoodTextField = new JTextField(10);
-		mainCourseTextField = new JTextField(10);
-		sideDishOneTextField = new JTextField(10);
-		sideDishSecondTextField = new JTextField(10);
-		soupTextField = new JTextField(10);
-
-		mainCourseIngredientView = IngredientView.getIngredientObject(frame);
-		sideDishOneIngredientView = IngredientView.getIngredientObject(frame);
-		sideDishSecondIngredientView = IngredientView.getIngredientObject(frame);
-		soupIngredientView = IngredientView.getIngredientObject(frame);
+		mainCourseIngredientView = ZoomRowView.getZoomRowViewObject(frame, TextContent.ingredientText);
+		sideDishOneIngredientView = ZoomRowView.getZoomRowViewObject(frame, TextContent.ingredientText);
+		sideDishSecondIngredientView = ZoomRowView.getZoomRowViewObject(frame, TextContent.ingredientText);
+		soupIngredientView = ZoomRowView.getZoomRowViewObject(frame, TextContent.ingredientText);
+		acceptanceView = ZoomRowView.getZoomRowViewObject(frame, TextContent.acceptanceText);
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		this.setLayout(groupLayout);
-		groupLayout
-				.setHorizontalGroup(groupLayout.createSequentialGroup()
-						.addComponent(dayCheckBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(stapleFoodLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(stapleFoodTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createParallelGroup()
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(mainCourseLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(mainCourseTextField, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(mainCourseIngredientView, 0, groupLayout.DEFAULT_SIZE,
+		groupLayout.setHorizontalGroup(groupLayout.createSequentialGroup()
+				.addComponent(dayCheckBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(10)
+				.addComponent(stapleFoodLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(10)
+				.addComponent(stapleFoodTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(30)
+				.addGroup(groupLayout.createParallelGroup()
+						.addGroup(groupLayout.createSequentialGroup().addGap(20)
+								.addComponent(mainCourseLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(30).addComponent(mainCourseTextField, 0, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createParallelGroup()
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(sideDishOneLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(sideDishOneTextField, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(sideDishOneIngredientView, 0, groupLayout.DEFAULT_SIZE,
+						.addComponent(mainCourseIngredientView, 0, groupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+				.addGap(30)
+				.addGroup(groupLayout.createParallelGroup()
+						.addGroup(groupLayout.createSequentialGroup().addGap(18)
+								.addComponent(sideDishOneLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(19).addComponent(sideDishOneTextField, 0, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createParallelGroup()
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(sideDishSecondLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(sideDishSecondTextField, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(
-										sideDishSecondIngredientView, 0, groupLayout.DEFAULT_SIZE,
+						.addComponent(sideDishOneIngredientView, 0, groupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+				.addGap(30)
+				.addGroup(groupLayout.createParallelGroup()
+						.addGroup(groupLayout.createSequentialGroup().addGap(18)
+								.addComponent(sideDishSecondLabel, 0, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(19).addComponent(sideDishSecondTextField, 0, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createParallelGroup()
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(soupLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(soupTextField, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(soupIngredientView, 0, groupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)));
+						.addComponent(
+								sideDishSecondIngredientView, 0, groupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGap(30)
+				.addGroup(groupLayout.createParallelGroup().addGroup(groupLayout.createSequentialGroup().addGap(20)
+						.addComponent(soupLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(30)
+						.addComponent(soupTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(soupIngredientView, 0, groupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createParallelGroup()
+						.addComponent(acceptanceView, 0, groupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+);
 
 		groupLayout.setVerticalGroup(groupLayout.createSequentialGroup()
 
@@ -129,6 +131,8 @@ class DayView extends JPanel {
 												GroupLayout.PREFERRED_SIZE))
 								.addComponent(soupIngredientView, 0, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout.createParallelGroup()
+								.addComponent(acceptanceView, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 
 		));
 	}

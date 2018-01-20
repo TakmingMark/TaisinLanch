@@ -10,6 +10,6 @@ public class Activity {
 	public static void main(String args[]) {
 		Excel excel=Excel.getExcelObject();
 		
-		MenuView menuView=MenuView.getMenuViewObject();
+		MenuView menuView=MenuView.getMenuViewObject(1279, 738);
 	}
 }
