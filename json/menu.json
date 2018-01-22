@@ -1,6 +1,6 @@
 ﻿{
   "schoolName": "泰興國小",
-  "date": "2018/01/20",
+  "date": "2018/01/15",
   "day": [
     {
       "name":"星期一",
@@ -11,35 +11,37 @@
       "mainCourse":{
         "name":"麻油炒雞肉",
         "ingredient": [
-        "雞肉1斤"
+        "雞肉12斤"
       ]
       },
       "sideDishOne":{
-        "name": "番茄炒蛋",
+        "name": "創意炒蛋",
         "ingredient": [
-        "番茄1斤"
+        "皮蛋8顆",
+        "鹹蛋8顆"
         ]
       },
      "sideDishSecond":{
        "name": "炒菠菜",
        "ingredient":[
-        "菠菜1斤"
+        "菠菜8斤"
       ]
      },
      "soup":{
-       "name":"肉骨茶湯",
+       "name":"肉羹湯",
        "ingredient":[
-         "白胡椒粒1小包",
-         "排骨1斤",
-         "肉骨茶包1包",
-        " 紅蘿蔔1斤"
+         "肉羹4斤",
+         "竹筍絲1斤",
+         "木耳1斤",
+        " 柴魚片1包"
          ]
      },
       "acceptance": [
         "香菜1把",
         "蒜末1斤",
         "蒜仁1斤",
-        "蛋半箱"
+        "老薑",
+        "蛋1箱"
       ]
     },
     {
@@ -49,37 +51,39 @@
         "ingredient": []
       },
       "mainCourse":{
-        "name":"麻油炒雞肉",
+        "name":"檸檬雞翅",
         "ingredient": [
-        "雞肉2斤"
+        "檸檬雞翅90隻"
       ]
       },
       "sideDishOne":{
-        "name": "番茄炒蛋",
+        "name": "沙茶菇菇",
         "ingredient": [
-        "番茄2斤"
+        "金針菇4斤",
+        "杏鮑菇3斤",
+        "袖珍菇3斤"
+       
         ]
       },
      "sideDishSecond":{
-       "name": "炒菠菜",
+       "name": "炒小白菜",
        "ingredient":[
-        "菠菜2斤"
+        "小白菜8斤"
       ]
      },
      "soup":{
-       "name":"肉骨茶湯",
+       "name":"福菜竹筍排骨湯",
        "ingredient":[
-         "白胡椒粒2小包",
-         "排骨2斤",
-         "肉骨茶包2包",
-        " 紅蘿蔔2斤"
+        "福菜(庫存)",
+        "竹筍(庫存)",
+        "排骨4斤"
          ]
      },
       "acceptance": [
-         "香菜2把",
         "蒜末2斤",
         "蒜仁2斤",
-        "蛋半箱"
+        "蔥2斤",
+        "香菜2把"
       ]
     },
     {
@@ -89,37 +93,116 @@
         "ingredient": []
       },
       "mainCourse":{
-        "name":"麻油炒雞肉",
+        "name":"醬燒洋蔥豬",
         "ingredient": [
-        "雞肉3斤"
+        "豬肉塊(瘦肉)9斤",
+        "洋蔥2斤"
       ]
       },
       "sideDishOne":{
-        "name": "番茄炒蛋",
+        "name": "滷包心白豆皮",
         "ingredient": [
-        "番茄3斤"
+        "包心白10斤",
+        "豆皮(庫存)"
         ]
       },
      "sideDishSecond":{
-       "name": "炒菠菜",
+       "name": "吻仔魚炒蛋",
        "ingredient":[
-        "菠菜3斤"
+        "吻仔魚0.5斤"
       ]
      },
      "soup":{
-       "name":"肉骨茶湯",
+       "name":"八寶粥",
        "ingredient":[
-         "白胡椒粒3小包",
-         "排骨3斤",
-         "肉骨茶包3包",
-        " 紅蘿蔔3斤"
+         "紅豆1包",
+         "綠豆1包",
+         "熟大豆1包",
+        " 紫米1斤",
+        "燕麥0.25斤"
          ]
      },
       "acceptance": [
-        "香菜3把",
-        "蒜末3斤",
-        "蒜仁3斤",
-        "蛋半箱"
+        
+      ]
+    },
+     {
+      "name":"星期四",
+      "stapleFood":{
+        "name":"白飯",
+        "ingredient": []
+      },
+      "mainCourse":{
+        "name":"紅燒肉",
+        "ingredient": [
+        "豬肉丁9斤",
+        "豆輪3斤",
+        "紅蘿蔔2斤"
+      ]
+      },
+      "sideDishOne":{
+        "name": "蛤蠣燴絲瓜",
+        "ingredient": [
+        "蛤蠣3斤",
+        "絲瓜8斤"
+        ]
+      },
+     "sideDishSecond":{
+       "name": "炒高麗菜",
+       "ingredient":[
+        "高麗菜8斤"
+      ]
+     },
+     "soup":{
+       "name":"榨菜肉絲湯",
+       "ingredient":[
+         "肉絲3斤",
+         "榨菜2斤"
+         ]
+     },
+      "acceptance": [
+        "蒜末1斤",
+        "蒜仁2斤",
+        "蔥2斤",
+        "香菜2包"
+      ]
+    },
+     {
+      "name":"星期五",
+      "stapleFood":{
+        "name":"白飯",
+        "ingredient": []
+      },
+      "mainCourse":{
+        "name":"炸柳葉魚",
+        "ingredient": [
+        "柳葉魚100隻"
+      ]
+      },
+      "sideDishOne":{
+        "name": "螞蟻上樹",
+        "ingredient": [
+        "粉絲1大包",
+        "紅蘿蔔2斤",
+        "絞肉2斤",
+        "高麗菜2斤"
+        ]
+      },
+     "sideDishSecond":{
+       "name": "炒A菜",
+       "ingredient":[
+        "A菜8斤"
+      ]
+     },
+     "soup":{
+       "name":"酸菜豬肉湯",
+       "ingredient":[
+         "酸菜1斤",
+         "豬血4斤"
+         ]
+     },
+      "acceptance": [
+        
       ]
     }
   ]
