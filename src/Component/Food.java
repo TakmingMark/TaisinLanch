@@ -1,0 +1,20 @@
+package Component;
+
+import java.util.List;
+
+public class Food{
+	private String name;
+	private List<String> ingredient;
+	public String getName() {
+		return name;
+	}
+	public List<String> getIngredient() {
+		return ingredient;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setIngredient(List<String> ingredient) {
+		ingredient = ingredient;
+	}
+}

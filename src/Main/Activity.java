@@ -11,7 +11,8 @@ public class Activity {
 	public static void main(String args[]) {
 		Excel excel=Excel.getExcelObject();
 		
-		MenuView menuView=MenuView.getMenuViewObject(1279, 738);
+		MenuView menuView=MenuView.getMenuViewObject(1400, 738);
 		MenuModel menuModel=MenuModel.getMenuModelObject();
+		menuModel.menuComponentToMenuView(menuView);
 	}
 }

@@ -41,11 +41,11 @@ class DayView extends JPanel {
 		sideDishSecondLabel = new JLabel(TextContent.sideDishSecondLabelText);
 		soupLabel = new JLabel(TextContent.soupLabelText);
 		
-		stapleFoodTextField = new JTextField(7);
-		mainCourseTextField = new JTextField(7);
-		sideDishOneTextField = new JTextField(7);
-		sideDishSecondTextField = new JTextField(7);
-		soupTextField = new JTextField(7);
+		stapleFoodTextField = new JTextField(8);
+		mainCourseTextField = new JTextField(8);
+		sideDishOneTextField = new JTextField(8);
+		sideDishSecondTextField = new JTextField(8);
+		soupTextField = new JTextField(8);
 
 		mainCourseIngredientView = ZoomRowView.getZoomRowViewObject(frame, TextContent.ingredientText);
 		sideDishOneIngredientView = ZoomRowView.getZoomRowViewObject(frame, TextContent.ingredientText);
@@ -136,4 +136,94 @@ class DayView extends JPanel {
 
 		));
 	}
+
+	public JCheckBox getDayCheckBox() {
+		return dayCheckBox;
+	}
+
+	public JTextField getStapleFoodTextField() {
+		return stapleFoodTextField;
+	}
+
+	public JTextField getMainCourseTextField() {
+		return mainCourseTextField;
+	}
+
+	public JTextField getSideDishOneTextField() {
+		return sideDishOneTextField;
+	}
+
+	public JTextField getSideDishSecondTextField() {
+		return sideDishSecondTextField;
+	}
+
+	public JTextField getSoupTextField() {
+		return soupTextField;
+	}
+
+	public ZoomRowView getMainCourseIngredientView() {
+		return mainCourseIngredientView;
+	}
+
+	public ZoomRowView getSideDishOneIngredientView() {
+		return sideDishOneIngredientView;
+	}
+
+	public ZoomRowView getSideDishSecondIngredientView() {
+		return sideDishSecondIngredientView;
+	}
+
+	public ZoomRowView getSoupIngredientView() {
+		return soupIngredientView;
+	}
+
+	public ZoomRowView getAcceptanceView() {
+		return acceptanceView;
+	}
+
+	public void setDayCheckBox(JCheckBox dayCheckBox) {
+		this.dayCheckBox = dayCheckBox;
+	}
+
+	public void setStapleFoodTextField(JTextField stapleFoodTextField) {
+		this.stapleFoodTextField = stapleFoodTextField;
+	}
+
+	public void setMainCourseTextField(JTextField mainCourseTextField) {
+		this.mainCourseTextField = mainCourseTextField;
+	}
+
+	public void setSideDishOneTextField(JTextField sideDishOneTextField) {
+		this.sideDishOneTextField = sideDishOneTextField;
+	}
+
+	public void setSideDishSecondTextField(JTextField sideDishSecondTextField) {
+		this.sideDishSecondTextField = sideDishSecondTextField;
+	}
+
+	public void setSoupTextField(JTextField soupTextField) {
+		this.soupTextField = soupTextField;
+	}
+
+	public void setMainCourseIngredientView(ZoomRowView mainCourseIngredientView) {
+		this.mainCourseIngredientView = mainCourseIngredientView;
+	}
+
+	public void setSideDishOneIngredientView(ZoomRowView sideDishOneIngredientView) {
+		this.sideDishOneIngredientView = sideDishOneIngredientView;
+	}
+
+	public void setSideDishSecondIngredientView(ZoomRowView sideDishSecondIngredientView) {
+		this.sideDishSecondIngredientView = sideDishSecondIngredientView;
+	}
+
+	public void setSoupIngredientView(ZoomRowView soupIngredientView) {
+		this.soupIngredientView = soupIngredientView;
+	}
+
+	public void setAcceptanceView(ZoomRowView acceptanceView) {
+		this.acceptanceView = acceptanceView;
+	}
+	
+	
 }
