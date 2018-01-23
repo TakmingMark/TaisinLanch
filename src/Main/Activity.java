@@ -3,16 +3,17 @@ package Main;
 import java.awt.Menu;
 
 import Excel.Excel;
+import Menu.MenuController;
 import Menu.MenuModel;
 import Menu.MenuView;
 
 public class Activity {
 
 	public static void main(String args[]) {
-		Excel excel=Excel.getExcelObject();
+//		Excel excel=Excel.getExcelObject();
 		
-		MenuView menuView=MenuView.getMenuViewObject(1400, 738);
+		MenuView menuView=MenuView.getMenuViewObject();
 		MenuModel menuModel=MenuModel.getMenuModelObject();
-		menuModel.menuComponentToMenuView(menuView);
+		MenuController menuController=MenuController.getMenuControllerObject(menuModel, menuView);
 	}
 }

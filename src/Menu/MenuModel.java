@@ -14,7 +14,7 @@ import Component.Day;
 import Component.MenuDataComponent;
 
 public class MenuModel {
-	MenuDataComponent menuComponent;
+	MenuDataComponent menuDataInput,menuDataOutput;
 
 	private MenuModel() {
 		parseJSONFromMenuFile();
@@ -32,16 +32,16 @@ public class MenuModel {
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		menuComponent = new Gson().fromJson(bufferedReader, MenuDataComponent.class);
+		menuDataInput = new Gson().fromJson(bufferedReader, MenuDataComponent.class);
 	}
 	
-	public void menuComponentToMenuView(MenuView menuView) {
-		menuView.getSchoolNameTextField().setText(menuComponent.getSchoolName());
-		menuView.getYearComboBox().setSelectedItem(menuComponent.getDate().split("\\/")[0]);
-		menuView.getMonthComboBox().setSelectedItem(menuComponent.getDate().split("\\/")[1]);
-		menuView.getDayComboBox().setSelectedItem(menuComponent.getDate().split("\\/")[2]);
+	public void menuDataInputToMenuView(MenuView menuView) {
+		menuView.getSchoolNameTextField().setText(menuDataInput.getSchoolName());
+		menuView.getYearComboBox().setSelectedItem(menuDataInput.getDate().split("\\/")[0]);
+		menuView.getMonthComboBox().setSelectedItem(menuDataInput.getDate().split("\\/")[1]);
+		menuView.getDayComboBox().setSelectedItem(menuDataInput.getDate().split("\\/")[2]);
 		
-		for(Day dayElement:menuComponent.getDay()) {
+		for(Day dayElement:menuDataInput.getDay()) {
 			switch (dayElement.getName()) {
 			case "¬P´Á¤@":
 				menuView.getMondy().getDayCheckBox().setSelected(true);

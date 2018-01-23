@@ -1,4 +1,4 @@
-package Menu;
+package Component;
 
 import java.awt.Dimension;
 import java.awt.Image;
@@ -14,10 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
-
-import Component.TextContent;
-import Component.ZoomRowInput;
-
 import javax.swing.ImageIcon;
 
 public class ZoomRowView extends JPanel{

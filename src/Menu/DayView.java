@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 
 import Component.TextContent;
+import Component.ZoomRowView;
 
 class DayView extends JPanel {
 	private JFrame frame;
