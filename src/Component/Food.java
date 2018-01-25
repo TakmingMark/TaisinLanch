@@ -15,6 +15,7 @@ public class Food{
 		this.name = name;
 	}
 	public void setIngredient(List<String> ingredient) {
+	
 		ingredient = ingredient;
 	}
 }

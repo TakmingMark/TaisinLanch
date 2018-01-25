@@ -183,70 +183,8 @@ public class MenuView {
 		}
 	}
 
-	public void menuViewToJSONFormat() {
-		JSONObject menuJSONObject = new JSONObject();
-		menuJSONObject.put("schoolName", schoolNameTextField.getText());
-		menuJSONObject.put("date", yearComboBox.getSelectedItem() + "/" + monthComboBox.getSelectedItem() + "/"
-				+ dayComboBox.getSelectedItem());
-		JSONArray dayJSONArray = new JSONArray();
-		menuJSONObject.put("day", dayJSONArray);
-		if (monday.getDayCheckBox().isSelected() == true) {
-			JSONObject mondayJSONObject = new JSONObject();
-			mondayJSONObject.put("name", monday.getDayCheckBox().getText());
-			JSONObject stapleFoodJSONObject = new JSONObject();
-			stapleFoodJSONObject.put("name", monday.getStapleFoodTextField().getText());
-			JSONArray stapleFoodJSONArray = new JSONArray();
-			stapleFoodJSONObject.put("ingredient", stapleFoodJSONArray);
-			JSONObject mainCourseJSONObject = new JSONObject();
-			mainCourseJSONObject.put("name", monday.getMainCourseTextField().getText());
-			JSONArray mainCourseJSONArray = new JSONArray();
-			for (ZoomRowInput element : monday.getMainCourseIngredientView().getZoomRowInputArrayList()) {
-				if (!element.getZoomRowTextField().getText().equals(""))
-					mainCourseJSONArray.add(element.getZoomRowTextField().getText());
-			}
-			mainCourseJSONObject.put("ingredient", mainCourseJSONArray);
-			JSONObject sideDishOneJSONObject = new JSONObject();
-			sideDishOneJSONObject.put("name", monday.getSideDishOneTextField().getText());
-			JSONArray sideDishOneJSONArray = new JSONArray();
-			for (ZoomRowInput element : monday.getSideDishOneIngredientView().getZoomRowInputArrayList()) {
-				if (!element.getZoomRowTextField().getText().equals(""))
-					sideDishOneJSONArray.add(element.getZoomRowTextField().getText());
-			}
-			sideDishOneJSONObject.put("ingredient", sideDishOneJSONArray);
-			
-			JSONObject sideDishSecondJSONObject = new JSONObject();
-			sideDishSecondJSONObject.put("name", monday.getSideDishSecondTextField().getText());
-			JSONArray sideDishSecondJSONArray = new JSONArray();
-			for (ZoomRowInput element : monday.getSideDishSecondIngredientView().getZoomRowInputArrayList()) {
-				if (!element.getZoomRowTextField().getText().equals(""))
-					sideDishSecondJSONArray.add(element.getZoomRowTextField().getText());
-			}
-			sideDishSecondJSONObject.put("ingredient", sideDishOneJSONArray);
-			
-			JSONObject soupJSONObject = new JSONObject();
-			soupJSONObject.put("name", monday.getSoupTextField().getText());
-			JSONArray soupJSONArray = new JSONArray();
-			for (ZoomRowInput element : monday.getSoupIngredientView().getZoomRowInputArrayList()) {
-				if (!element.getZoomRowTextField().getText().equals(""))
-					soupJSONArray.add(element.getZoomRowTextField().getText());
-			}
-			soupJSONObject.put("ingredient", sideDishOneJSONArray);
-			
-			JSONArray acceptanceJSONArray=new JSONArray();
-			for (ZoomRowInput element : monday.getAcceptanceView().getZoomRowInputArrayList()) {
-				if (!element.getZoomRowTextField().getText().equals(""))
-					acceptanceJSONArray.add(element.getZoomRowTextField().getText());
-			}
-			
-			mondayJSONObject.put("stapleFood",stapleFoodJSONObject);
-			mondayJSONObject.put("mainCourse", mainCourseJSONObject);
-			mondayJSONObject.put("sideDishOne",sideDishOneJSONObject);
-			mondayJSONObject.put("sideDishSecond", sideDishSecondJSONObject);
-			mondayJSONObject.put("soup", soupJSONObject);
-			mondayJSONObject.put("acceptance", acceptanceJSONArray);
-			System.out.println(mondayJSONObject);
-		}
-	}
+
+
 
 	public JTextField getSchoolNameTextField() {
 		return schoolNameTextField;
@@ -292,12 +230,12 @@ public class MenuView {
 		this.dayComboBox = dayComboBox;
 	}
 
-	public DayView getMondy() {
+	public DayView getMonday() {
 		return monday;
 	}
 
-	public void setMondy(DayView mondy) {
-		this.monday = mondy;
+	public void setMonday(DayView monday) {
+		this.monday = monday;
 	}
 
 	public void setTuesday(DayView tuesday) {
@@ -318,6 +256,14 @@ public class MenuView {
 
 	public void setFriday(DayView friday) {
 		this.friday = friday;
+	}
+
+	public JButton getFinishButton() {
+		return finishButton;
+	}
+
+	public void setFinishButton(JButton finishButton) {
+		this.finishButton = finishButton;
 	}
 
 }

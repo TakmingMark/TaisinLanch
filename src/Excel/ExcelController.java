@@ -1,7 +1,7 @@
 package Excel;
 
 public class ExcelController {
-	private ExcelModel excelModel=null;
+	private ExcelModel2 excelModel=null;
 	private String schoolMenuExcelPath="excel/123.xls";
 	protected ExcelController() {
 		initExcelController();
@@ -19,7 +19,7 @@ public class ExcelController {
 //		excelModel.readSchoolMenuExcel();
 	}
 	
-	public ExcelModel getExcelModel() {
+	public ExcelModel2 getExcelModel() {
 		return excelModel;
 	} 
 }

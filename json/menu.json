@@ -6,7 +6,7 @@
       "name":"星期一",
       "stapleFood":{
         "name":"白飯",
-        "ingredient": []
+        "ingredient": ["白米25.8斤"]
       },
       "mainCourse":{
         "name":"麻油炒雞肉",
@@ -48,7 +48,7 @@
       "name":"星期二",
       "stapleFood":{
         "name":"白飯",
-        "ingredient": []
+        "ingredient": ["白米25.8斤"]
       },
       "mainCourse":{
         "name":"檸檬雞翅",
@@ -90,7 +90,7 @@
       "name":"星期三",
       "stapleFood":{
         "name":"白飯",
-        "ingredient": []
+        "ingredient": ["白米25.8斤"]
       },
       "mainCourse":{
         "name":"醬燒洋蔥豬",
@@ -130,7 +130,7 @@
       "name":"星期四",
       "stapleFood":{
         "name":"白飯",
-        "ingredient": []
+        "ingredient": ["白米25.8斤"]
       },
       "mainCourse":{
         "name":"紅燒肉",
@@ -171,7 +171,7 @@
       "name":"星期五",
       "stapleFood":{
         "name":"白飯",
-        "ingredient": []
+        "ingredient": ["白米25.8斤"]
       },
       "mainCourse":{
         "name":"炸柳葉魚",
