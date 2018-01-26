@@ -1,9 +1,8 @@
 package Excel;
 
-public class Excel extends ExcelController{
+public class Excel {
 
 	private Excel() {
-		super();
 		initExcel();
 	}
 	
