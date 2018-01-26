@@ -45,7 +45,7 @@ public class MenuExcelModel  extends ExcelModel{
 					cell.setCellValue(menuOutputData.getSchoolName());
 					break;
 				case 1:
-					cell.setCellValue(calculateMenuDate(menuOutputData.getDate(), dayElement.getName()));
+					cell.setCellValue(calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName()));
 					break;
 				case 2:
 					cell.setCellValue(dayElement.getStapleFood().getName());

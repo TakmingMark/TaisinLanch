@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Day{
 	private String name;
+	private String date;
+	private String parchaseDate;
 	private Food stapleFood,mainCourse,sideDishOne,sideDishSecond,soup;
 	private List<String> acceptance;
 	public String getName() {
@@ -47,6 +49,18 @@ public class Day{
 	}
 	public void setAcceptance(List<String> acceptance) {
 		this.acceptance = acceptance;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getParchaseDate() {
+		return parchaseDate;
+	}
+	public void setParchaseDate(String parchaseDate) {
+		this.parchaseDate = parchaseDate;
 	}
 	
 	

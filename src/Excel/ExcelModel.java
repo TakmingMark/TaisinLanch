@@ -2,7 +2,7 @@ package Excel;
 
 public class ExcelModel {
 	
-	public String calculateMenuDate(String date, String day) {
+	public String calculateMenuDayDate(String date, String day) {
 		int calYear = Integer.valueOf(date.substring(0, 4));
 		int calMonth = Integer.valueOf(date.substring(5, 7));
 		int calDay = Integer.valueOf(date.substring(8, 10));
@@ -79,15 +79,15 @@ public class ExcelModel {
 
 		switch (day) {
 		case "星期一":
-			return calculateMenuDate(date,"星期一");
+			return calculateMenuDayDate(date,"星期一");
 		case "星期二":
-			return calculateMenuDate(date,"星期一");
+			return calculateMenuDayDate(date,"星期一");
 		case "星期三":
-			return calculateMenuDate(date,"星期一");
+			return calculateMenuDayDate(date,"星期一");
 		case "星期四":
-			return calculateMenuDate(date,"星期四");
+			return calculateMenuDayDate(date,"星期四");
 		case "星期五":
-			return calculateMenuDate(date,"星期五");
+			return calculateMenuDayDate(date,"星期五");
 		default:
 			return null;
 		}

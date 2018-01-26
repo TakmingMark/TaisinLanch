@@ -32,11 +32,11 @@ public class MenuController {
 	public void exportMenuExcel() {
 		MenuExcelModel menuExcelModel=new MenuExcelModel();
 		menuExcelModel.writeExcel(menuModel.getMenuDataOutput());
-		menuExcelModel.calculateMenuDate("2019/12/29","星期一");
-		menuExcelModel.calculateMenuDate("2019/12/29","星期二");
-		menuExcelModel.calculateMenuDate("2019/12/29","星期三");
-		menuExcelModel.calculateMenuDate("2019/12/29","星期四");
-		menuExcelModel.calculateMenuDate("2019/12/29","星期五");
+		menuExcelModel.calculateMenuDayDate("2019/12/29","星期一");
+		menuExcelModel.calculateMenuDayDate("2019/12/29","星期二");
+		menuExcelModel.calculateMenuDayDate("2019/12/29","星期三");
+		menuExcelModel.calculateMenuDayDate("2019/12/29","星期四");
+		menuExcelModel.calculateMenuDayDate("2019/12/29","星期五");
 	}
 	
 	public void exportIngredientExcel() {

@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor.DARK_BLUE;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
@@ -26,15 +28,16 @@ public class IngredientExcelModel extends ExcelModel {
 		for (Day dayElement : menuOutputData.getDay()) {
 			FileOutputStream fileOutputStream = null;
 			HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-			String fileName = calculateMenuDate(menuOutputData.getDate(), dayElement.getName());
+			HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.ingredientSheetName);
+			Row row = hssfSheet.createRow(0);
+			String fileName = calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName());
 			fileName = backSlashToDot(fileName);
 			String filePath = "excel/ingredient" + fileName + ".xls";
-			System.out.println(filePath);
-			HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.ingredientSheetName);
 			Object[] columnNames = ExcelTextContent.ingredientColumnNames;
-
-			int rowNum = 0;
-			Row row = hssfSheet.createRow(rowNum);
+			
+			dayElement.setDate(calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName()));
+			dayElement.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName()));
+			
 			int columnNum = 0;
 			for (Object leaveColumn : columnNames) {
 				Cell cell = row.createCell(columnNum++);
@@ -44,7 +47,7 @@ public class IngredientExcelModel extends ExcelModel {
 					cell.setCellValue("");
 			}
 
-			writeDayIngredientToExcel(hssfSheet, dayElement, menuOutputData.getDate());
+			writeDayIngredientToExcel(hssfSheet, dayElement);
 
 			try {
 				fileOutputStream = new FileOutputStream(filePath);
@@ -58,38 +61,29 @@ public class IngredientExcelModel extends ExcelModel {
 				e.printStackTrace();
 			}
 		}
-
-		// for(ArrayList<String> rowDataArrayList:tableDataArrayList) {
-		// row=hssfSheet.createRow(rowNum++);
-		// columnNum=0;
-		// for(String leaveCell:rowDataArrayList) {
-		// Cell cell=row.createCell(columnNum++);
-		// if(leaveCell instanceof String)
-		// cell.setCellValue((String) leaveCell);
-		// else
-		// cell.setCellValue("");
-		// }
-		// }
-
-	}
-	
-	private void writeDayIngredientToExcel(HSSFSheet hssfSheet,Day dayElement,String date) {
-		int rowNum=1;
-		rowNum=writeFoodIngredientToExcel(hssfSheet,dayElement.getStapleFood(),date,dayElement.getName(),rowNum);
-
 	}
 
-	private int writeFoodIngredientToExcel(HSSFSheet hssfSheet,Food food,String date,String dayName,int rowNum) {
-		Row row =null;
+	private void writeDayIngredientToExcel(HSSFSheet hssfSheet, Day dayElement) {
+		int rowNum = 1;
+		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getStapleFood(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getMainCourse(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getSideDishOne(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getSideDishSecond(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getSoup(), dayElement, rowNum);
+	}
+
+	private int writeFoodIngredientToExcel(HSSFSheet hssfSheet, Food food, Day dayElement, int rowNum) {
+		Row row = null;
+		
 		for (String ingredientElement : food.getIngredient()) {
 			row = hssfSheet.createRow(rowNum++);
-			String ingredientName;
-			String ingredientQuantity = null;
-			for (int i = 0; i <  ExcelTextContent.ingredientColumnNames.length; i++) {
+			String ingredientName=null;
+			String ingredientWeight = null;
+			for (int i = 0; i < ExcelTextContent.ingredientColumnNames.length; i++) {
 				Cell cell = row.createCell(i);
 				switch (i) {
 				case 0:
-					cell.setCellValue(calculateMenuDate(date, dayName));
+					cell.setCellValue(dayElement.getDate());
 					break;
 				case 1:
 					break;
@@ -97,13 +91,13 @@ public class IngredientExcelModel extends ExcelModel {
 					cell.setCellValue(food.getName());
 					break;
 				case 3:
-					String ingredientNameAndQuantity=ingredientUnitConversion(ingredientElement);
-					ingredientName=ingredientNameAndQuantity.split("\\|")[0];
-					ingredientQuantity=ingredientNameAndQuantity.split("\\|")[1];
+					String ingredientNameAndWeight = ingredientUnitConversion(ingredientElement);
+					ingredientName = ingredientNameAndWeight.split("\\|")[0];
+					ingredientWeight = ingredientNameAndWeight.split("\\|")[1];
 					cell.setCellValue(ingredientName);
 					break;
 				case 4:
-					cell.setCellValue(purchaseDate(date, dayName));
+					cell.setCellValue(dayElement.getParchaseDate());
 					break;
 				case 5:
 				case 6:
@@ -123,7 +117,7 @@ public class IngredientExcelModel extends ExcelModel {
 				case 12:
 					break;
 				case 13:
-					cell.setCellValue(ingredientQuantity);
+					cell.setCellValue(ingredientWeight);
 					break;
 				case 14:
 					cell.setCellValue(ExcelTextContent.ingredientO);
@@ -141,27 +135,44 @@ public class IngredientExcelModel extends ExcelModel {
 		}
 		return rowNum;
 	}
-	
-	private String ingredientUnitConversion(String ingredientNameAndQuantity) {
+
+	private String ingredientUnitConversion(String ingredientNameAndWeight) {
 		String regex = "[0-9]{1,}";
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(ingredientNameAndQuantity);
+		Matcher matcher = pattern.matcher(ingredientNameAndWeight);
 
 		String ingredientName = null;
-		String ingredientJinQuantity = null;
+		String ingredientWeight = null;
+		double ingredientKgWeight = 0;
 		boolean judgeWhetherDot = true;
+
 		while (matcher.find()) {
 			judgeWhetherDot = !judgeWhetherDot;
 			if (judgeWhetherDot) {
-				ingredientJinQuantity += "." + matcher.group();
+				ingredientWeight += "." + matcher.group();
 			} else {
-				ingredientName = ingredientNameAndQuantity.substring(0, matcher.start());
-				ingredientJinQuantity = matcher.group(0);
+				ingredientName = ingredientNameAndWeight.substring(0, matcher.start());
+				ingredientWeight = matcher.group(0);
 			}
 		}
-		double ingredientKgQuantity = new BigDecimal(Double.valueOf(ingredientJinQuantity) * 0.6)
-				.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-		
-		return ingredientName+"|"+ingredientKgQuantity;
+
+		if (ingredientNameAndWeight.endsWith("¤ç")) {
+			ingredientKgWeight = new BigDecimal(Double.valueOf(ingredientWeight) * 0.6)
+					.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+		} else if (ingredientNameAndWeight.endsWith("Áû")) {
+			ingredientKgWeight = Double.valueOf(ingredientWeight) * 0.125;
+		} else if (ingredientNameAndWeight.endsWith("°¦")) {
+			ingredientKgWeight = new BigDecimal(Double.valueOf(ingredientWeight) * 0.13)
+					.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+		} else if (ingredientNameAndWeight.endsWith("¥]")) {
+			ingredientKgWeight = Double.valueOf(ingredientWeight) * 1;
+		} else if (ingredientNameAndWeight.endsWith("(®w¦s)")) {
+			ingredientName = ingredientNameAndWeight;
+			ingredientKgWeight = new Random().nextInt(2) + 2;
+		} else {
+			ingredientKgWeight = 0;
+		}
+		return ingredientName + "|" + ingredientKgWeight;
 	}
 }
