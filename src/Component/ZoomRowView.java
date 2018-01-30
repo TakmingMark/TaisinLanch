@@ -4,35 +4,35 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.ParallelGroup;
+import javax.swing.GroupLayout.SequentialGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
-import javax.swing.ImageIcon;
 
-public class ZoomRowView extends JPanel{
+public class ZoomRowView extends JPanel {
 	JFrame jFrame;
-	JPanel currentJPanel,previousJPanel;
+	JPanel currentJPanel, previousJPanel;
 	JButton insertButton;
 	private ArrayList<ZoomRowInput> zoomRowInputArrayList;
 	private String insertButtonText;
-	private ZoomRowView(JFrame jFrame,String insertButtonText) {
-		this.jFrame=jFrame;
-		this.insertButtonText=insertButtonText;
+
+	private ZoomRowView(JFrame jFrame, String insertButtonText) {
+		this.jFrame = jFrame;
+		this.insertButtonText = insertButtonText;
 		initZoomRowView(this.insertButtonText);
 	}
 
-	public static ZoomRowView getZoomRowViewObject(JFrame jFrame,String insertButtonText) {
-		return new ZoomRowView(jFrame,insertButtonText);
+	public static ZoomRowView getZoomRowViewObject(JFrame jFrame, String insertButtonText) {
+		return new ZoomRowView(jFrame, insertButtonText);
 	}
 
-	public void initZoomRowView(String insertButtonText) {
+	private void initZoomRowView(String insertButtonText) {
 		zoomRowInputArrayList = new ArrayList<>();
 
 		initGroupLayout(insertButtonText);
@@ -40,20 +40,18 @@ public class ZoomRowView extends JPanel{
 	}
 
 	private void initGroupLayout(String insertButtonText) {
-		previousJPanel=currentJPanel;
+		previousJPanel = currentJPanel;
 		currentJPanel = new JPanel();
 		insertButton = new JButton(insertButtonText);
 		GroupLayout groupLayout = new GroupLayout(currentJPanel);
 		currentJPanel.setLayout(groupLayout);
-		
+
 		SequentialGroup sequentialGroup = groupLayout.createSequentialGroup();
 		ParallelGroup parallelGroup = groupLayout.createParallelGroup();
 
 		groupLayout.setHorizontalGroup(groupLayout.createSequentialGroup()
-				.addComponent(insertButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addGap(11)
-				.addGroup(parallelGroup)
-				);
+				.addComponent(insertButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(11)
+				.addGroup(parallelGroup));
 
 		groupLayout
 				.setVerticalGroup(
@@ -61,26 +59,24 @@ public class ZoomRowView extends JPanel{
 								.addGroup(groupLayout.createSequentialGroup().addComponent(insertButton, 0,
 										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGroup(sequentialGroup));
-		
+
 		insertButton.addActionListener(e -> insertButtonOnClick(groupLayout, parallelGroup, sequentialGroup));
 
-		for (ZoomRowInput  zoomRowInput : zoomRowInputArrayList) {
+		for (ZoomRowInput zoomRowInput : zoomRowInputArrayList) {
 			addIngredient(zoomRowInput, groupLayout, parallelGroup, sequentialGroup);
 		}
-		
+
 		this.add(currentJPanel);
-		
+
 	}
 
 	private void addIngredient(ZoomRowInput zoomRowInput, GroupLayout groupLayout, ParallelGroup parallelGroup,
 			SequentialGroup sequentialGroup) {
-		JTextField zoomRowInputTextFiel = zoomRowInput.getZoomRowTextField();
+		JTextField zoomRowInputTextFiel = zoomRowInput.getTextField();
 		JButton cancelButton = zoomRowInput.getCancelButton();
-		
-		
+
 		parallelGroup.addGroup(groupLayout.createSequentialGroup()
-				.addComponent(zoomRowInputTextFiel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addGap(5)
+				.addComponent(zoomRowInputTextFiel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(5)
 				.addComponent(cancelButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
 		sequentialGroup.addGap(3);
 		sequentialGroup.addGroup(groupLayout.createParallelGroup()
@@ -93,12 +89,12 @@ public class ZoomRowView extends JPanel{
 		JTextField zoomRowTextField = new JTextField(8);
 		JButton cancelButton = new JButton();
 		try {
-			 Image img = ImageIO.read(new File("img/cancelButton.png"));
-			 cancelButton.setIcon(new ImageIcon(img));
-			 cancelButton.setPreferredSize(new Dimension(20, 20));
-			 cancelButton.setOpaque(false);
-			 cancelButton.setContentAreaFilled(false);
-			 cancelButton.setBorderPainted(false);
+			Image img = ImageIO.read(new File("img/cancelButton.png"));
+			cancelButton.setIcon(new ImageIcon(img));
+			cancelButton.setPreferredSize(new Dimension(20, 20));
+			cancelButton.setOpaque(false);
+			cancelButton.setContentAreaFilled(false);
+			cancelButton.setBorderPainted(false);
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
@@ -106,7 +102,7 @@ public class ZoomRowView extends JPanel{
 		ZoomRowInput zoomRowInput = new ZoomRowInput(zoomRowTextField, cancelButton);
 		zoomRowInputArrayList.add(zoomRowInput);
 		cancelButton.addActionListener(e -> cancelButtonOnClick(zoomRowInput));
-	
+
 		rePaint();
 	}
 
@@ -114,7 +110,7 @@ public class ZoomRowView extends JPanel{
 		zoomRowInputArrayList.remove(zoomRowInput);
 		rePaint();
 	}
-	
+
 	public void rePaint() {
 		initGroupLayout(insertButtonText);
 		this.remove(previousJPanel);
@@ -125,7 +121,7 @@ public class ZoomRowView extends JPanel{
 		jFrame.repaint();
 		jFrame.pack();
 	}
-	
+
 	public ArrayList<ZoomRowInput> getZoomRowInputArrayList() {
 		return zoomRowInputArrayList;
 	}
@@ -133,10 +129,9 @@ public class ZoomRowView extends JPanel{
 	public void setZoomRowInputArrayList(ArrayList<ZoomRowInput> zoomRowInputArrayList) {
 		this.zoomRowInputArrayList = zoomRowInputArrayList;
 	}
-	
-	public void testInsertZoomRowInput(String zoomRowTextFieldText) {
+
+	public void insertDataToZoomRowView(String zoomRowTextFieldText) {
 		insertButton.doClick();
-		zoomRowInputArrayList.get(zoomRowInputArrayList.size()-2).getZoomRowTextField().setText(zoomRowTextFieldText);
+		zoomRowInputArrayList.get(zoomRowInputArrayList.size() - 2).getTextField().setText(zoomRowTextFieldText);
 	}
 }
-

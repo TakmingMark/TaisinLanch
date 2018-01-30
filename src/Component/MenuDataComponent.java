@@ -3,14 +3,14 @@ import java.util.List;
 public class MenuDataComponent {
 	private String schoolName;
 	private String date;
-	private List<Day> day;
+	private List<DayComponent> day;
 	public String getSchoolName() {
 		return schoolName;
 	}
 	public String getDate() {
 		return date;
 	}
-	public List<Day> getDay() {
+	public List<DayComponent> getDay() {
 		return day;
 	}
 	public void setSchoolName(String schoolName) {
@@ -19,7 +19,7 @@ public class MenuDataComponent {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public void setDay(List<Day> day) {
+	public void setDay(List<DayComponent> day) {
 		this.day = day;
 	}
 	

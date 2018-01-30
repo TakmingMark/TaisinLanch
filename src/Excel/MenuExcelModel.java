@@ -11,31 +11,32 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import Component.Day;
+import Component.DayComponent;
 import Component.MenuDataComponent;
 import Component.TextContent;
 
-public class MenuExcelModel  extends ExcelModel{
+public class MenuExcelModel extends ExcelModel {
 
 	public void writeExcel(MenuDataComponent menuOutputData) {
 		FileOutputStream fileOutputStream = null;
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-		String filePath = "excel/menu.xls";
 		HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.menuSheetName);
-		Object[] columnNames = ExcelTextContent.menuColumnNames;
 		Random random = new Random();
+		
+		String fileName=getFileName(menuOutputData.getDate());
+		String filePath = "excel/menu" + fileName + ".xls";
+		String[] columnNames = ExcelTextContent.menuColumnNames;
+
 		int rowNum = 0;
-		Row row = hssfSheet.createRow(rowNum++);
 		int columnNum = 0;
-		for (Object leaveColumn : columnNames) {
+	
+		Row row = hssfSheet.createRow(rowNum++);
+		for (String leaveColumn : columnNames) {
 			Cell cell = row.createCell(columnNum++);
-			if (leaveColumn instanceof String)
-				cell.setCellValue((String) leaveColumn);
-			else
-				cell.setCellValue("");
+			cell.setCellValue(leaveColumn);
 		}
 
-		for (Day dayElement : menuOutputData.getDay()) {
+		for (DayComponent dayElement : menuOutputData.getDay()) {
 			row = hssfSheet.createRow(rowNum++);
 			columnNum = 0;
 			for (int i = 0; i < columnNames.length; i++) {
@@ -118,6 +119,11 @@ public class MenuExcelModel  extends ExcelModel{
 			e.printStackTrace();
 		}
 	}
-
 	
+	private String getFileName(String targetDate) {
+		String fileName = calculateMenuDayDate(targetDate, "星期一") + "-"
+				+ calculateMenuDayDate(targetDate, "星期五");
+		fileName = backSlashToDot(fileName);
+		return fileName;
+	}
 }

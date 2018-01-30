@@ -1,9 +1,5 @@
 package Menu;
 
-import Component.MenuDataComponent;
-import Excel.IngredientExcelModel;
-import Excel.MenuExcelModel;
-
 public class MenuController {
 	private MenuModel menuModel;
 	private MenuView menuView;
@@ -11,41 +7,35 @@ public class MenuController {
 	private MenuController(MenuModel menuModel,MenuView menuView){
 		this.menuModel=menuModel;
 		this.menuView=menuView;
+		initMenuView();
+		initMenuModel();
 		initMenuController();
-		initMenuViewListener();
 	}
 	
 	public static MenuController getMenuControllerObject(MenuModel menuModel,MenuView menuView) {
 		return new MenuController(menuModel,menuView);
 	}
 	
-	private void initMenuController() {
+	private void initMenuView() {
 		menuView.setFrameSize(1430, 738);
 		menuView.initMenuView();
+	}
+	
+	private void initMenuModel() {
 		menuModel.menuDataInputToMenuView(menuView);
-		menuModel.menuViewToMenuDataOutput(menuView);
+		menuModel.initMenuModel();
+	}
+	private void initMenuController() {
+		initMenuViewListener();
 	}
 
 	private void initMenuViewListener() {
 		menuView.getFinishButton().addActionListener(e ->pressFinishButton());
 	}
-	public void exportMenuExcel() {
-		MenuExcelModel menuExcelModel=new MenuExcelModel();
-		menuExcelModel.writeExcel(menuModel.getMenuDataOutput());
-		menuExcelModel.calculateMenuDayDate("2019/12/29","星期一");
-		menuExcelModel.calculateMenuDayDate("2019/12/29","星期二");
-		menuExcelModel.calculateMenuDayDate("2019/12/29","星期三");
-		menuExcelModel.calculateMenuDayDate("2019/12/29","星期四");
-		menuExcelModel.calculateMenuDayDate("2019/12/29","星期五");
-	}
-	
-	public void exportIngredientExcel() {
-		IngredientExcelModel ingredientExcelModel=new IngredientExcelModel();
-		ingredientExcelModel.writeExcel(menuModel.getMenuDataOutput());
-	}
 	
 	public void pressFinishButton() {
-		exportMenuExcel();
-		exportIngredientExcel();
+		menuModel.menuViewToMenuDataOutput(menuView);
+		menuModel.exportDataToExcel();
+
 	}
 }

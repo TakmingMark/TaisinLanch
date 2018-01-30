@@ -2,28 +2,29 @@ package Component;
 
 import java.util.List;
 
-public class Day{
+public class DayComponent{
+	private boolean dayCheck=false;
 	private String name;
 	private String date;
 	private String parchaseDate;
-	private Food stapleFood,mainCourse,sideDishOne,sideDishSecond,soup;
+	private FoodComponent stapleFood,mainCourse,sideDishOne,sideDishSecond,soup;
 	private List<String> acceptance;
 	public String getName() {
 		return name;
 	}
-	public Food getStapleFood() {
+	public FoodComponent getStapleFood() {
 		return stapleFood;
 	}
-	public Food getMainCourse() {
+	public FoodComponent getMainCourse() {
 		return mainCourse;
 	}
-	public Food getSideDishOne() {
+	public FoodComponent getSideDishOne() {
 		return sideDishOne;
 	}
-	public Food getSideDishSecond() {
+	public FoodComponent getSideDishSecond() {
 		return sideDishSecond;
 	}
-	public Food getSoup() {
+	public FoodComponent getSoup() {
 		return soup;
 	}
 	public List<String> getAcceptance() {
@@ -32,19 +33,19 @@ public class Day{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setStapleFood(Food stapleFood) {
+	public void setStapleFood(FoodComponent stapleFood) {
 		this.stapleFood = stapleFood;
 	}
-	public void setMainCourse(Food mainCourse) {
+	public void setMainCourse(FoodComponent mainCourse) {
 		this.mainCourse = mainCourse;
 	}
-	public void setSideDishOne(Food sideDishOne) {
+	public void setSideDishOne(FoodComponent sideDishOne) {
 		this.sideDishOne = sideDishOne;
 	}
-	public void setSideDishSecond(Food sideDishSecond) {
+	public void setSideDishSecond(FoodComponent sideDishSecond) {
 		this.sideDishSecond = sideDishSecond;
 	}
-	public void setSoup(Food soup) {
+	public void setSoup(FoodComponent soup) {
 		this.soup = soup;
 	}
 	public void setAcceptance(List<String> acceptance) {
@@ -62,6 +63,10 @@ public class Day{
 	public void setParchaseDate(String parchaseDate) {
 		this.parchaseDate = parchaseDate;
 	}
-	
-	
+	public boolean isDayCheck() {
+		return dayCheck;
+	}
+	public void setDayCheck(boolean dayCheck) {
+		this.dayCheck = dayCheck;
+	}
 }

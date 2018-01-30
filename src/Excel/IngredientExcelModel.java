@@ -3,6 +3,7 @@ package Excel;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,28 +17,30 @@ import org.apache.poi.hssf.util.HSSFColor.DARK_BLUE;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import Component.Day;
-import Component.Food;
+import Component.DayComponent;
+import Component.FoodComponent;
 import Component.MenuDataComponent;
 import Component.TextContent;
 
 public class IngredientExcelModel extends ExcelModel {
 
 	public void writeExcel(MenuDataComponent menuOutputData) {
-
-		for (Day dayElement : menuOutputData.getDay()) {
+		calculateDayDate(menuOutputData);
+		calculateParchaseDate(menuOutputData);
+		for (DayComponent dayElement : menuOutputData.getDay()) {
 			FileOutputStream fileOutputStream = null;
 			HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
 			HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.ingredientSheetName);
-			Row row = hssfSheet.createRow(0);
-			String fileName = calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName());
-			fileName = backSlashToDot(fileName);
+
+			String fileName = getFileName(dayElement.getDate());
+			
 			String filePath = "excel/ingredient" + fileName + ".xls";
 			Object[] columnNames = ExcelTextContent.ingredientColumnNames;
-			
+			System.out.println(fileName);
 			dayElement.setDate(calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName()));
 			dayElement.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName()));
-			
+
+			Row row = hssfSheet.createRow(0);
 			int columnNum = 0;
 			for (Object leaveColumn : columnNames) {
 				Cell cell = row.createCell(columnNum++);
@@ -63,7 +66,7 @@ public class IngredientExcelModel extends ExcelModel {
 		}
 	}
 
-	private void writeDayIngredientToExcel(HSSFSheet hssfSheet, Day dayElement) {
+	private void writeDayIngredientToExcel(HSSFSheet hssfSheet, DayComponent dayElement) {
 		int rowNum = 1;
 		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getStapleFood(), dayElement, rowNum);
 		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getMainCourse(), dayElement, rowNum);
@@ -72,12 +75,13 @@ public class IngredientExcelModel extends ExcelModel {
 		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getSoup(), dayElement, rowNum);
 	}
 
-	private int writeFoodIngredientToExcel(HSSFSheet hssfSheet, Food food, Day dayElement, int rowNum) {
+	private int writeFoodIngredientToExcel(HSSFSheet hssfSheet, FoodComponent food, DayComponent dayElement,
+			int rowNum) {
 		Row row = null;
-		
+
 		for (String ingredientElement : food.getIngredient()) {
 			row = hssfSheet.createRow(rowNum++);
-			String ingredientName=null;
+			String ingredientName = null;
 			String ingredientWeight = null;
 			for (int i = 0; i < ExcelTextContent.ingredientColumnNames.length; i++) {
 				Cell cell = row.createCell(i);
@@ -126,7 +130,7 @@ public class IngredientExcelModel extends ExcelModel {
 					cell.setCellValue(ExcelTextContent.ingredientP);
 					break;
 				case 16:
-					cell.setCellValue(ExcelTextContent.ingredinetQ);
+					cell.setCellValue(ExcelTextContent.ingredientQ);
 					break;
 				default:
 					break;
@@ -174,5 +178,49 @@ public class IngredientExcelModel extends ExcelModel {
 			ingredientKgWeight = 0;
 		}
 		return ingredientName + "|" + ingredientKgWeight;
+	}
+
+	private void calculateDayDate(MenuDataComponent menuOutputData) {
+		for (DayComponent dayElement : menuOutputData.getDay()) {
+			dayElement.setDate(calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName()));
+		}
+	}
+
+	private void calculateParchaseDate(MenuDataComponent menuOutputData) {
+		String parchaseDateOne="星期一",parchaseDateSecond="星期三";
+		ArrayList<String> dayNameArrayList=new ArrayList<>();
+		
+		for (DayComponent dayElement : menuOutputData.getDay()) {
+			dayNameArrayList.add(dayElement.getName());
+		}
+		parchaseDateOne=dayNameArrayList.get(0);
+		parchaseDateSecond=dayNameArrayList.get(dayNameArrayList.size()-3);
+		
+		for (DayComponent dayElement : menuOutputData.getDay()) {
+			switch (dayElement.getName()) {
+			case "星期一":
+				dayElement.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateOne));
+				break;
+			case "星期二":
+				dayElement.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateOne));
+				break;
+			case "星期三":
+				dayElement.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateSecond));
+				break;
+			case "星期四":
+				dayElement.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateSecond));
+				break;
+			case "星期五":
+				dayElement.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(), parchaseDateSecond));
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	private String getFileName(String dayDate) {
+		String fileName = backSlashToDot(dayDate);
+		return fileName;
 	}
 }

@@ -3,36 +3,20 @@ package Menu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.io.BufferedWriter;
-import java.nio.channels.NonWritableChannelException;
-import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.xml.soap.Text;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import Component.ComponentListenerBuilder;
 import Component.TextContent;
-import Component.ZoomRowInput;
 
 public class MenuView {
 	private JFrame frame;
@@ -40,7 +24,7 @@ public class MenuView {
 	private JPanel panel;
 	private JLabel schoolNameLabel, dateLabel, yearLabel, monthLabel, dayLabel;
 	private JTextField schoolNameTextField;
-	private JComboBox yearComboBox, monthComboBox, dayComboBox;
+	private JComboBox<String> yearComboBox, monthComboBox, dayComboBox;
 	private JButton finishButton;
 	private DayView monday, tuesday, wednesday, thursday, friday;
 
@@ -176,15 +160,12 @@ public class MenuView {
 	}
 
 	public void resizeJScrollPaneState() {
-		if (jScrollPane.getVerticalScrollBar().getMaximum() == 697) {
+		if (jScrollPane.getVerticalScrollBar().getMaximum() == frameHeight) {
 			jScrollPane.setPreferredSize(null);
 		} else {
 			jScrollPane.setPreferredSize(new Dimension(frameWidth, frameHeight));
 		}
 	}
-
-
-
 
 	public JTextField getSchoolNameTextField() {
 		return schoolNameTextField;

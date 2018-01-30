@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JTextField;
 
@@ -16,15 +15,19 @@ import org.json.simple.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-import Component.Day;
-import Component.Food;
+import Component.DayComponent;
+import Component.FoodComponent;
 import Component.MenuDataComponent;
 import Component.ZoomRowInput;
 import Component.ZoomRowView;
+import Excel.AcceptanceExcelModel;
+import Excel.Excel;
+import Excel.IngredientExcelModel;
+import Excel.MenuExcelModel;
 
 public class MenuModel {
 	MenuDataComponent menuDataInput, menuDataOutput;
-
+	Excel excel;
 	private MenuModel() {
 
 	}
@@ -32,7 +35,11 @@ public class MenuModel {
 	public static MenuModel getMenuModelObject() {
 		return new MenuModel();
 	}
-
+	
+	public void initMenuModel() {
+		excel=excel.getExcelObject();
+	}
+	
 	public void menuDataInputToMenuView(MenuView menuView) {
 		parseJSONFromMenuFile();
 		menuView.getSchoolNameTextField().setText(menuDataInput.getSchoolName());
@@ -40,7 +47,7 @@ public class MenuModel {
 		menuView.getMonthComboBox().setSelectedItem(menuDataInput.getDate().split("\\/")[1]);
 		menuView.getDayComboBox().setSelectedItem(menuDataInput.getDate().split("\\/")[2]);
 
-		for (Day dayElement : menuDataInput.getDay()) {
+		for (DayComponent dayElement : menuDataInput.getDay()) {
 			switch (dayElement.getName()) {
 			case "¬P´Á¤@":
 				jSONFormatToDayView(menuView.getMonday(), dayElement);
@@ -74,7 +81,7 @@ public class MenuModel {
 		menuDataInput = new Gson().fromJson(bufferedReader, MenuDataComponent.class);
 	}
 
-	private void jSONFormatToDayView(DayView dayView, Day dayElement) {
+	private void jSONFormatToDayView(DayView dayView, DayComponent dayElement) {
 		dayView.getDayCheckBox().setSelected(true);
 		
 		jSONFormatToFoodView(dayView.getStapleFoodTextField(), dayElement.getStapleFood(),
@@ -93,14 +100,14 @@ public class MenuModel {
 				dayView.getSoupIngredientView());
 
 		for (String acceptanceElement : dayElement.getAcceptance()) {
-			dayView.getAcceptanceView().testInsertZoomRowInput(acceptanceElement);
+			dayView.getAcceptanceView().insertDataToZoomRowView(acceptanceElement);
 		}
 	}
 
-	private void jSONFormatToFoodView(JTextField foodName, Food food, ZoomRowView zoomRowView) {
+	private void jSONFormatToFoodView(JTextField foodName, FoodComponent food, ZoomRowView zoomRowView) {
 		foodName.setText(food.getName());
 		for (String ingredientElement : food.getIngredient())
-			zoomRowView.testInsertZoomRowInput(ingredientElement);
+			zoomRowView.insertDataToZoomRowView(ingredientElement);
 	}
 
 	public void menuViewToMenuDataOutput(MenuView menuView) {
@@ -108,6 +115,7 @@ public class MenuModel {
 		menuDataOutput = new Gson().fromJson(menuJSONObject.toJSONString(), MenuDataComponent.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public JSONObject menuViewToJSONFormat(MenuView menuView) {
 		JSONObject menuJSONObject = new JSONObject();
 		menuJSONObject.put("schoolName", menuView.getSchoolNameTextField().getText());
@@ -115,7 +123,7 @@ public class MenuModel {
 				+ menuView.getMonthComboBox().getSelectedItem() + "/" + menuView.getDayComboBox().getSelectedItem());
 		JSONArray dayJSONArray = new JSONArray();
 		menuJSONObject.put("day", dayJSONArray);
-		if (menuView.getMonday().getDayCheckBox().isSelected() == true)
+		if (menuView.getMonday().getDayCheckBox().isSelected() == true) {}
 			dayJSONArray.add(dayViewToJSONFormat(menuView.getMonday()));
 
 		if (menuView.getTuesday().getDayCheckBox().isSelected() == true)
@@ -133,10 +141,11 @@ public class MenuModel {
 		return menuJSONObject;
 	}
 
+	@SuppressWarnings("unchecked")
 	public JSONObject dayViewToJSONFormat(DayView day) {
 		JSONObject dayJSONObject = new JSONObject();
+		dayJSONObject.put("dayCheck",true);
 		dayJSONObject.put("name", day.getDayCheckBox().getText());
-
 		JSONObject stapleFoodJSONObject = foodViewToJSONFormat(day.getStapleFoodTextField().getText(),
 				day.getStapleFoodIngredientView().getZoomRowInputArrayList());
 
@@ -154,8 +163,8 @@ public class MenuModel {
 
 		JSONArray acceptanceJSONArray = new JSONArray();
 		for (ZoomRowInput element : day.getAcceptanceView().getZoomRowInputArrayList()) {
-			if (!element.getZoomRowTextField().getText().equals(""))
-				acceptanceJSONArray.add(element.getZoomRowTextField().getText());
+			if (!element.getTextField().getText().equals(""))
+				acceptanceJSONArray.add(element.getTextField().getText());
 		}
 
 		dayJSONObject.put("stapleFood", stapleFoodJSONObject);
@@ -167,17 +176,22 @@ public class MenuModel {
 		return dayJSONObject;
 	}
 
+	@SuppressWarnings("unchecked")
 	public JSONObject foodViewToJSONFormat(String food, ArrayList<ZoomRowInput> zoomRowInputArrayList) {
 		JSONObject foodJSONObject = new JSONObject();
 		foodJSONObject.put("name", food);
 		JSONArray foodJSONArray = new JSONArray();
 		for (ZoomRowInput element : zoomRowInputArrayList) {
-			if (!element.getZoomRowTextField().getText().equals(""))
-				foodJSONArray.add(element.getZoomRowTextField().getText());
+			if (!element.getTextField().getText().equals(""))
+				foodJSONArray.add(element.getTextField().getText());
 		}
 		foodJSONObject.put("ingredient", foodJSONArray);
 
 		return foodJSONObject;
+	}
+	
+	public void exportDataToExcel() {
+		excel.exportDataToExcel(menuDataOutput);
 	}
 
 	public MenuDataComponent getMenuDataInput() {

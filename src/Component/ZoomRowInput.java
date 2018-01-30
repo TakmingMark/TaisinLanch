@@ -3,24 +3,24 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class ZoomRowInput {
-	JTextField zoomRowTextField;
+	JTextField textField;
 	JButton cancelButton;
 
-	public ZoomRowInput(JTextField zoomRowTextField, JButton cancelButton) {
-		this.zoomRowTextField = zoomRowTextField;
+	public ZoomRowInput(JTextField textField, JButton cancelButton) {
+		this.textField = textField;
 		this.cancelButton = cancelButton;
 	}
 
-	public JTextField getZoomRowTextField() {
-		return zoomRowTextField;
+	public JTextField getTextField() {
+		return textField;
 	}
 
 	public JButton getCancelButton() {
 		return cancelButton;
 	}
 
-	public void setZoomRowTextField(JTextField zoomRowTextField) {
-		this.zoomRowTextField = zoomRowTextField;
+	public void setTextField(JTextField textField) {
+		this.textField = textField;
 	}
 
 	public void setCancelButton(JButton cancelButton) {

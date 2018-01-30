@@ -2,7 +2,7 @@ package Component;
 
 import java.util.List;
 
-public class Food{
+public class FoodComponent{
 	private String name;
 	private List<String> ingredient;
 	public String getName() {
