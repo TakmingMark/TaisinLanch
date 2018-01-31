@@ -8,9 +8,18 @@ public class DayComponent{
 	private String date;
 	private String parchaseDate;
 	private FoodComponent stapleFood,mainCourse,sideDishOne,sideDishSecond,soup;
-	private List<String> acceptance;
+	private List<IngredientComponent> acceptanceArray;
+	public boolean isDayCheck() {
+		return dayCheck;
+	}
 	public String getName() {
 		return name;
+	}
+	public String getDate() {
+		return date;
+	}
+	public String getParchaseDate() {
+		return parchaseDate;
 	}
 	public FoodComponent getStapleFood() {
 		return stapleFood;
@@ -27,11 +36,20 @@ public class DayComponent{
 	public FoodComponent getSoup() {
 		return soup;
 	}
-	public List<String> getAcceptance() {
-		return acceptance;
+	public List<IngredientComponent> getAcceptanceArray() {
+		return acceptanceArray;
+	}
+	public void setDayCheck(boolean dayCheck) {
+		this.dayCheck = dayCheck;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public void setParchaseDate(String parchaseDate) {
+		this.parchaseDate = parchaseDate;
 	}
 	public void setStapleFood(FoodComponent stapleFood) {
 		this.stapleFood = stapleFood;
@@ -48,25 +66,9 @@ public class DayComponent{
 	public void setSoup(FoodComponent soup) {
 		this.soup = soup;
 	}
-	public void setAcceptance(List<String> acceptance) {
-		this.acceptance = acceptance;
+	public void setAcceptanceArray(List<IngredientComponent> acceptanceArray) {
+		this.acceptanceArray = acceptanceArray;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
-	public String getParchaseDate() {
-		return parchaseDate;
-	}
-	public void setParchaseDate(String parchaseDate) {
-		this.parchaseDate = parchaseDate;
-	}
-	public boolean isDayCheck() {
-		return dayCheck;
-	}
-	public void setDayCheck(boolean dayCheck) {
-		this.dayCheck = dayCheck;
-	}
+
+	
 }

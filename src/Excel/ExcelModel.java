@@ -1,8 +1,52 @@
 package Excel;
 
+import java.util.ArrayList;
+
+import Component.DayComponent;
+import Component.MenuDataComponent;
+
 public class ExcelModel {
 	
-	public String calculateMenuDayDate(String date, String day) {
+	protected void calculateParchaseDate(MenuDataComponent menuOutputData) {
+		String parchaseDateOne="星期一",parchaseDateSecond="星期三";
+		ArrayList<String> dayNameArrayList=new ArrayList<>();
+		
+		for (DayComponent day : menuOutputData.getDayArray()) {
+			dayNameArrayList.add(day.getName());
+		}
+		parchaseDateOne=dayNameArrayList.get(0);
+		parchaseDateSecond=dayNameArrayList.get(dayNameArrayList.size()/2);
+		
+		for (DayComponent day : menuOutputData.getDayArray()) {
+			switch (day.getName()) {
+			case "星期一":
+				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateOne));
+				break;
+			case "星期二":
+				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateOne));
+				break;
+			case "星期三":
+				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateSecond));
+				break;
+			case "星期四":
+				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateSecond));
+				break;
+			case "星期五":
+				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(), parchaseDateSecond));
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	
+	protected void calculateDayDate(MenuDataComponent menuOutputData) {
+		for (DayComponent day : menuOutputData.getDayArray()) {
+			day.setDate(calculateMenuDayDate(menuOutputData.getDate(), day.getName()));
+		}
+	}
+
+	protected String calculateMenuDayDate(String date, String day) {
 		int calYear = Integer.valueOf(date.substring(0, 4));
 		int calMonth = Integer.valueOf(date.substring(5, 7));
 		int calDay = Integer.valueOf(date.substring(8, 10));
@@ -75,7 +119,7 @@ public class ExcelModel {
 		return date;
 	}
 	
-	public String purchaseDate(String date, String day) {
+	protected String purchaseDate(String date, String day) {
 
 		switch (day) {
 		case "星期一":
@@ -93,11 +137,14 @@ public class ExcelModel {
 		}
 	}
 	
-	public String backSlashToDot(String string) {
+	protected String backSlashToDot(String string) {
 		String[] stringArray=string.split("\\/");
 		string="";
 		for(String element:stringArray)
 			string+=element;
 		return string;
 	}
+	
+
+
 }

@@ -66,7 +66,7 @@ class DayView extends JPanel {
 										GroupLayout.PREFERRED_SIZE))
 						.addComponent(stapleFoodIngredientView, 0, groupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE))
-				.addGap(30)
+				.addGap(25)
 				.addGroup(groupLayout.createParallelGroup()
 						.addGroup(groupLayout.createSequentialGroup().addGap(20)
 								.addComponent(mainCourseLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -74,7 +74,7 @@ class DayView extends JPanel {
 										GroupLayout.PREFERRED_SIZE))
 						.addComponent(mainCourseIngredientView, 0, groupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE))
-				.addGap(30)
+				.addGap(25)
 				.addGroup(groupLayout.createParallelGroup()
 						.addGroup(groupLayout.createSequentialGroup().addGap(18)
 								.addComponent(sideDishOneLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -82,7 +82,7 @@ class DayView extends JPanel {
 										GroupLayout.PREFERRED_SIZE))
 						.addComponent(sideDishOneIngredientView, 0, groupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE))
-				.addGap(30)
+				.addGap(25)
 				.addGroup(groupLayout.createParallelGroup()
 						.addGroup(groupLayout.createSequentialGroup().addGap(18)
 								.addComponent(sideDishSecondLabel, 0, GroupLayout.DEFAULT_SIZE,
@@ -91,7 +91,7 @@ class DayView extends JPanel {
 										GroupLayout.PREFERRED_SIZE))
 						.addComponent(
 								sideDishSecondIngredientView, 0, groupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGap(30)
+				.addGap(25)
 				.addGroup(groupLayout.createParallelGroup().addGroup(groupLayout.createSequentialGroup().addGap(20)
 						.addComponent(soupLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(30)
 						.addComponent(soupTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))

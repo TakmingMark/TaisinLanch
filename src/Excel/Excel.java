@@ -1,8 +1,11 @@
 package Excel;
 
+import java.util.ArrayList;
+
+import Component.DayComponent;
 import Component.MenuDataComponent;
 
-public class Excel {
+public class Excel extends ExcelModel{
 	MenuExcelModel menuExcelModel;
 	IngredientExcelModel ingredientExcelModel;
 	AcceptanceExcelModel acceptanceExcelModel;
@@ -22,8 +25,14 @@ public class Excel {
 	}
 	
 	public void exportDataToExcel(MenuDataComponent menuOutputData) {
+		supplementMenuOutputData(menuOutputData);
 		menuExcelModel.writeExcel(menuOutputData);
 		ingredientExcelModel.writeExcel(menuOutputData);
 		acceptanceExcelModel.writeExcel(menuOutputData);
+	}
+	
+	private void supplementMenuOutputData(MenuDataComponent menuOutputData) {
+		calculateDayDate(menuOutputData);
+		calculateParchaseDate(menuOutputData);
 	}
 }

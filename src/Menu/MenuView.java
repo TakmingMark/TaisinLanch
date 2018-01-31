@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.xml.soap.Text;
 
 import Component.TextContent;
 
@@ -25,7 +26,7 @@ public class MenuView {
 	private JLabel schoolNameLabel, dateLabel, yearLabel, monthLabel, dayLabel;
 	private JTextField schoolNameTextField;
 	private JComboBox<String> yearComboBox, monthComboBox, dayComboBox;
-	private JButton finishButton;
+	private JButton finishButton, analysisButton, recordButton;
 	private DayView monday, tuesday, wednesday, thursday, friday;
 
 	private int frameWidth, frameHeight;
@@ -52,12 +53,17 @@ public class MenuView {
 		monthComboBox = new JComboBox<>(TextContent.monthComboBoxText);
 		dayComboBox = new JComboBox<>(TextContent.dayComboBoxText);
 		finishButton = new JButton(TextContent.finishButtonText);
+		analysisButton = new JButton(TextContent.analysisButtonText);
+		recordButton = new JButton(TextContent.recordButtonText);
 		monday = new DayView(frame, TextContent.weekChineseText[0]);
 		tuesday = new DayView(frame, TextContent.weekChineseText[1]);
 		wednesday = new DayView(frame, TextContent.weekChineseText[2]);
 		thursday = new DayView(frame, TextContent.weekChineseText[3]);
 		friday = new DayView(frame, TextContent.weekChineseText[4]);
+
 		finishButton.setPreferredSize(new Dimension(100, 50));
+		analysisButton.setPreferredSize(new Dimension(100, 50));
+		recordButton.setPreferredSize(new Dimension(100, 50));
 
 		monday.setBorder(new TitledBorder(new LineBorder(Color.black, 2, true), TextContent.weekEnglishText[0],
 				TitledBorder.LEFT, TitledBorder.TOP, new Font("StSong", Font.BOLD, 16)));
@@ -101,8 +107,10 @@ public class MenuView {
 														GroupLayout.PREFERRED_SIZE)
 												.addGap(5).addComponent(dayLabel, 0, GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)))
-						.addGap(30).addComponent(finishButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGap(20).addComponent(monday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(30).addComponent(finishButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(15).addComponent(analysisButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(15).addComponent(recordButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addComponent(monday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(tuesday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(wednesday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(thursday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -135,11 +143,16 @@ public class MenuView {
 												GroupLayout.PREFERRED_SIZE)
 										.addComponent(dayLabel, 0, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE)))
-								.addGroup(groupLayout.createSequentialGroup().addGap(20).addComponent(finishButton, 0,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(groupLayout.createSequentialGroup().addGap(20)
+										.addGroup(groupLayout.createParallelGroup()
+												.addComponent(finishButton, 0, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(analysisButton, 0, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(recordButton, 0, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE))))
 
-				.addGap(15).addComponent(monday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addComponent(finishButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addComponent(monday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(tuesday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(wednesday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(thursday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -247,4 +260,21 @@ public class MenuView {
 		this.finishButton = finishButton;
 	}
 
+	public JButton getAnalysisButton() {
+		return analysisButton;
+	}
+
+	public JButton getRecordButton() {
+		return recordButton;
+	}
+
+	public void setAnalysisButton(JButton analysisButton) {
+		this.analysisButton = analysisButton;
+	}
+
+	public void setRecordButton(JButton recordButton) {
+		this.recordButton = recordButton;
+	}
+
+	
 }

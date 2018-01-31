@@ -20,18 +20,19 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
 import Component.DayComponent;
+import Component.IngredientComponent;
 import Component.MenuDataComponent;
 import Component.TextContent;
 
 public class AcceptanceExcelModel extends ExcelModel {
-	HashMap<String, SeasoningQuantity> SeasoningMap;
+	HashMap<String, ingredientQuantity> IngredientMap;
 
 	public AcceptanceExcelModel() {
 		initAcceptanceExcelModel();
 	}
 
 	public void initAcceptanceExcelModel() {
-		SeasoningMap = new HashMap<>();
+		IngredientMap = new HashMap<>();
 	}
 
 	public void writeExcel(MenuDataComponent menuOutputData) {
@@ -57,9 +58,9 @@ public class AcceptanceExcelModel extends ExcelModel {
 			cell.setCellValue(leaveColumn);
 		}
 
-		Iterator <Entry<String, SeasoningQuantity>>  iterator = SeasoningMap.entrySet().iterator();
+		Iterator <Entry<String, ingredientQuantity>>  iterator = IngredientMap.entrySet().iterator();
 		while (iterator.hasNext()) {
-			Map.Entry<String, SeasoningQuantity> pair = (Map.Entry) iterator.next();
+			Map.Entry<String, ingredientQuantity> pair = (Map.Entry) iterator.next();
 			row = hssfSheet.createRow(rowNum++);
 			for (int i = 0; i < columnNames.length; i++) {
 				Cell cell = row.createCell(i);
@@ -124,17 +125,17 @@ public class AcceptanceExcelModel extends ExcelModel {
 	}
 
 	private void removeRepeatAndWeightAdd(MenuDataComponent menuOutputData) {
-		for (DayComponent dayElement : menuOutputData.getDay()) {
-			for (int i = 0; i < dayElement.getAcceptance().size(); i++) {
-				insertSeasoningToMap(dayElement.getAcceptance().get(i));
+		for (DayComponent day : menuOutputData.getDayArray()) {
+			for (int i = 0; i < day.getAcceptanceArray().size(); i++) {
+				insertSeasoningToMap(day.getAcceptanceArray().get(i));
 			}
 		}
 	}
 	
-	private void insertSeasoningToMap(String seasoningNameAndWeight) {
+	private void insertSeasoningToMap(IngredientComponent ingredient) {
 		String regex = "[0-9]{1,}";
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(seasoningNameAndWeight);
+		Matcher matcher = pattern.matcher(ingredient.getUnit());
 
 		String seasoningName = null;
 		String seasoningWeight = null;
@@ -146,18 +147,17 @@ public class AcceptanceExcelModel extends ExcelModel {
 			if (judgeWhetherDot) {
 				seasoningWeight += "." + matcher.group();
 			} else {
-				seasoningName = seasoningNameAndWeight.substring(0, matcher.start());
 				seasoningWeight = matcher.group(0);
 			}
 		}
-		
-		seasoningUnit = seasoningNameAndWeight.substring(seasoningNameAndWeight.length() - 1,
-				seasoningNameAndWeight.length());
+		seasoningName=ingredient.getName();
+		seasoningUnit = ingredient.getUnit().substring(ingredient.getUnit().length() - 1,
+				ingredient.getUnit().length());
 
-		if (SeasoningMap.containsKey(seasoningName)) {
-			SeasoningMap.get(seasoningName).weight += Integer.valueOf(seasoningWeight);
+		if (IngredientMap.containsKey(seasoningName)) {
+			IngredientMap.get(seasoningName).weight += Integer.valueOf(seasoningWeight);
 		} else {
-			SeasoningMap.put(seasoningName, new SeasoningQuantity(Integer.valueOf(seasoningWeight), seasoningUnit));
+			IngredientMap.put(seasoningName, new ingredientQuantity(Integer.valueOf(seasoningWeight), seasoningUnit));
 		}
 	}
 
@@ -167,11 +167,11 @@ public class AcceptanceExcelModel extends ExcelModel {
 		return fileName;
 	}
 
-	class SeasoningQuantity {
+	class ingredientQuantity {
 		public int weight;
 		public String unit;
 
-		public SeasoningQuantity(int weight, String unit) {
+		public ingredientQuantity(int weight, String unit) {
 			this.weight = weight;
 			this.unit = unit;
 		}

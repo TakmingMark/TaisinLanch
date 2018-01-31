@@ -3,15 +3,15 @@ import java.util.List;
 public class MenuDataComponent {
 	private String schoolName;
 	private String date;
-	private List<DayComponent> day;
+	private List<DayComponent> dayArray;
 	public String getSchoolName() {
 		return schoolName;
 	}
 	public String getDate() {
 		return date;
 	}
-	public List<DayComponent> getDay() {
-		return day;
+	public List<DayComponent> getDayArray() {
+		return dayArray;
 	}
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
@@ -19,8 +19,8 @@ public class MenuDataComponent {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public void setDay(List<DayComponent> day) {
-		this.day = day;
+	public void setDayArray(List<DayComponent> dayArray) {
+		this.dayArray = dayArray;
 	}
 	
 }

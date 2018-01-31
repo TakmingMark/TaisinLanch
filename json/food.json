@@ -1,0 +1,42 @@
+﻿[
+  {
+    "name":"綠豆薏仁湯",
+    "ingredientArray":[
+       {
+      "name": "綠豆",
+      "unit": "8斤"
+    },
+    {
+      "name": "薏仁",
+      "unit": "5斤"
+    }
+    ]
+  },
+    {
+    "name":"綠豆薏仁湯",
+    "ingredientArray":[
+       {
+      "name": "綠豆",
+      "unit": "8斤"
+    },
+    {
+      "name": "薏仁",
+      "unit": "5斤"
+    }
+    ]
+  },  {
+    "name":"綠豆薏仁湯",
+    "ingredientArray":[
+       {
+      "name": "綠豆",
+      "unit": "8斤"
+    },
+    {
+      "name": "薏仁",
+      "unit": "5斤"
+    }
+    ]
+  }
+  
+]
+

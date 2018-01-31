@@ -31,11 +31,22 @@ public class MenuController {
 
 	private void initMenuViewListener() {
 		menuView.getFinishButton().addActionListener(e ->pressFinishButton());
+		menuView.getAnalysisButton().addActionListener(e->pressAnalysisButton());
+		menuView.getRecordButton().addActionListener(e ->pressRecrordButton());
 	}
 	
 	public void pressFinishButton() {
 		menuModel.menuViewToMenuDataOutput(menuView);
 		menuModel.exportDataToExcel();
-
+	}
+	
+	public void pressAnalysisButton() {
+		menuModel.menuViewToMenuDataOutput(menuView);
+		menuModel.analysisIngredient();
+	}
+	
+	public void pressRecrordButton() {
+		menuModel.menuViewToMenuDataOutput(menuView);
+		menuModel.recordDataToJsonFile();
 	}
 }

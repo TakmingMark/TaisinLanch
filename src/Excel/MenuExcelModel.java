@@ -36,7 +36,7 @@ public class MenuExcelModel extends ExcelModel {
 			cell.setCellValue(leaveColumn);
 		}
 
-		for (DayComponent dayElement : menuOutputData.getDay()) {
+		for (DayComponent day : menuOutputData.getDayArray()) {
 			row = hssfSheet.createRow(rowNum++);
 			columnNum = 0;
 			for (int i = 0; i < columnNames.length; i++) {
@@ -46,16 +46,16 @@ public class MenuExcelModel extends ExcelModel {
 					cell.setCellValue(menuOutputData.getSchoolName());
 					break;
 				case 1:
-					cell.setCellValue(calculateMenuDayDate(menuOutputData.getDate(), dayElement.getName()));
+					cell.setCellValue(calculateMenuDayDate(menuOutputData.getDate(), day.getName()));
 					break;
 				case 2:
-					cell.setCellValue(dayElement.getStapleFood().getName());
+					cell.setCellValue(day.getStapleFood().getName());
 					break;
 				case 3:
 					cell.setCellValue("");
 					break;
 				case 4:
-					cell.setCellValue(dayElement.getMainCourse().getName());
+					cell.setCellValue(day.getMainCourse().getName());
 					break;
 				case 5:
 				case 6:
@@ -63,10 +63,10 @@ public class MenuExcelModel extends ExcelModel {
 					cell.setCellValue("");
 					break;
 				case 8:
-					cell.setCellValue(dayElement.getSideDishOne().getName());
+					cell.setCellValue(day.getSideDishOne().getName());
 					break;
 				case 9:
-					cell.setCellValue(dayElement.getSideDishSecond().getName());
+					cell.setCellValue(day.getSideDishSecond().getName());
 					break;
 				case 10:
 				case 11:
@@ -76,7 +76,7 @@ public class MenuExcelModel extends ExcelModel {
 					cell.setCellValue("");
 					break;
 				case 15:
-					cell.setCellValue(dayElement.getSoup().getName());
+					cell.setCellValue(day.getSoup().getName());
 					break;
 				case 16:
 				case 17:

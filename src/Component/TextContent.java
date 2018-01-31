@@ -11,6 +11,8 @@ public interface TextContent {
 	String[] dayComboBoxText = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14",
 			"15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
 	String finishButtonText="輸入完成";
+	String analysisButtonText="分析食材";
+	String recordButtonText="紀錄食材";
 	String[] weekChineseText = { "星期一", "星期二", "星期三", "星期四", "星期五" };
 	String[] weekEnglishText = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
 	String stapleFoodLabelText = "主食";
