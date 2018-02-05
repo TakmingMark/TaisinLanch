@@ -17,13 +17,13 @@ public class MenuController {
 	}
 	
 	private void initMenuView() {
-		menuView.setFrameSize(1430, 738);
+		menuView.setFrameSize(1000, 700);
 		menuView.initMenuView();
 	}
 	
 	private void initMenuModel() {
-		menuModel.menuDataInputToMenuView(menuView);
 		menuModel.initMenuModel();
+		menuModel.readMenuFileToMenuView(menuView);
 	}
 	private void initMenuController() {
 		initMenuViewListener();
@@ -36,17 +36,17 @@ public class MenuController {
 	}
 	
 	public void pressFinishButton() {
-		menuModel.menuViewToMenuDataOutput(menuView);
+		menuModel.menuViewFormatToMenuFile(menuView);
 		menuModel.exportDataToExcel();
 	}
 	
 	public void pressAnalysisButton() {
-		menuModel.menuViewToMenuDataOutput(menuView);
+		menuModel.menuViewFormatToMenuFile(menuView);
 		menuModel.analysisIngredient();
 	}
 	
 	public void pressRecrordButton() {
-		menuModel.menuViewToMenuDataOutput(menuView);
-		menuModel.recordDataToJsonFile();
+		menuModel.menuViewFormatToMenuFile(menuView);
+		menuModel.recordFoodDataToFoodFile();
 	}
 }

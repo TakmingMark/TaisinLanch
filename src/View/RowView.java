@@ -1,4 +1,4 @@
-package Component;
+package View;
 
 import java.awt.Dimension;
 import java.awt.Image;

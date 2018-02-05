@@ -1,4 +1,4 @@
-package Menu;
+package View;
 
 import javax.naming.Context;
 import javax.swing.GroupLayout;
@@ -10,9 +10,8 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 
 import Component.TextContent;
-import Component.ZoomRowView;
 
-class DayView extends JPanel {
+public class DayView extends JPanel {
 	private JFrame frame;
 	private JCheckBox dayCheckBox;
 	private JLabel stapleFoodLabel, mainCourseLabel, sideDishOneLabel, sideDishSecondLabel, soupLabel, acceptanceLabel;
@@ -24,7 +23,7 @@ class DayView extends JPanel {
 
 	private ZoomRowView acceptanceView;
 
-	DayView(JFrame frame, String dayCheckBoxName) {
+	private DayView(JFrame frame, String dayCheckBoxName) {
 		this.frame = frame;
 		initDayView(dayCheckBoxName);
 	}

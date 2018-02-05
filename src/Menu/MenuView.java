@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 import javax.xml.soap.Text;
 
 import Component.TextContent;
+import View.DayView;
 
 public class MenuView {
 	private JFrame frame;
@@ -55,11 +56,11 @@ public class MenuView {
 		finishButton = new JButton(TextContent.finishButtonText);
 		analysisButton = new JButton(TextContent.analysisButtonText);
 		recordButton = new JButton(TextContent.recordButtonText);
-		monday = new DayView(frame, TextContent.weekChineseText[0]);
-		tuesday = new DayView(frame, TextContent.weekChineseText[1]);
-		wednesday = new DayView(frame, TextContent.weekChineseText[2]);
-		thursday = new DayView(frame, TextContent.weekChineseText[3]);
-		friday = new DayView(frame, TextContent.weekChineseText[4]);
+		monday = DayView.getDayViewObject(frame, TextContent.weekChineseText[0]);
+		tuesday = DayView.getDayViewObject(frame, TextContent.weekChineseText[1]);
+		wednesday = DayView.getDayViewObject(frame, TextContent.weekChineseText[2]);
+		thursday =DayView.getDayViewObject(frame, TextContent.weekChineseText[3]);
+		friday = DayView.getDayViewObject(frame, TextContent.weekChineseText[4]);
 
 		finishButton.setPreferredSize(new Dimension(100, 50));
 		analysisButton.setPreferredSize(new Dimension(100, 50));
