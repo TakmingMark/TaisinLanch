@@ -25,7 +25,7 @@ public class RowView extends JPanel {
 	}
 
 	private void initRowView() {
-		nameTextField = new JTextField(5);
+		nameTextField = new JTextField(4);
 		unitTextField=new JTextField(3);
 		cancelButton = new JButton();
 		

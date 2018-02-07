@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
@@ -40,6 +41,8 @@ public class ZoomRowView extends JPanel {
 		previousJPanel = currentJPanel;
 		currentJPanel = new JPanel();
 		insertButton = new JButton(insertButtonText);
+		
+		
 		GroupLayout groupLayout = new GroupLayout(currentJPanel);
 		currentJPanel.setLayout(groupLayout);
 

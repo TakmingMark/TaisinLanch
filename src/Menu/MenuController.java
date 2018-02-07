@@ -17,7 +17,7 @@ public class MenuController {
 	}
 	
 	private void initMenuView() {
-		menuView.setFrameSize(1000, 700);
+		menuView.setFrameSize(1250, 700);
 		menuView.initMenuView();
 	}
 	
@@ -49,4 +49,5 @@ public class MenuController {
 		menuModel.menuViewFormatToMenuFile(menuView);
 		menuModel.recordFoodDataToFoodFile();
 	}
+	
 }

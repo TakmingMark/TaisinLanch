@@ -1,15 +1,20 @@
 package View;
 
+import java.awt.Component;
+
 import javax.naming.Context;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 
 import Component.TextContent;
+import Component.WeekTitleBorder;
 
 public class DayView extends JPanel {
 	private JFrame frame;
@@ -26,6 +31,7 @@ public class DayView extends JPanel {
 	private DayView(JFrame frame, String dayCheckBoxName) {
 		this.frame = frame;
 		initDayView(dayCheckBoxName);
+		setDayBorder();
 	}
 
 	public static DayView getDayViewObject(JFrame frame, String dayCheckBoxName) {
@@ -41,11 +47,11 @@ public class DayView extends JPanel {
 		sideDishSecondLabel = new JLabel(TextContent.sideDishSecondLabelText);
 		soupLabel = new JLabel(TextContent.soupLabelText);
 
-		stapleFoodTextField = new JTextField(8);
-		mainCourseTextField = new JTextField(8);
-		sideDishOneTextField = new JTextField(8);
-		sideDishSecondTextField = new JTextField(8);
-		soupTextField = new JTextField(8);
+		stapleFoodTextField = new JTextField(7);
+		mainCourseTextField = new JTextField(7);
+		sideDishOneTextField = new JTextField(7);
+		sideDishSecondTextField = new JTextField(7);
+		soupTextField = new JTextField(7);
 
 		stapleFoodIngredientView = ZoomRowView.getZoomRowViewObject(frame, TextContent.ingredientText);
 		mainCourseIngredientView = ZoomRowView.getZoomRowViewObject(frame, TextContent.ingredientText);
@@ -57,7 +63,7 @@ public class DayView extends JPanel {
 		GroupLayout groupLayout = new GroupLayout(this);
 		this.setLayout(groupLayout);
 		groupLayout.setHorizontalGroup(groupLayout.createSequentialGroup()
-				.addComponent(dayCheckBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(10)
+
 				.addGroup(groupLayout.createParallelGroup()
 						.addGroup(groupLayout.createSequentialGroup().addGap(20)
 								.addComponent(stapleFoodLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -65,7 +71,7 @@ public class DayView extends JPanel {
 										GroupLayout.PREFERRED_SIZE))
 						.addComponent(stapleFoodIngredientView, 0, groupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE))
-				.addGap(25)
+				.addGap(10)
 				.addGroup(groupLayout.createParallelGroup()
 						.addGroup(groupLayout.createSequentialGroup().addGap(20)
 								.addComponent(mainCourseLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -73,7 +79,7 @@ public class DayView extends JPanel {
 										GroupLayout.PREFERRED_SIZE))
 						.addComponent(mainCourseIngredientView, 0, groupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE))
-				.addGap(25)
+				.addGap(10)
 				.addGroup(groupLayout.createParallelGroup()
 						.addGroup(groupLayout.createSequentialGroup().addGap(18)
 								.addComponent(sideDishOneLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -81,7 +87,7 @@ public class DayView extends JPanel {
 										GroupLayout.PREFERRED_SIZE))
 						.addComponent(sideDishOneIngredientView, 0, groupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE))
-				.addGap(25)
+				.addGap(10)
 				.addGroup(groupLayout.createParallelGroup()
 						.addGroup(groupLayout.createSequentialGroup().addGap(18)
 								.addComponent(sideDishSecondLabel, 0, GroupLayout.DEFAULT_SIZE,
@@ -90,18 +96,19 @@ public class DayView extends JPanel {
 										GroupLayout.PREFERRED_SIZE))
 						.addComponent(
 								sideDishSecondIngredientView, 0, groupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGap(25)
+				.addGap(10)
 				.addGroup(groupLayout.createParallelGroup().addGroup(groupLayout.createSequentialGroup().addGap(20)
 						.addComponent(soupLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(30)
 						.addComponent(soupTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addComponent(soupIngredientView, 0, groupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGap(10)
 				.addGroup(groupLayout.createParallelGroup().addComponent(acceptanceView, 0, groupLayout.DEFAULT_SIZE,
 						GroupLayout.PREFERRED_SIZE)));
 
 		groupLayout.setVerticalGroup(groupLayout.createSequentialGroup()
 
 				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(dayCheckBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+
 						.addGroup(groupLayout.createSequentialGroup()
 								.addGroup(groupLayout.createParallelGroup()
 										.addComponent(stapleFoodLabel, 0, GroupLayout.DEFAULT_SIZE,
@@ -147,6 +154,27 @@ public class DayView extends JPanel {
 								.addComponent(acceptanceView, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 
 		));
+	}
+	
+	public void setDayBorder() {
+		dayCheckBox.setFocusPainted(false);
+		WeekTitleBorder dayBorder = new WeekTitleBorder(dayCheckBox, this, BorderFactory.createEtchedBorder());
+		dayCheckBox.addActionListener(e -> pressDayCheckBox());
+		this.setBorder(dayBorder);
+	} 
+	private void pressDayCheckBox() {
+		boolean enable = dayCheckBox.isSelected();
+		setJPanelEnabled(this, enable);
+	}
+
+	private void setJPanelEnabled(JPanel jPanel, boolean enable) {
+		Component comp[] = jPanel.getComponents();
+		for (int i = 0; i < comp.length; i++) {
+			if (comp[i] instanceof JPanel) {
+				setJPanelEnabled((JPanel) comp[i], enable);
+			} else
+				comp[i].setEnabled(enable);
+		}
 	}
 
 	public JCheckBox getDayCheckBox() {
@@ -244,6 +272,5 @@ public class DayView extends JPanel {
 	public void setStapleFoodIngredientView(ZoomRowView stapleFoodIngredientView) {
 		this.stapleFoodIngredientView = stapleFoodIngredientView;
 	}
-	
 
 }
