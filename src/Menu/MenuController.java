@@ -42,7 +42,7 @@ public class MenuController {
 	
 	public void pressAnalysisButton() {
 		menuModel.menuViewFormatToMenuFile(menuView);
-		menuModel.analysisIngredient();
+		menuModel.analysisIngredient(menuView);
 	}
 	
 	public void pressRecrordButton() {

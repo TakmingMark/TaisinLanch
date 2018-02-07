@@ -1,17 +1,15 @@
 package View;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
-
-import Component.IngredientComponent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Component.IngredientComponent;
 
 public class ZoomRowView extends JPanel {
 	JFrame jFrame;
@@ -41,8 +39,7 @@ public class ZoomRowView extends JPanel {
 		previousJPanel = currentJPanel;
 		currentJPanel = new JPanel();
 		insertButton = new JButton(insertButtonText);
-		
-		
+
 		GroupLayout groupLayout = new GroupLayout(currentJPanel);
 		currentJPanel.setLayout(groupLayout);
 
@@ -72,8 +69,8 @@ public class ZoomRowView extends JPanel {
 	private void addIngredient(RowView zoomRowInput, GroupLayout groupLayout, ParallelGroup parallelGroup,
 			SequentialGroup sequentialGroup) {
 
-		parallelGroup.addGroup(groupLayout.createSequentialGroup()
-				.addComponent(zoomRowInput, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
+		parallelGroup.addGroup(groupLayout.createSequentialGroup().addComponent(zoomRowInput, 0,
+				GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
 		sequentialGroup.addGap(3);
 		sequentialGroup.addGroup(groupLayout.createParallelGroup().addComponent(zoomRowInput, 0,
 				GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
@@ -81,17 +78,19 @@ public class ZoomRowView extends JPanel {
 
 	private void pressInsertButton(GroupLayout groupLayout, ParallelGroup parallelGroup,
 			SequentialGroup sequentialGroup) {
-		
+
 		RowView rowView = RowView.getRowViewObject();
 		rowView.getCancelButton().addActionListener(e -> pressCancelButton(rowView));
 		rowViewArrayList.add(rowView);
-		
+
 		rePaint();
 	}
 
 	private void pressCancelButton(RowView rowView) {
-		rowViewArrayList.remove(rowView);
-		rePaint();
+		if(rowViewArrayList.size()>1) {
+			rowViewArrayList.remove(rowView);
+			rePaint();
+		}
 	}
 
 	public void rePaint() {
@@ -117,5 +116,12 @@ public class ZoomRowView extends JPanel {
 		insertButton.doClick();
 		rowViewArrayList.get(rowViewArrayList.size() - 2).getNameTextField().setText(ingredient.getName());
 		rowViewArrayList.get(rowViewArrayList.size() - 2).getUnitTextField().setText(ingredient.getUnit());
+	}
+
+	public boolean isExistData() {
+		if (rowViewArrayList.get(0).getNameTextField().getText().equals(""))
+			return false;
+		else
+			return true;
 	}
 }

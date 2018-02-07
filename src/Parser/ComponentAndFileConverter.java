@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.channels.NonReadableChannelException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,33 +26,42 @@ import Component.FoodComponent;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
 
-public class FoodListJSONParser {
+public class ComponentAndFileConverter {
 
-	public static FoodListJSONParser getFoodListJSONParserObject() {
-		return new FoodListJSONParser();
+	public static ComponentAndFileConverter getFoodListJSONParserObject() {
+		return new ComponentAndFileConverter();
 	}
-
-	public MenuDataComponent parseJSONFromMenuFile() {
+	
+	public MenuDataComponent getMenuDataParseMenuFile(String foodFliePath) {
 		JsonReader jsonReader = null;
 		try {
 			jsonReader = new JsonReader(
-					new BufferedReader(new InputStreamReader(new FileInputStream("json/menu.json"), "UTF-8")));
+					new BufferedReader(new InputStreamReader(new FileInputStream(foodFliePath), "UTF-8")));
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return new Gson().fromJson(jsonReader, MenuDataComponent.class);
 	}
 	
-	public Map<String, List<IngredientComponent>> parseJSONFromFoodFile() {
+	public void foodDataMergeToFoodFile(MenuDataComponent menuDataOutput,String foodFliePath) {
+		Map<String, List<IngredientComponent>> oldFoodMap,newFoodMap;
+		oldFoodMap=getFoodMapParseFoodFile(foodFliePath);
+		newFoodMap=parseMenuDataOutputToFoodList(menuDataOutput);
+		oldFoodMap.putAll(newFoodMap);
+		
+		writeFoodFileFromFoodMap(oldFoodMap);
+	}
+	
+	public Map<String, List<IngredientComponent>> getFoodMapParseFoodFile(String foodFliePath) {
 		Map<String, List<IngredientComponent>> foodMap = new HashMap();
 		JsonReader jsonReader = null;
 		try {
 			jsonReader = new JsonReader(
-					new BufferedReader(new InputStreamReader(new FileInputStream("json/food.json"), "UTF-8")));
+					new BufferedReader(new InputStreamReader(new FileInputStream(foodFliePath), "UTF-8")));
 
 			jsonReader.beginArray();
 			while (jsonReader.hasNext()) {
-				FoodComponent food = jsonReaderConverterFood(jsonReader);
+				FoodComponent food = jsonReaderConvertFood(jsonReader);
 				foodMap.put(food.getName(), food.getIngredientArray());
 			}
 			jsonReader.endArray();
@@ -64,7 +74,7 @@ public class FoodListJSONParser {
 		return foodMap;
 	}
 
-	private FoodComponent jsonReaderConverterFood(JsonReader jsonReader) {
+	private FoodComponent jsonReaderConvertFood(JsonReader jsonReader) {
 		FoodComponent food = new FoodComponent();
 		ArrayList<IngredientComponent> ingredientArray = new ArrayList<>();
 		String filedName = null;
@@ -77,7 +87,7 @@ public class FoodListJSONParser {
 				} else if (filedName.equals("ingredientArray")) {
 					jsonReader.beginArray();
 					while (jsonReader.hasNext()) {
-						ingredientArray.add(jsonReaderConverterIngredient(jsonReader));
+						ingredientArray.add(jsonReaderConvertIngredient(jsonReader));
 					}
 					jsonReader.endArray();
 				}
@@ -90,7 +100,7 @@ public class FoodListJSONParser {
 		return food;
 	}
 
-	private IngredientComponent jsonReaderConverterIngredient(JsonReader jsonReader) {
+	private IngredientComponent jsonReaderConvertIngredient(JsonReader jsonReader) {
 		String filedName = null;
 		IngredientComponent ingredient = new IngredientComponent();
 		try {
@@ -155,5 +165,31 @@ public class FoodListJSONParser {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public FoodComponent getIngredientByFoodName() {
+		String foodName="³Ð·Nª£³J";
+		JsonReader jsonReader = null;
+		FoodComponent food = null;
+		try {
+			jsonReader = new JsonReader(
+					new BufferedReader(new InputStreamReader(new FileInputStream("json/food3.json"), "UTF-8")));
+
+			jsonReader.beginArray();
+			while (jsonReader.hasNext()) {
+				food = jsonReaderConvertFood(jsonReader);
+				if(food.getName().equals(foodName)) {
+					System.out.println("yes");
+				}
+			}
+			jsonReader.endArray();
+
+		} catch (UnsupportedEncodingException | FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return food;
 	}
 }
