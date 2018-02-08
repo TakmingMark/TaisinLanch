@@ -37,25 +37,18 @@ public class MenuController {
 	}
 	
 	public void pressFinishButton() {
-		menuModel.startFinishButtonProgressBar();
-		menuModel.menuViewFormatToMenuDataOutput(menuView);
-		menuModel.exportDataToExcel();
+		menuModel.exportDataToExcel(menuView);
 	}
 	
 	public void pressAnalysisButton() {
-		menuModel.startAnalysisButtonProgressBar();
-		menuModel.menuViewFormatToMenuDataOutput(menuView);
 		menuModel.analysisIngredient(menuView);
 	}
 	
 	public void pressRecrordButton() {
-		menuModel.startRecrordButtonProgressBar();
-		menuModel.menuViewFormatToMenuDataOutput(menuView);
-		menuModel.recordFoodDataToFoodFile();
+		menuModel.recordFoodDataToFoodFile(menuView);
 	}
 	
 	public void pressTestButton() {
-		menuModel.startTestButtonProgressBar();
 		menuModel.readMenuFileToMenuView(menuView);
 	}
 }

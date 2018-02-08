@@ -16,57 +16,57 @@ public class ViewToDataParser {
 	public static ViewToDataParser getViewToDataParserObject() {
 		return new ViewToDataParser();
 	}
-	
+
 	public MenuDataComponent menuViewToMenuDataOutput(MenuView menuView) {
-		JSONObject menuJSONObject = menuViewToJSONFormat(menuView);
+		JSONObject menuJSONObject = menuViewToMenuJSONObject(menuView);
 		return new Gson().fromJson(menuJSONObject.toJSONString(), MenuDataComponent.class);
 	}
 
 	@SuppressWarnings("unchecked")
-	private JSONObject menuViewToJSONFormat(MenuView menuView) {
+	private JSONObject menuViewToMenuJSONObject(MenuView menuView) {
 		JSONObject menuJSONObject = new JSONObject();
 		menuJSONObject.put("schoolName", menuView.getSchoolNameTextField().getText());
 		menuJSONObject.put("date", menuView.getYearComboBox().getSelectedItem() + "/"
 				+ menuView.getMonthComboBox().getSelectedItem() + "/" + menuView.getDayComboBox().getSelectedItem());
 		JSONArray dayJSONArray = new JSONArray();
 		menuJSONObject.put("dayArray", dayJSONArray);
-		if (menuView.getMonday().getDayCheckBox().isSelected() == true) {
-		}
-		dayJSONArray.add(dayViewToJSONFormat(menuView.getMonday()));
+		
+		if (menuView.getMonday().getDayCheckBox().isSelected() == true)
+			dayJSONArray.add(dayViewToDayJSONObject(menuView.getMonday()));
 
 		if (menuView.getTuesday().getDayCheckBox().isSelected() == true)
-			dayJSONArray.add(dayViewToJSONFormat(menuView.getTuesday()));
+			dayJSONArray.add(dayViewToDayJSONObject(menuView.getTuesday()));
 
 		if (menuView.getWednesday().getDayCheckBox().isSelected() == true)
-			dayJSONArray.add(dayViewToJSONFormat(menuView.getWednesday()));
+			dayJSONArray.add(dayViewToDayJSONObject(menuView.getWednesday()));
 
 		if (menuView.getThursday().getDayCheckBox().isSelected() == true)
-			dayJSONArray.add(dayViewToJSONFormat(menuView.getThursday()));
+			dayJSONArray.add(dayViewToDayJSONObject(menuView.getThursday()));
 
 		if (menuView.getFriday().getDayCheckBox().isSelected() == true)
-			dayJSONArray.add(dayViewToJSONFormat(menuView.getFriday()));
+			dayJSONArray.add(dayViewToDayJSONObject(menuView.getFriday()));
 
 		return menuJSONObject;
 	}
 
 	@SuppressWarnings("unchecked")
-	private JSONObject dayViewToJSONFormat(DayView day) {
+	private JSONObject dayViewToDayJSONObject(DayView day) {
 		JSONObject dayJSONObject = new JSONObject();
 		dayJSONObject.put("dayCheck", true);
 		dayJSONObject.put("name", day.getDayCheckBox().getText());
-		JSONObject stapleFoodJSONObject = foodViewToJSONFormat(day.getStapleFoodTextField().getText(),
+		JSONObject stapleFoodJSONObject = foodViewToFoodJSONObject(day.getStapleFoodTextField().getText(),
 				day.getStapleFoodIngredientView().getRowViewArrayList());
 
-		JSONObject mainCourseJSONObject = foodViewToJSONFormat(day.getMainCourseTextField().getText(),
+		JSONObject mainCourseJSONObject = foodViewToFoodJSONObject(day.getMainCourseTextField().getText(),
 				day.getMainCourseIngredientView().getRowViewArrayList());
 
-		JSONObject sideDishOneJSONObject = foodViewToJSONFormat(day.getSideDishOneTextField().getText(),
+		JSONObject sideDishOneJSONObject = foodViewToFoodJSONObject(day.getSideDishOneTextField().getText(),
 				day.getSideDishOneIngredientView().getRowViewArrayList());
 
-		JSONObject sideDishSecondJSONObject = foodViewToJSONFormat(day.getSideDishSecondTextField().getText(),
+		JSONObject sideDishSecondJSONObject = foodViewToFoodJSONObject(day.getSideDishSecondTextField().getText(),
 				day.getSideDishSecondIngredientView().getRowViewArrayList());
 
-		JSONObject soupJSONObject = foodViewToJSONFormat(day.getSoupTextField().getText(),
+		JSONObject soupJSONObject = foodViewToFoodJSONObject(day.getSoupTextField().getText(),
 				day.getSoupIngredientView().getRowViewArrayList());
 
 		JSONArray acceptanceJSONArray = new JSONArray();
@@ -91,7 +91,7 @@ public class ViewToDataParser {
 	}
 
 	@SuppressWarnings("unchecked")
-	private JSONObject foodViewToJSONFormat(String food, ArrayList<RowView> rowViewArrayList) {
+	private JSONObject foodViewToFoodJSONObject(String food, ArrayList<RowView> rowViewArrayList) {
 		JSONObject foodJSONObject = new JSONObject();
 		foodJSONObject.put("name", food);
 

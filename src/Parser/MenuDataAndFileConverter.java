@@ -26,13 +26,13 @@ import Component.FoodComponent;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
 
-public class ComponentAndFileConverter {
+public class MenuDataAndFileConverter {
 
-	public static ComponentAndFileConverter getFoodListJSONParserObject() {
-		return new ComponentAndFileConverter();
+	public static MenuDataAndFileConverter getMenuDataAndFileConverterObject() {
+		return new MenuDataAndFileConverter();
 	}
 	
-	public MenuDataComponent getMenuDataParseMenuFile(String foodFliePath) {
+	public MenuDataComponent getMenuDataFromMenuFile(String foodFliePath) {
 		JsonReader jsonReader = null;
 		try {
 			jsonReader = new JsonReader(
@@ -43,16 +43,16 @@ public class ComponentAndFileConverter {
 		return new Gson().fromJson(jsonReader, MenuDataComponent.class);
 	}
 	
-	public void foodDataMergeToFoodFile(MenuDataComponent menuDataOutput,String foodFliePath) {
+	public void mergeFoodDataToFoodFile(MenuDataComponent menuDataOutput,String foodFliePath) {
 		Map<String, List<IngredientComponent>> oldFoodMap,newFoodMap;
-		oldFoodMap=getFoodMapParseFoodFile(foodFliePath);
-		newFoodMap=parseMenuDataOutputToFoodList(menuDataOutput);
+		oldFoodMap=getFoodMapFromFoodFile(foodFliePath);
+		newFoodMap=getFoodMapFromMenuDataOutput(menuDataOutput);
 		oldFoodMap.putAll(newFoodMap);
 		
 		writeFoodFileFromFoodMap(oldFoodMap);
 	}
 	
-	public Map<String, List<IngredientComponent>> getFoodMapParseFoodFile(String foodFliePath) {
+	public Map<String, List<IngredientComponent>> getFoodMapFromFoodFile(String foodFliePath) {
 		Map<String, List<IngredientComponent>> foodMap = new HashMap();
 		JsonReader jsonReader = null;
 		try {
@@ -61,7 +61,7 @@ public class ComponentAndFileConverter {
 
 			jsonReader.beginArray();
 			while (jsonReader.hasNext()) {
-				FoodComponent food = jsonReaderConvertFood(jsonReader);
+				FoodComponent food = getFoodFromJSONReader(jsonReader);
 				foodMap.put(food.getName(), food.getIngredientArray());
 			}
 			jsonReader.endArray();
@@ -74,7 +74,7 @@ public class ComponentAndFileConverter {
 		return foodMap;
 	}
 
-	private FoodComponent jsonReaderConvertFood(JsonReader jsonReader) {
+	private FoodComponent getFoodFromJSONReader(JsonReader jsonReader) {
 		FoodComponent food = new FoodComponent();
 		ArrayList<IngredientComponent> ingredientArray = new ArrayList<>();
 		String filedName = null;
@@ -87,7 +87,7 @@ public class ComponentAndFileConverter {
 				} else if (filedName.equals("ingredientArray")) {
 					jsonReader.beginArray();
 					while (jsonReader.hasNext()) {
-						ingredientArray.add(jsonReaderConvertIngredient(jsonReader));
+						ingredientArray.add(getIngredientFromJSONReader(jsonReader));
 					}
 					jsonReader.endArray();
 				}
@@ -100,7 +100,7 @@ public class ComponentAndFileConverter {
 		return food;
 	}
 
-	private IngredientComponent jsonReaderConvertIngredient(JsonReader jsonReader) {
+	private IngredientComponent getIngredientFromJSONReader(JsonReader jsonReader) {
 		String filedName = null;
 		IngredientComponent ingredient = new IngredientComponent();
 		try {
@@ -120,7 +120,7 @@ public class ComponentAndFileConverter {
 		return ingredient;
 	}
 
-	public Map<String, List<IngredientComponent>> parseMenuDataOutputToFoodList(MenuDataComponent menuDataOutput) {
+	private Map<String, List<IngredientComponent>> getFoodMapFromMenuDataOutput(MenuDataComponent menuDataOutput) {
 		Map<String, List<IngredientComponent>> foodMap = new HashMap();
 
 		for (DayComponent day : menuDataOutput.getDayArray()) {
@@ -132,7 +132,7 @@ public class ComponentAndFileConverter {
 		return foodMap;
 	}
 
-	public void writeFoodFileFromFoodMap(Map<String, List<IngredientComponent>> foodMap) {
+	private void writeFoodFileFromFoodMap(Map<String, List<IngredientComponent>> foodMap) {
 		try {
 			JsonWriter jsonWriter = new JsonWriter(
 					new BufferedWriter(new OutputStreamWriter(new FileOutputStream("json/food3.json"), "UTF-8")));
@@ -165,31 +165,5 @@ public class ComponentAndFileConverter {
 			e.printStackTrace();
 		}
 
-	}
-	
-	public FoodComponent getIngredientByFoodName() {
-		String foodName="³Ð·Nª£³J";
-		JsonReader jsonReader = null;
-		FoodComponent food = null;
-		try {
-			jsonReader = new JsonReader(
-					new BufferedReader(new InputStreamReader(new FileInputStream("json/food3.json"), "UTF-8")));
-
-			jsonReader.beginArray();
-			while (jsonReader.hasNext()) {
-				food = jsonReaderConvertFood(jsonReader);
-				if(food.getName().equals(foodName)) {
-					System.out.println("yes");
-				}
-			}
-			jsonReader.endArray();
-
-		} catch (UnsupportedEncodingException | FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return food;
 	}
 }

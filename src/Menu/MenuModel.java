@@ -9,7 +9,7 @@ import Component.DataProgressBar;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
 import Excel.Excel;
-import Parser.ComponentAndFileConverter;
+import Parser.MenuDataAndFileConverter;
 import Parser.DataToViewParser;
 import Parser.ViewToDataParser;
 import View.DayView;
@@ -17,7 +17,7 @@ import View.DayView;
 public class MenuModel {
 	MenuDataComponent menuDataInput, menuDataOutput;
 	Excel excel;
-	ComponentAndFileConverter componentAndFileConverter;
+	MenuDataAndFileConverter menuDataAndFileConverter;
 	DataToViewParser dataToViewParser;
 	ViewToDataParser viewToDataParser;
 	DataProgressBar finishButtonProgressBar, analysisButtonProgressBar, recordButtonProgressBar, testButtonProgressBar;
@@ -32,7 +32,7 @@ public class MenuModel {
 
 	public void initMenuModel() {
 		excel = Excel.getExcelObject();
-		componentAndFileConverter = ComponentAndFileConverter.getFoodListJSONParserObject();
+		menuDataAndFileConverter = MenuDataAndFileConverter.getMenuDataAndFileConverterObject();
 		dataToViewParser = DataToViewParser.getDataToViewParserObject();
 		viewToDataParser = ViewToDataParser.getViewToDataParserObject();
 
@@ -46,10 +46,11 @@ public class MenuModel {
 	}
 
 	public void readMenuFileToMenuView(MenuView menuView) {
+		startTestButtonProgressBar();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				menuDataInput = componentAndFileConverter.getMenuDataParseMenuFile("json/menu.json");
+				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile("json/menu.json");
 				testButtonProgressBar.addProgressRate();
 				testButtonProgressBar.addProgressRate();
 				dataToViewParser.menuDataInputToMenuView(menuDataInput, menuView);
@@ -59,15 +60,17 @@ public class MenuModel {
 		}).start();
 	}
 
-	public void menuViewFormatToMenuDataOutput(MenuView menuView) {
+	private void menuViewFormatToMenuDataOutput(MenuView menuView) {
 		menuDataOutput = viewToDataParser.menuViewToMenuDataOutput(menuView);
 	}
 
-	public void exportDataToExcel() {
+	public void exportDataToExcel(MenuView menuView) {
+		startFinishButtonProgressBar();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				finishButtonProgressBar.addProgressRate();
+				menuViewFormatToMenuDataOutput(menuView);
 				finishButtonProgressBar.addProgressRate();
 				excel.exportDataToExcel(menuDataOutput);
 				finishButtonProgressBar.addProgressRate();
@@ -76,13 +79,15 @@ public class MenuModel {
 		}).start();
 	}
 
-	public void recordFoodDataToFoodFile() {
+	public void recordFoodDataToFoodFile(MenuView menuView) {
+		startRecrordButtonProgressBar();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				recordButtonProgressBar.addProgressRate();
+				menuViewFormatToMenuDataOutput(menuView);
 				recordButtonProgressBar.addProgressRate();
-				componentAndFileConverter.foodDataMergeToFoodFile(menuDataOutput, "json/food.json");
+				menuDataAndFileConverter.mergeFoodDataToFoodFile(menuDataOutput, "json/food.json");
 				recordButtonProgressBar.addProgressRate();
 				recordButtonProgressBar.addProgressRate();
 			}
@@ -90,14 +95,17 @@ public class MenuModel {
 	}
 
 	public void analysisIngredient(MenuView menuView) {
+		startAnalysisButtonProgressBar();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Map<String, List<IngredientComponent>> foodMap = componentAndFileConverter
-						.getFoodMapParseFoodFile("json/food.json");
+				analysisButtonProgressBar.addProgressRate();
+				menuViewFormatToMenuDataOutput(menuView);
+				
+				Map<String, List<IngredientComponent>> foodMap = menuDataAndFileConverter
+						.getFoodMapFromFoodFile("json/food.json");
 
 				queryFoodMapAndToDayView(foodMap, menuView.getMonday());
-				analysisButtonProgressBar.addProgressRate();
 				queryFoodMapAndToDayView(foodMap, menuView.getTuesday());
 				analysisButtonProgressBar.addProgressRate();
 				queryFoodMapAndToDayView(foodMap, menuView.getWednesday());
@@ -138,23 +146,23 @@ public class MenuModel {
 		}
 	}
 
-	public void startTestButtonProgressBar() {
-		testButtonProgressBar.start();
+	private void startTestButtonProgressBar() {
+		testButtonProgressBar.run();
 		testButtonProgressBar.addProgressRate();
 	}
 
-	public void startRecrordButtonProgressBar() {
-		recordButtonProgressBar.start();
+	private void startRecrordButtonProgressBar() {
+		recordButtonProgressBar.run();
 		recordButtonProgressBar.addProgressRate();
 	}
 
-	public void startAnalysisButtonProgressBar() {
-		analysisButtonProgressBar.start();
+	private void startAnalysisButtonProgressBar() {
+		analysisButtonProgressBar.run();
 		analysisButtonProgressBar.addProgressRate();
 	}
 
-	public void startFinishButtonProgressBar() {
-		finishButtonProgressBar.start();
+	private void startFinishButtonProgressBar() {
+		finishButtonProgressBar.run();
 		finishButtonProgressBar.addProgressRate();
 	}
 	

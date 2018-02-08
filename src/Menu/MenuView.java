@@ -1,8 +1,6 @@
 package Menu;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,9 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import javax.xml.soap.Text;
 
 import Component.TextContent;
 import View.DayView;
@@ -169,7 +164,7 @@ public class MenuView {
 		this.frameHeight = frameHeigh;
 	}
 
-	public void resizeJScrollPaneState() {
+	private void resizeJScrollPaneState() {
 		if (jScrollPane.getVerticalScrollBar().getMaximum() == frameHeight) {
 			jScrollPane.setPreferredSize(null);
 		} else {
@@ -288,6 +283,4 @@ public class MenuView {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-
-	
 }

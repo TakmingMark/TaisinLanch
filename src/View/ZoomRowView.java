@@ -22,6 +22,7 @@ public class ZoomRowView extends JPanel {
 		this.jFrame = jFrame;
 		this.insertButtonText = insertButtonText;
 		initZoomRowView();
+
 	}
 
 	public static ZoomRowView getZoomRowViewObject(JFrame jFrame, String insertButtonText) {
@@ -32,6 +33,10 @@ public class ZoomRowView extends JPanel {
 		rowViewArrayList = new ArrayList<>();
 
 		initGroupLayout();
+		setDefaultRowView();
+	}
+
+	private void setDefaultRowView() {
 		insertButton.doClick();
 	}
 
@@ -59,20 +64,20 @@ public class ZoomRowView extends JPanel {
 
 		insertButton.addActionListener(e -> pressInsertButton(groupLayout, parallelGroup, sequentialGroup));
 
-		for (RowView zoomRowView : rowViewArrayList) {
-			addIngredient(zoomRowView, groupLayout, parallelGroup, sequentialGroup);
+		for (RowView rowView : rowViewArrayList) {
+			addRowViewToZoomRowView(rowView, groupLayout, parallelGroup, sequentialGroup);
 		}
 
 		this.add(currentJPanel);
 	}
 
-	private void addIngredient(RowView zoomRowInput, GroupLayout groupLayout, ParallelGroup parallelGroup,
+	private void addRowViewToZoomRowView(RowView rowView, GroupLayout groupLayout, ParallelGroup parallelGroup,
 			SequentialGroup sequentialGroup) {
 
-		parallelGroup.addGroup(groupLayout.createSequentialGroup().addComponent(zoomRowInput, 0,
+		parallelGroup.addGroup(groupLayout.createSequentialGroup().addComponent(rowView, 0,
 				GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
 		sequentialGroup.addGap(3);
-		sequentialGroup.addGroup(groupLayout.createParallelGroup().addComponent(zoomRowInput, 0,
+		sequentialGroup.addGroup(groupLayout.createParallelGroup().addComponent(rowView, 0,
 				GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
 	}
 
@@ -87,12 +92,32 @@ public class ZoomRowView extends JPanel {
 	}
 
 	private void pressCancelButton(RowView rowView) {
-		if(rowViewArrayList.size()>1) {
+		if (checkMinimumRowView()) {
 			rowViewArrayList.remove(rowView);
 			rePaint();
 		}
 	}
 
+	private boolean checkMinimumRowView() {
+		if (rowViewArrayList.size() > 1)
+			return true;
+		else
+			return false;
+	}
+
+	public void insertDataToZoomRowView(IngredientComponent ingredient) {
+		insertButton.doClick();
+		rowViewArrayList.get(rowViewArrayList.size() - 2).getNameTextField().setText(ingredient.getName());
+		rowViewArrayList.get(rowViewArrayList.size() - 2).getUnitTextField().setText(ingredient.getUnit());
+	}
+
+	public boolean isExistData() {
+		if (rowViewArrayList.get(0).getNameTextField().getText().equals(""))
+			return false;
+		else
+			return true;
+	}
+	
 	public void rePaint() {
 		initGroupLayout();
 		this.remove(previousJPanel);
@@ -112,16 +137,5 @@ public class ZoomRowView extends JPanel {
 		this.rowViewArrayList = rowViewArrayList;
 	}
 
-	public void insertDataToZoomRowView(IngredientComponent ingredient) {
-		insertButton.doClick();
-		rowViewArrayList.get(rowViewArrayList.size() - 2).getNameTextField().setText(ingredient.getName());
-		rowViewArrayList.get(rowViewArrayList.size() - 2).getUnitTextField().setText(ingredient.getUnit());
-	}
-
-	public boolean isExistData() {
-		if (rowViewArrayList.get(0).getNameTextField().getText().equals(""))
-			return false;
-		else
-			return true;
-	}
+	
 }

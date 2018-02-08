@@ -31,7 +31,7 @@ public class DataProgressBar {
 		jDialog.setLocationRelativeTo(frame);
 	}
 	
-	public void start() {
+	public void run() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

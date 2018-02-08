@@ -26,19 +26,19 @@ public class DataToViewParser {
 		for (DayComponent day : menuDataInput.getDayArray()) {
 			switch (day.getName()) {
 			case "星期一":
-				DayDatatToDayView(menuView.getMonday(), day);
+				dayDataToDayView(menuView.getMonday(), day);
 				break;
 			case "星期二":
-				DayDatatToDayView(menuView.getTuesday(), day);
+				dayDataToDayView(menuView.getTuesday(), day);
 				break;
 			case "星期三":
-				DayDatatToDayView(menuView.getWednesday(), day);
+				dayDataToDayView(menuView.getWednesday(), day);
 				break;
 			case "星期四":
-				DayDatatToDayView(menuView.getThursday(), day);
+				dayDataToDayView(menuView.getThursday(), day);
 				break;
 			case "星期五":
-				DayDatatToDayView(menuView.getFriday(), day);
+				dayDataToDayView(menuView.getFriday(), day);
 				break;
 			default:
 				break;
@@ -46,22 +46,22 @@ public class DataToViewParser {
 		}
 	}
 
-	private void DayDatatToDayView(DayView dayView, DayComponent day) {
+	private void dayDataToDayView(DayView dayView, DayComponent day) {
 		dayView.getDayCheckBox().setSelected(true);
 
-		FoodDataToFoodView(dayView.getStapleFoodTextField(), day.getStapleFood(),
+		foodDataToFoodView(dayView.getStapleFoodTextField(), day.getStapleFood(),
 				dayView.getStapleFoodIngredientView());
 
-		FoodDataToFoodView(dayView.getMainCourseTextField(), day.getMainCourse(),
+		foodDataToFoodView(dayView.getMainCourseTextField(), day.getMainCourse(),
 				dayView.getMainCourseIngredientView());
 
-		FoodDataToFoodView(dayView.getSideDishOneTextField(), day.getSideDishOne(),
+		foodDataToFoodView(dayView.getSideDishOneTextField(), day.getSideDishOne(),
 				dayView.getSideDishOneIngredientView());
 
-		FoodDataToFoodView(dayView.getSideDishSecondTextField(), day.getSideDishSecond(),
+		foodDataToFoodView(dayView.getSideDishSecondTextField(), day.getSideDishSecond(),
 				dayView.getSideDishSecondIngredientView());
 
-		FoodDataToFoodView(dayView.getSoupTextField(), day.getSoup(), dayView.getSoupIngredientView());
+		foodDataToFoodView(dayView.getSoupTextField(), day.getSoup(), dayView.getSoupIngredientView());
 
 		if(day.getAcceptanceArray()!=null)
 			for (IngredientComponent accpetance : day.getAcceptanceArray()) {
@@ -69,7 +69,7 @@ public class DataToViewParser {
 			}
 	}
 
-	private void FoodDataToFoodView(JTextField foodName, FoodComponent food, ZoomRowView zoomRowView) {
+	private void foodDataToFoodView(JTextField foodName, FoodComponent food, ZoomRowView zoomRowView) {
 		foodName.setText(food.getName());
 		ingredientDataToIngredientView(food.getIngredientArray(), zoomRowView);
 	}

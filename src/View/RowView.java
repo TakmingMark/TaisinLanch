@@ -12,11 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class RowView extends JPanel {
-	JTextField nameTextField,unitTextField;
+	JTextField nameTextField, unitTextField;
 	JButton cancelButton;
 
 	private RowView() {
-		
+
 		initRowView();
 	}
 
@@ -26,9 +26,9 @@ public class RowView extends JPanel {
 
 	private void initRowView() {
 		nameTextField = new JTextField(4);
-		unitTextField=new JTextField(3);
+		unitTextField = new JTextField(3);
 		cancelButton = new JButton();
-		
+
 		try {
 			Image img = ImageIO.read(new File("img/cancelButton.png"));
 			cancelButton.setIcon(new ImageIcon(img));
@@ -40,20 +40,18 @@ public class RowView extends JPanel {
 			System.out.println(ex);
 		}
 
-		
 		GroupLayout groupLayout = new GroupLayout(this);
 		this.setLayout(groupLayout);
 
 		groupLayout.setHorizontalGroup(groupLayout.createSequentialGroup()
 				.addComponent(nameTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addComponent(unitTextField,0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addGap(5)
+				.addComponent(unitTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addGap(5)
 				.addComponent(cancelButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE));
 
 		groupLayout.setVerticalGroup(groupLayout.createSequentialGroup()
 				.addGroup(groupLayout.createParallelGroup()
 						.addComponent(nameTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(unitTextField,0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(unitTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(cancelButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
 
 	}
