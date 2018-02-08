@@ -63,9 +63,10 @@ public class DataToViewParser {
 
 		FoodDataToFoodView(dayView.getSoupTextField(), day.getSoup(), dayView.getSoupIngredientView());
 
-		for (IngredientComponent accpetance : day.getAcceptanceArray()) {
-			dayView.getAcceptanceView().insertDataToZoomRowView(accpetance);
-		}
+		if(day.getAcceptanceArray()!=null)
+			for (IngredientComponent accpetance : day.getAcceptanceArray()) {
+				dayView.getAcceptanceView().insertDataToZoomRowView(accpetance);
+			}
 	}
 
 	private void FoodDataToFoodView(JTextField foodName, FoodComponent food, ZoomRowView zoomRowView) {
@@ -74,7 +75,7 @@ public class DataToViewParser {
 	}
 
 	public void ingredientDataToIngredientView(List<IngredientComponent> ingredientArray, ZoomRowView zoomRowView) {
-		if (!zoomRowView.isExistData())
+		if (!zoomRowView.isExistData() && ingredientArray!=null)
 			for (IngredientComponent ingredientElement : ingredientArray)
 				zoomRowView.insertDataToZoomRowView(ingredientElement);
 	}

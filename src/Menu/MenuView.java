@@ -27,7 +27,7 @@ public class MenuView {
 	private JLabel schoolNameLabel, dateLabel, yearLabel, monthLabel, dayLabel;
 	private JTextField schoolNameTextField;
 	private JComboBox<String> yearComboBox, monthComboBox, dayComboBox;
-	private JButton finishButton, analysisButton, recordButton;
+	private JButton finishButton, analysisButton, recordButton, testButton;
 	private DayView monday, tuesday, wednesday, thursday, friday;
 
 	private int frameWidth, frameHeight;
@@ -56,16 +56,18 @@ public class MenuView {
 		finishButton = new JButton(TextContent.finishButtonText);
 		analysisButton = new JButton(TextContent.analysisButtonText);
 		recordButton = new JButton(TextContent.recordButtonText);
+		testButton = new JButton(TextContent.testButtonText);
 		monday = DayView.getDayViewObject(frame, TextContent.weekChineseText[0]);
 		tuesday = DayView.getDayViewObject(frame, TextContent.weekChineseText[1]);
 		wednesday = DayView.getDayViewObject(frame, TextContent.weekChineseText[2]);
-		thursday =DayView.getDayViewObject(frame, TextContent.weekChineseText[3]);
+		thursday = DayView.getDayViewObject(frame, TextContent.weekChineseText[3]);
 		friday = DayView.getDayViewObject(frame, TextContent.weekChineseText[4]);
 
 		finishButton.setPreferredSize(new Dimension(100, 50));
 		analysisButton.setPreferredSize(new Dimension(100, 50));
 		recordButton.setPreferredSize(new Dimension(100, 50));
-		
+		testButton.setPreferredSize(new Dimension(100, 50));
+
 		GroupLayout groupLayout = new GroupLayout(panel);
 		panel.setLayout(groupLayout);
 		groupLayout.setHorizontalGroup(groupLayout.createSequentialGroup().addGap(10).addGroup(groupLayout
@@ -98,8 +100,11 @@ public class MenuView {
 												.addGap(5).addComponent(dayLabel, 0, GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)))
 						.addGap(30).addComponent(finishButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGap(15).addComponent(analysisButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGap(15).addComponent(recordButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(15)
+						.addComponent(analysisButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(15).addComponent(recordButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(300).addComponent(testButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+
 				.addComponent(monday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(tuesday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(wednesday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -127,10 +132,10 @@ public class MenuView {
 												GroupLayout.PREFERRED_SIZE)
 										.addComponent(monthComboBox, 0, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE)
-										.addComponent(monthLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(dayComboBox, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
+										.addComponent(
+												monthLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(
+												dayComboBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(dayLabel, 0, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE)))
 								.addGroup(groupLayout.createSequentialGroup().addGap(20)
@@ -140,6 +145,8 @@ public class MenuView {
 												.addComponent(analysisButton, 0, GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)
 												.addComponent(recordButton, 0, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(testButton, 0, GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE))))
 
 				.addComponent(monday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -264,6 +271,22 @@ public class MenuView {
 
 	public void setRecordButton(JButton recordButton) {
 		this.recordButton = recordButton;
+	}
+
+	public JButton getTestButton() {
+		return testButton;
+	}
+
+	public void setTestButton(JButton testButton) {
+		this.testButton = testButton;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 
 	

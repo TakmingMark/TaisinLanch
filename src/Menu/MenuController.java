@@ -23,7 +23,7 @@ public class MenuController {
 	
 	private void initMenuModel() {
 		menuModel.initMenuModel();
-		menuModel.readMenuFileToMenuView(menuView);
+		menuModel.initProgressBar(menuView.getFrame());
 	}
 	private void initMenuController() {
 		initMenuViewListener();
@@ -33,21 +33,29 @@ public class MenuController {
 		menuView.getFinishButton().addActionListener(e ->pressFinishButton());
 		menuView.getAnalysisButton().addActionListener(e->pressAnalysisButton());
 		menuView.getRecordButton().addActionListener(e ->pressRecrordButton());
+		menuView.getTestButton().addActionListener(e -> pressTestButton());
 	}
 	
 	public void pressFinishButton() {
-		menuModel.menuViewFormatToMenuFile(menuView);
+		menuModel.startFinishButtonProgressBar();
+		menuModel.menuViewFormatToMenuDataOutput(menuView);
 		menuModel.exportDataToExcel();
 	}
 	
 	public void pressAnalysisButton() {
-		menuModel.menuViewFormatToMenuFile(menuView);
+		menuModel.startAnalysisButtonProgressBar();
+		menuModel.menuViewFormatToMenuDataOutput(menuView);
 		menuModel.analysisIngredient(menuView);
 	}
 	
 	public void pressRecrordButton() {
-		menuModel.menuViewFormatToMenuFile(menuView);
+		menuModel.startRecrordButtonProgressBar();
+		menuModel.menuViewFormatToMenuDataOutput(menuView);
 		menuModel.recordFoodDataToFoodFile();
 	}
 	
+	public void pressTestButton() {
+		menuModel.startTestButtonProgressBar();
+		menuModel.readMenuFileToMenuView(menuView);
+	}
 }

@@ -13,6 +13,7 @@ public interface TextContent {
 	String finishButtonText="輸入完成";
 	String analysisButtonText="分析食材";
 	String recordButtonText="紀錄食材";
+	String testButtonText="測試資料";
 	String[] weekChineseText = { "星期一", "星期二", "星期三", "星期四", "星期五" };
 	String[] weekEnglishText = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
 	String stapleFoodLabelText = "主食";
