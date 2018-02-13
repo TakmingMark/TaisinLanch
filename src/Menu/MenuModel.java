@@ -113,6 +113,8 @@ public class MenuModel {
 				queryFoodMapAndToDayView(foodMap, menuView.getThursday());
 				queryFoodMapAndToDayView(foodMap, menuView.getFriday());
 				analysisButtonProgressBar.addProgressRate();
+				
+				//not store in food.json
 			}
 		}).start();
 	}

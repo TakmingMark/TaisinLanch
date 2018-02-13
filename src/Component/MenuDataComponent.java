@@ -22,7 +22,6 @@ public class MenuDataComponent {
 	public void setDayArray(List<DayComponent> dayArray) {
 		this.dayArray = dayArray;
 	}
-	
 }
 
 

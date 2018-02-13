@@ -133,31 +133,18 @@ public class AcceptanceExcelModel extends ExcelModel {
 	}
 	
 	private void insertSeasoningToMap(IngredientComponent ingredient) {
-		String regex = "[0-9]{1,}";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(ingredient.getUnit());
-
 		String seasoningName = null;
 		String seasoningWeight = null;
 		String seasoningUnit = null;
-		boolean judgeWhetherDot = true;
-
-		while (matcher.find()) {
-			judgeWhetherDot = !judgeWhetherDot;
-			if (judgeWhetherDot) {
-				seasoningWeight += "." + matcher.group();
-			} else {
-				seasoningWeight = matcher.group(0);
-			}
-		}
+		
 		seasoningName=ingredient.getName();
 		seasoningUnit = ingredient.getUnit().substring(ingredient.getUnit().length() - 1,
 				ingredient.getUnit().length());
-
+		seasoningWeight=ingredient.getUnit().substring(0,ingredient.getUnit().length()-1);
 		if (IngredientMap.containsKey(seasoningName)) {
 			IngredientMap.get(seasoningName).weight += Integer.valueOf(seasoningWeight);
 		} else {
-			IngredientMap.put(seasoningName, new ingredientQuantity(Integer.valueOf(seasoningWeight), seasoningUnit));
+			IngredientMap.put(seasoningName, new ingredientQuantity(Double.valueOf(seasoningWeight), seasoningUnit));
 		}
 	}
 
@@ -168,10 +155,10 @@ public class AcceptanceExcelModel extends ExcelModel {
 	}
 
 	class ingredientQuantity {
-		public int weight;
+		public Double weight;
 		public String unit;
 
-		public ingredientQuantity(int weight, String unit) {
+		public ingredientQuantity(Double weight, String unit) {
 			this.weight = weight;
 			this.unit = unit;
 		}

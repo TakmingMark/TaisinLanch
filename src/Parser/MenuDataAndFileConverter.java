@@ -135,7 +135,7 @@ public class MenuDataAndFileConverter {
 	private void writeFoodFileFromFoodMap(Map<String, List<IngredientComponent>> foodMap) {
 		try {
 			JsonWriter jsonWriter = new JsonWriter(
-					new BufferedWriter(new OutputStreamWriter(new FileOutputStream("json/food3.json"), "UTF-8")));
+					new BufferedWriter(new OutputStreamWriter(new FileOutputStream("json/food.json"), "UTF-8")));
 
 			Iterator<Entry<String, List<IngredientComponent>>> iterator = foodMap.entrySet().iterator();
 			jsonWriter.beginArray();
