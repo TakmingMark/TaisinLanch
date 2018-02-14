@@ -23,4 +23,6 @@ public interface TextContent {
 	String soupLabelText = "湯品";
 	String ingredientText="食材";
 	String acceptanceText="驗收";
+	String schoolName="泰興國小";
+	String stapleFoodName="白飯";
 }

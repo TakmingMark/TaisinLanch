@@ -4,15 +4,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.xml.soap.Text;
 
 import Component.DataProgressBar;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
+import Component.TextContent;
 import Excel.Excel;
 import Parser.MenuDataAndFileConverter;
 import Parser.DataToViewParser;
 import Parser.ViewToDataParser;
 import View.DayView;
+import View.RowView;
+import View.ZoomRowView;
 
 public class MenuModel {
 	MenuDataComponent menuDataInput, menuDataOutput;
@@ -38,6 +42,16 @@ public class MenuModel {
 
 	}
 
+	public void initKnowFiledName(MenuView menuView) {
+		menuView.getSchoolNameTextField().setText(TextContent.schoolName);
+		menuView.getMonday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
+		menuView.getTuesday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
+		menuView.getWednesday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
+		menuView.getThursday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
+		menuView.getFriday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
+		
+	}
+	
 	public void initProgressBar(JFrame frame) {
 		finishButtonProgressBar = DataProgressBar.getDataProgressBarObject(frame);
 		analysisButtonProgressBar = DataProgressBar.getDataProgressBarObject(frame);
@@ -147,7 +161,25 @@ public class MenuModel {
 			}
 		}
 	}
-
+	public void insertIngredientRowView(MenuView menuView) {
+		if (menuView.getFrame().getFocusOwner().getParent().getParent().getParent() instanceof ZoomRowView) {
+			ZoomRowView zoomRowView = ((ZoomRowView) menuView.getFrame().getFocusOwner().getParent().getParent()
+					.getParent());
+			zoomRowView.insertRowView();
+			menuView.getFrame().getFocusOwner().requestFocus();
+		}
+	}
+	
+	public void removeIngredientRowView(MenuView menuView) {
+		if (menuView.getFrame().getFocusOwner().getParent().getParent().getParent() instanceof ZoomRowView) {
+			ZoomRowView zoomRowView = ((ZoomRowView) menuView.getFrame().getFocusOwner().getParent().getParent()
+					.getParent());
+			RowView rowView = ((RowView) menuView.getFrame().getFocusOwner().getParent());
+			zoomRowView.removeRowView(rowView);
+			zoomRowView.getRowViewArrayList().get(zoomRowView.getRowViewArrayList().size() - 1).getNameTextField()
+					.requestFocus();
+		}
+	}
 	private void startTestButtonProgressBar() {
 		testButtonProgressBar.run();
 		testButtonProgressBar.addProgressRate();

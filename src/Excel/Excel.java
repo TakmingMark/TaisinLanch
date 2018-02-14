@@ -28,6 +28,7 @@ public class Excel extends ExcelModel{
 		supplementMenuOutputData(menuOutputData);
 		menuExcelModel.writeExcel(menuOutputData);
 		ingredientExcelModel.writeExcel(menuOutputData);
+		
 		acceptanceExcelModel.writeExcel(menuOutputData);
 	}
 	

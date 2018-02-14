@@ -283,4 +283,12 @@ public class MenuView {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
+
+	public JPanel getPanel() {
+		return panel;
+	}
+
+	public void setPanel(JPanel panel) {
+		this.panel = panel;
+	}
 }

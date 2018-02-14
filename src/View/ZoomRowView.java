@@ -33,13 +33,20 @@ public class ZoomRowView extends JPanel {
 		rowViewArrayList = new ArrayList<>();
 
 		initGroupLayout();
-		setDefaultRowView();
+		insertRowView();
 	}
-
-	private void setDefaultRowView() {
-		insertButton.doClick();
+	
+	public void insertRowView() {
+			insertButton.doClick();
 	}
-
+	
+	public void removeRowView(RowView rowView) {
+		if (checkMinimumRowView()) {
+			rowViewArrayList.remove(rowView);
+			rePaint();
+		}
+	}
+	
 	private void initGroupLayout() {
 		previousJPanel = currentJPanel;
 		currentJPanel = new JPanel();
@@ -92,10 +99,7 @@ public class ZoomRowView extends JPanel {
 	}
 
 	private void pressCancelButton(RowView rowView) {
-		if (checkMinimumRowView()) {
-			rowViewArrayList.remove(rowView);
-			rePaint();
-		}
+		removeRowView(rowView);
 	}
 
 	private boolean checkMinimumRowView() {

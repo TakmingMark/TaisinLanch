@@ -23,6 +23,7 @@ import Component.DayComponent;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
 import Component.TextContent;
+import Component.Toast;
 
 public class AcceptanceExcelModel extends ExcelModel {
 	HashMap<String, ingredientQuantity> IngredientMap;
@@ -35,7 +36,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 		IngredientMap = new HashMap<>();
 	}
 
-	public void writeExcel(MenuDataComponent menuOutputData) {
+	public boolean writeExcel(MenuDataComponent menuOutputData) {
 		FileOutputStream fileOutputStream = null;
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
 		HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.acceptanceSHeetName);
@@ -46,7 +47,10 @@ public class AcceptanceExcelModel extends ExcelModel {
 		String[] columnNames = ExcelTextContent.accpetanceColumnNames;
 		String startDate = calculateMenuDayDate(menuOutputData.getDate(), "星期一");
 		String endDate = calculateMenuDayDate(menuOutputData.getDate(), "星期五");
-		removeRepeatAndWeightAdd(menuOutputData);
+
+		if (removeRepeatAndWeightAdd(menuOutputData) == false) {
+			return false;
+		}
 
 		int rowNum = 0;
 		int columnNum = 0;
@@ -58,7 +62,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 			cell.setCellValue(leaveColumn);
 		}
 
-		Iterator <Entry<String, ingredientQuantity>>  iterator = IngredientMap.entrySet().iterator();
+		Iterator<Entry<String, ingredientQuantity>> iterator = IngredientMap.entrySet().iterator();
 		while (iterator.hasNext()) {
 			Map.Entry<String, ingredientQuantity> pair = (Map.Entry) iterator.next();
 			row = hssfSheet.createRow(rowNum++);
@@ -122,30 +126,43 @@ public class AcceptanceExcelModel extends ExcelModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return true;
 	}
 
-	private void removeRepeatAndWeightAdd(MenuDataComponent menuOutputData) {
+	private boolean removeRepeatAndWeightAdd(MenuDataComponent menuOutputData) {
 		for (DayComponent day : menuOutputData.getDayArray()) {
 			for (int i = 0; i < day.getAcceptanceArray().size(); i++) {
-				insertSeasoningToMap(day.getAcceptanceArray().get(i));
+				if (insertSeasoningToMap(day.getAcceptanceArray().get(i)) == false) {
+					return false;
+				}
 			}
 		}
+		return true;
 	}
-	
-	private void insertSeasoningToMap(IngredientComponent ingredient) {
+
+	private boolean insertSeasoningToMap(IngredientComponent ingredient) {
 		String seasoningName = null;
 		String seasoningWeight = null;
 		String seasoningUnit = null;
-		
-		seasoningName=ingredient.getName();
-		seasoningUnit = ingredient.getUnit().substring(ingredient.getUnit().length() - 1,
-				ingredient.getUnit().length());
-		seasoningWeight=ingredient.getUnit().substring(0,ingredient.getUnit().length()-1);
-		if (IngredientMap.containsKey(seasoningName)) {
-			IngredientMap.get(seasoningName).weight += Integer.valueOf(seasoningWeight);
-		} else {
-			IngredientMap.put(seasoningName, new ingredientQuantity(Double.valueOf(seasoningWeight), seasoningUnit));
+
+		try {
+			seasoningName = ingredient.getName();
+			seasoningUnit = ingredient.getUnit().substring(ingredient.getUnit().length() - 1,
+					ingredient.getUnit().length());
+			seasoningWeight = ingredient.getUnit().substring(0, ingredient.getUnit().length() - 1);
+			if (IngredientMap.containsKey(seasoningName)) {
+				IngredientMap.get(seasoningName).weight += Integer.valueOf(seasoningWeight);
+			} else {
+				IngredientMap.put(seasoningName,
+						new ingredientQuantity(Double.valueOf(seasoningWeight), seasoningUnit));
+			}
+		} catch (NumberFormatException e) {
+			new Toast();
+			return false;
+		} catch (Exception e) {
+
 		}
+		return true;
 	}
 
 	private String getFileName(String targetDate) {
