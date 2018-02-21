@@ -29,7 +29,12 @@ public class Excel extends ExcelModel{
 		menuExcelModel.writeExcel(menuOutputData);
 		ingredientExcelModel.writeExcel(menuOutputData);
 		
-		acceptanceExcelModel.writeExcel(menuOutputData);
+		try {
+			acceptanceExcelModel.writeExcel(menuOutputData);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	
 	}
 	
 	private void supplementMenuOutputData(MenuDataComponent menuOutputData) {

@@ -36,7 +36,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 		IngredientMap = new HashMap<>();
 	}
 
-	public boolean writeExcel(MenuDataComponent menuOutputData) {
+	public void writeExcel(MenuDataComponent menuOutputData) {
 		FileOutputStream fileOutputStream = null;
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
 		HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.acceptanceSHeetName);
@@ -48,8 +48,16 @@ public class AcceptanceExcelModel extends ExcelModel {
 		String startDate = calculateMenuDayDate(menuOutputData.getDate(), "星期一");
 		String endDate = calculateMenuDayDate(menuOutputData.getDate(), "星期五");
 
-		if (removeRepeatAndWeightAdd(menuOutputData) == false) {
-			return false;
+		try {
+			removeRepeatAndWeightAdd(menuOutputData);
+		} catch (NumberFormatException e) {
+			try {
+				hssfWorkbook.close();
+				throw e;
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 		}
 
 		int rowNum = 0;
@@ -121,26 +129,25 @@ public class AcceptanceExcelModel extends ExcelModel {
 			hssfWorkbook.close();
 			fileOutputStream.close();
 		} catch (FileNotFoundException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;
 	}
 
-	private boolean removeRepeatAndWeightAdd(MenuDataComponent menuOutputData) {
+	private void removeRepeatAndWeightAdd(MenuDataComponent menuOutputData) {
 		for (DayComponent day : menuOutputData.getDayArray()) {
 			for (int i = 0; i < day.getAcceptanceArray().size(); i++) {
-				if (insertSeasoningToMap(day.getAcceptanceArray().get(i)) == false) {
-					return false;
+				try {
+					insertSeasoningToMap(day.getAcceptanceArray().get(i));
+				} catch (NumberFormatException e) {
+					throw e;
 				}
 			}
 		}
-		return true;
 	}
 
-	private boolean insertSeasoningToMap(IngredientComponent ingredient) {
+	private void insertSeasoningToMap(IngredientComponent ingredient) {
 		String seasoningName = null;
 		String seasoningWeight = null;
 		String seasoningUnit = null;
@@ -150,6 +157,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 			seasoningUnit = ingredient.getUnit().substring(ingredient.getUnit().length() - 1,
 					ingredient.getUnit().length());
 			seasoningWeight = ingredient.getUnit().substring(0, ingredient.getUnit().length() - 1);
+
 			if (IngredientMap.containsKey(seasoningName)) {
 				IngredientMap.get(seasoningName).weight += Integer.valueOf(seasoningWeight);
 			} else {
@@ -157,12 +165,8 @@ public class AcceptanceExcelModel extends ExcelModel {
 						new ingredientQuantity(Double.valueOf(seasoningWeight), seasoningUnit));
 			}
 		} catch (NumberFormatException e) {
-			new Toast();
-			return false;
-		} catch (Exception e) {
-
+			throw new NumberFormatException("the seasoning wegiht must number unit");
 		}
-		return true;
 	}
 
 	private String getFileName(String targetDate) {

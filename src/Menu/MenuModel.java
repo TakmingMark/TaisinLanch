@@ -10,6 +10,7 @@ import Component.DataProgressBar;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
 import Component.TextContent;
+import Component.ThreadPoolModel;
 import Excel.Excel;
 import Parser.MenuDataAndFileConverter;
 import Parser.DataToViewParser;
@@ -25,7 +26,7 @@ public class MenuModel {
 	DataToViewParser dataToViewParser;
 	ViewToDataParser viewToDataParser;
 	DataProgressBar finishButtonProgressBar, analysisButtonProgressBar, recordButtonProgressBar, testButtonProgressBar;
-
+	ThreadPoolModel threadPool;
 	private MenuModel() {
 
 	}
@@ -39,6 +40,7 @@ public class MenuModel {
 		menuDataAndFileConverter = MenuDataAndFileConverter.getMenuDataAndFileConverterObject();
 		dataToViewParser = DataToViewParser.getDataToViewParserObject();
 		viewToDataParser = ViewToDataParser.getViewToDataParserObject();
+		threadPool=ThreadPoolModel.getThreadPoolModelObject(1, 5000);
 
 	}
 
@@ -61,17 +63,18 @@ public class MenuModel {
 
 	public void readMenuFileToMenuView(MenuView menuView) {
 		startTestButtonProgressBar();
-		new Thread(new Runnable() {
+		threadPool.executeThreadPool(new Runnable() {
 			@Override
 			public void run() {
-				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile("json/menu.json");
+				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile("json/menuTest.json");
 				testButtonProgressBar.addProgressRate();
 				testButtonProgressBar.addProgressRate();
 				dataToViewParser.menuDataInputToMenuView(menuDataInput, menuView);
 				testButtonProgressBar.addProgressRate();
 				testButtonProgressBar.addProgressRate();
 			}
-		}).start();
+			
+		});
 	}
 
 	private void menuViewFormatToMenuDataOutput(MenuView menuView) {
@@ -80,7 +83,7 @@ public class MenuModel {
 
 	public void exportDataToExcel(MenuView menuView) {
 		startFinishButtonProgressBar();
-		new Thread(new Runnable() {
+		threadPool.executeThreadPool(new Runnable() {
 			@Override
 			public void run() {
 				finishButtonProgressBar.addProgressRate();
@@ -90,7 +93,8 @@ public class MenuModel {
 				finishButtonProgressBar.addProgressRate();
 				finishButtonProgressBar.addProgressRate();
 			}
-		}).start();
+			
+		});
 	}
 
 	public void recordFoodDataToFoodFile(MenuView menuView) {
@@ -110,7 +114,7 @@ public class MenuModel {
 
 	public void analysisIngredient(MenuView menuView) {
 		startAnalysisButtonProgressBar();
-		new Thread(new Runnable() {
+		threadPool.executeThreadPool(new Runnable() {
 			@Override
 			public void run() {
 				analysisButtonProgressBar.addProgressRate();
@@ -127,10 +131,10 @@ public class MenuModel {
 				queryFoodMapAndToDayView(foodMap, menuView.getThursday());
 				queryFoodMapAndToDayView(foodMap, menuView.getFriday());
 				analysisButtonProgressBar.addProgressRate();
-				
 				//not store in food.json
 			}
-		}).start();
+			
+		});
 	}
 
 	private void queryFoodMapAndToDayView(Map<String, List<IngredientComponent>> foodMap, DayView dayView) {
