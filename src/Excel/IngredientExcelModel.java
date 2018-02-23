@@ -11,11 +11,10 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor.DARK_BLUE;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import Component.DayComponent;
 import Component.FoodComponent;
@@ -29,30 +28,30 @@ public class IngredientExcelModel extends ExcelModel {
 		
 		for (DayComponent day : menuOutputData.getDayArray()) {
 			FileOutputStream fileOutputStream = null;
-			HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-			HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.ingredientSheetName);
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
+			XSSFSheet xssfSheet = xssfWorkbook.createSheet(ExcelTextContent.ingredientSheetName);
 
 			String fileName = getFileName(day.getDate());
 			
-			String filePath = "excel/ingredient" + fileName + ".xls";
+			String filePath = "excel/ingredient" + fileName + ".xlsx";
 			Object[] columnNames = ExcelTextContent.ingredientColumnNames;
 
-			Row row = hssfSheet.createRow(0);
+			XSSFRow row = xssfSheet.createRow(0);
 			int columnNum = 0;
 			for (Object leaveColumn : columnNames) {
-				Cell cell = row.createCell(columnNum++);
+				XSSFCell cell = row.createCell(columnNum++);
 				if (leaveColumn instanceof String)
 					cell.setCellValue((String) leaveColumn);
 				else
 					cell.setCellValue("");
 			}
 
-			writeDayIngredientToExcel(hssfSheet, day);
+			writeDayIngredientToExcel(xssfSheet, day);
 
 			try {
 				fileOutputStream = new FileOutputStream(filePath);
-				hssfWorkbook.write(fileOutputStream);
-				hssfWorkbook.close();
+				xssfWorkbook.write(fileOutputStream);
+				xssfWorkbook.close();
 				fileOutputStream.close();
 			} catch (FileNotFoundException e) {
 				// TODO: handle exception
@@ -63,24 +62,24 @@ public class IngredientExcelModel extends ExcelModel {
 		}
 	}
 
-	private void writeDayIngredientToExcel(HSSFSheet hssfSheet, DayComponent dayElement) {
+	private void writeDayIngredientToExcel(XSSFSheet xssfSheet, DayComponent dayElement) {
 		int rowNum = 1;
-		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getStapleFood(), dayElement, rowNum);
-		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getMainCourse(), dayElement, rowNum);
-		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getSideDishOne(), dayElement, rowNum);
-		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getSideDishSecond(), dayElement, rowNum);
-		rowNum = writeFoodIngredientToExcel(hssfSheet, dayElement.getSoup(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(xssfSheet, dayElement.getStapleFood(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(xssfSheet, dayElement.getMainCourse(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(xssfSheet, dayElement.getSideDishOne(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(xssfSheet, dayElement.getSideDishSecond(), dayElement, rowNum);
+		rowNum = writeFoodIngredientToExcel(xssfSheet, dayElement.getSoup(), dayElement, rowNum);
 	}
 
-	private int writeFoodIngredientToExcel(HSSFSheet hssfSheet, FoodComponent food, DayComponent day,
+	private int writeFoodIngredientToExcel(XSSFSheet xssfSheet, FoodComponent food, DayComponent day,
 			int rowNum) {
-		Row row = null;
+		XSSFRow row = null;
 
 		for (IngredientComponent ingredient : food.getIngredientArray()) {
-			row = hssfSheet.createRow(rowNum++);
+			row = xssfSheet.createRow(rowNum++);
 
 			for (int i = 0; i < ExcelTextContent.ingredientColumnNames.length; i++) {
-				Cell cell = row.createCell(i);
+				XSSFCell cell = row.createCell(i);
 				switch (i) {
 				case 0:
 					cell.setCellValue(day.getDate());

@@ -1,28 +1,21 @@
 package Excel;
 
-import java.awt.List;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import Component.DayComponent;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
-import Component.TextContent;
 import Component.Toast;
 
 public class AcceptanceExcelModel extends ExcelModel {
@@ -38,11 +31,11 @@ public class AcceptanceExcelModel extends ExcelModel {
 
 	public void writeExcel(MenuDataComponent menuOutputData) {
 		FileOutputStream fileOutputStream = null;
-		HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-		HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.acceptanceSHeetName);
+		XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
+		XSSFSheet xssfSheet = xssfWorkbook.createSheet(ExcelTextContent.acceptanceSHeetName);
 
 		String fileName = getFileName(menuOutputData.getDate());
-		String filePath = "excel/acceptance" + fileName + ".xls";
+		String filePath = "excel/acceptance" + fileName + ".xlsx";
 
 		String[] columnNames = ExcelTextContent.accpetanceColumnNames;
 		String startDate = calculateMenuDayDate(menuOutputData.getDate(), "¬P´Á¤@");
@@ -52,7 +45,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 			removeRepeatAndWeightAdd(menuOutputData);
 		} catch (NumberFormatException e) {
 			try {
-				hssfWorkbook.close();
+				xssfWorkbook.close();
 				throw e;
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
@@ -63,19 +56,19 @@ public class AcceptanceExcelModel extends ExcelModel {
 		int rowNum = 0;
 		int columnNum = 0;
 
-		Row row = hssfSheet.createRow(rowNum++);
+		XSSFRow row = xssfSheet.createRow(rowNum++);
 
 		for (String leaveColumn : columnNames) {
-			Cell cell = row.createCell(columnNum++);
+			XSSFCell cell = row.createCell(columnNum++);
 			cell.setCellValue(leaveColumn);
 		}
 
 		Iterator<Entry<String, ingredientQuantity>> iterator = IngredientMap.entrySet().iterator();
 		while (iterator.hasNext()) {
 			Map.Entry<String, ingredientQuantity> pair = (Map.Entry) iterator.next();
-			row = hssfSheet.createRow(rowNum++);
+			row = xssfSheet.createRow(rowNum++);
 			for (int i = 0; i < columnNames.length; i++) {
-				Cell cell = row.createCell(i);
+				XSSFCell cell = row.createCell(i);
 				switch (i) {
 				case 0:
 					cell.setCellValue(pair.getKey());
@@ -125,8 +118,8 @@ public class AcceptanceExcelModel extends ExcelModel {
 
 		try {
 			fileOutputStream = new FileOutputStream(filePath);
-			hssfWorkbook.write(fileOutputStream);
-			hssfWorkbook.close();
+			xssfWorkbook.write(fileOutputStream);
+			xssfWorkbook.close();
 			fileOutputStream.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

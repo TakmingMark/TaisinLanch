@@ -3,44 +3,42 @@ package Excel;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import Component.DayComponent;
 import Component.MenuDataComponent;
-import Component.TextContent;
 
 public class MenuExcelModel extends ExcelModel {
 
 	public void writeExcel(MenuDataComponent menuOutputData) {
 		FileOutputStream fileOutputStream = null;
-		HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-		HSSFSheet hssfSheet = hssfWorkbook.createSheet(ExcelTextContent.menuSheetName);
+		XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
+		XSSFSheet xssfSheet = xssfWorkbook.createSheet(ExcelTextContent.menuSheetName);
 		Random random = new Random();
 		
 		String fileName=getFileName(menuOutputData.getDate());
-		String filePath = "excel/menu" + fileName + ".xls";
+		String filePath = "excel/menu" + fileName + ".xlsx";
 		String[] columnNames = ExcelTextContent.menuColumnNames;
 
 		int rowNum = 0;
 		int columnNum = 0;
 	
-		Row row = hssfSheet.createRow(rowNum++);
+		XSSFRow row = xssfSheet.createRow(rowNum++);
 		for (String leaveColumn : columnNames) {
-			Cell cell = row.createCell(columnNum++);
+			XSSFCell cell = row.createCell(columnNum++);
 			cell.setCellValue(leaveColumn);
 		}
 
 		for (DayComponent day : menuOutputData.getDayArray()) {
-			row = hssfSheet.createRow(rowNum++);
+			row = xssfSheet.createRow(rowNum++);
 			columnNum = 0;
 			for (int i = 0; i < columnNames.length; i++) {
-				Cell cell = row.createCell(columnNum++);
+				XSSFCell cell = row.createCell(columnNum++);
 				switch (i) {
 				case 0:
 					cell.setCellValue(menuOutputData.getSchoolName());
@@ -109,8 +107,8 @@ public class MenuExcelModel extends ExcelModel {
 
 		try {
 			fileOutputStream = new FileOutputStream(filePath);
-			hssfWorkbook.write(fileOutputStream);
-			hssfWorkbook.close();
+			xssfWorkbook.write(fileOutputStream);
+			xssfWorkbook.close();
 			fileOutputStream.close();
 		} catch (FileNotFoundException e) {
 			// TODO: handle exception
