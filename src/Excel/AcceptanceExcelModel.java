@@ -3,6 +3,7 @@ package Excel;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -38,9 +39,8 @@ public class AcceptanceExcelModel extends ExcelModel {
 		String filePath = "excel/acceptance" + fileName + ".xlsx";
 
 		String[] columnNames = ExcelTextContent.accpetanceColumnNames;
-		String startDate = calculateMenuDayDate(menuOutputData.getDate(), "星期一");
-		String endDate = calculateMenuDayDate(menuOutputData.getDate(), "星期五");
-
+		String startDate = calculateStartDate(menuOutputData);
+		String endDate = calculateEndDate(menuOutputData);
 		try {
 			removeRepeatAndWeightAdd(menuOutputData);
 		} catch (NumberFormatException e) {
@@ -48,7 +48,6 @@ public class AcceptanceExcelModel extends ExcelModel {
 				xssfWorkbook.close();
 				throw e;
 			} catch (IOException e2) {
-				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
 		}
@@ -167,6 +166,19 @@ public class AcceptanceExcelModel extends ExcelModel {
 		String fileName = calculateMenuDayDate(targetDate, "星期一") + "-" + calculateMenuDayDate(targetDate, "星期五");
 		fileName = backSlashToDot(fileName);
 		return fileName;
+	}
+	
+	private String calculateStartDate(MenuDataComponent menuOutputData) {
+		DayComponent day=menuOutputData.getDayArray().get(0);
+		String startDate = calculateMenuDayDate(menuOutputData.getDate(), day.getName());
+		return startDate;
+		
+	}
+	
+	private String calculateEndDate(MenuDataComponent menuOutputData) {
+		DayComponent day=menuOutputData.getDayArray().get(menuOutputData.getDayArray().size()-1);
+		String endDate = calculateMenuDayDate(menuOutputData.getDate(), day.getName());
+		return endDate;
 	}
 
 	class ingredientQuantity {

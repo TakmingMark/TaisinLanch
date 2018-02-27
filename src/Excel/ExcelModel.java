@@ -131,7 +131,7 @@ public class ExcelModel {
 		case "星期四":
 			return calculateMenuDayDate(date,"星期四");
 		case "星期五":
-			return calculateMenuDayDate(date,"星期五");
+			return calculateMenuDayDate(date,"星期四");
 		default:
 			return null;
 		}
