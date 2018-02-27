@@ -113,7 +113,7 @@ public class IngredientExcelModel extends ExcelModel {
 				case 12:
 					break;
 				case 13:
-					cell.setCellValue(ingredient.getUnit());
+					cell.setCellValue(converterJinToKg(ingredient.getUnit()));
 					break;
 				case 14:
 					cell.setCellValue(ExcelTextContent.ingredientO);
@@ -131,7 +131,34 @@ public class IngredientExcelModel extends ExcelModel {
 		}
 		return rowNum;
 	}
-
+	
+	private String converterJinToKg(String unitJin) {
+		String inputStr=unitJin;
+		String patternStr="[0-9]{1,}";
+		Pattern pattern=Pattern.compile(patternStr);
+		Matcher matcher=pattern.matcher(inputStr);
+		
+		if(matcher.find()){
+			String weighJintStr=matcher.group();
+			double weightKgDouble=Integer.valueOf(weighJintStr)*0.6;
+			double weightKgInt=new BigDecimal(weightKgDouble)
+                    .setScale(2, BigDecimal.ROUND_HALF_UP)
+                    .doubleValue();
+			String unitKg=String.valueOf(weightKgInt);
+			return unitKg;
+		}
+		else{
+			patternStr="[®w¦s]{1,}";
+			pattern=Pattern.compile(patternStr);
+			matcher=pattern.matcher(inputStr);
+			
+			if(matcher.find()){
+				return "(®w¦s)";
+			}
+		}
+		return null;
+	}
+	
 	private String getFileName(String dayDate) {
 		String fileName = backSlashToDot(dayDate);
 		return fileName;
