@@ -21,6 +21,7 @@ import Component.FoodComponent;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
 import Component.TextContent;
+import Component.Toast;
 
 public class IngredientExcelModel extends ExcelModel {
 
@@ -133,32 +134,41 @@ public class IngredientExcelModel extends ExcelModel {
 	}
 	
 	private String converterJinToKg(String unitJin) {
-		String inputStr=unitJin;
-		String patternStr="[0-9]{1,}";
-		Pattern pattern=Pattern.compile(patternStr);
-		Matcher matcher=pattern.matcher(inputStr);
+		String matchStr=patternUnit(unitJin,"[公斤]{1,}");
 		
-		if(matcher.find()){
-			String weighJintStr=matcher.group();
-			double weightKgDouble=Integer.valueOf(weighJintStr)*0.6;
-			double weightKgInt=new BigDecimal(weightKgDouble)
-                    .setScale(2, BigDecimal.ROUND_HALF_UP)
-                    .doubleValue();
-			String unitKg=String.valueOf(weightKgInt);
-			return unitKg;
-		}
-		else{
-			patternStr="[庫存]{1,}";
-			pattern=Pattern.compile(patternStr);
-			matcher=pattern.matcher(inputStr);
+		if(matchStr!=null) {
+			//Unit=Kg
+			matchStr=patternUnit(unitJin,"[0-9]{1,}");
 			
-			if(matcher.find()){
-				return "(庫存)";
+			return matchStr;
+		}
+		else {
+			//Unit=jin
+			matchStr=patternUnit(unitJin,"[0-9]{1,}");
+			if(matchStr!=null) {
+				double weightKgDouble=Integer.valueOf(matchStr)*0.6;
+				double weightKgInt=new BigDecimal(weightKgDouble)
+	                    .setScale(2, BigDecimal.ROUND_HALF_UP)
+	                    .doubleValue();
+				String unitKg=String.valueOf(weightKgInt);
+				return unitKg;
+			}
+			else {
+				//Unit= not weight
+				matchStr=patternUnit(unitJin, "[庫存]{1,}");
+				return matchStr;
 			}
 		}
-		return null;
 	}
 	
+	private String patternUnit(String inputStr,String patternStr) {
+		Pattern pattern=Pattern.compile(patternStr);
+		Matcher matcher=pattern.matcher(inputStr);
+		if(matcher.find())
+			return matcher.group();
+		return null;
+		
+	}
 	private String getFileName(String dayDate) {
 		String fileName = backSlashToDot(dayDate);
 		return fileName;

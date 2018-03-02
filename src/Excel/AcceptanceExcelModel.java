@@ -157,7 +157,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 						new ingredientQuantity(Double.valueOf(seasoningWeight), seasoningUnit));
 			}
 		} catch (NumberFormatException e) {
-			new Toast();
+			new Toast("單位不能為國字，請輸入數字");
 			throw new NumberFormatException("the seasoning wegiht must number unit");
 		}
 	}
