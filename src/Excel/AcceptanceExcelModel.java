@@ -151,7 +151,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 			seasoningWeight = ingredient.getUnit().substring(0, ingredient.getUnit().length() - 1);
 
 			if (IngredientMap.containsKey(seasoningName)) {
-				IngredientMap.get(seasoningName).weight += Integer.valueOf(seasoningWeight);
+				IngredientMap.get(seasoningName).weight += Double.valueOf(seasoningWeight);
 			} else {
 				IngredientMap.put(seasoningName,
 						new ingredientQuantity(Double.valueOf(seasoningWeight), seasoningUnit));

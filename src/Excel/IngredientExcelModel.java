@@ -146,7 +146,7 @@ public class IngredientExcelModel extends ExcelModel {
 			//Unit=jin
 			matchStr=patternUnit(unitJin,"[0-9]{1,}");
 			if(matchStr!=null) {
-				double weightKgDouble=Integer.valueOf(matchStr)*0.6;
+				double weightKgDouble=Double.valueOf(unitJin)*0.6;
 				double weightKgInt=new BigDecimal(weightKgDouble)
 	                    .setScale(2, BigDecimal.ROUND_HALF_UP)
 	                    .doubleValue();
