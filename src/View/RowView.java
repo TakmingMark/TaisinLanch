@@ -16,8 +16,8 @@ public class RowView extends JPanel {
 	JButton cancelButton;
 
 	private RowView() {
-
 		initRowView();
+		cancelSystemCallAboutKeyPress();
 	}
 
 	public static RowView getRowViewObject() {
@@ -56,6 +56,11 @@ public class RowView extends JPanel {
 
 	}
 
+	private void cancelSystemCallAboutKeyPress() {
+		nameTextField.setFocusTraversalKeysEnabled(false);
+		unitTextField.setFocusTraversalKeysEnabled(false);
+	}
+	
 	public JTextField getNameTextField() {
 		return nameTextField;
 	}

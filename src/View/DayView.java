@@ -31,6 +31,7 @@ public class DayView extends JPanel {
 		this.frame = frame;
 		initDayView(dayCheckBoxName);
 		setDayBorder();
+		cancelSystemCallAboutKeyPress();
 	}
 
 	public static DayView getDayViewObject(JFrame frame, String dayCheckBoxName) {
@@ -154,11 +155,18 @@ public class DayView extends JPanel {
 										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))));
 	}
 
-	public void setDayBorder() {
-//		dayCheckBox.setFocusPainted(false);
+	private void setDayBorder() {
 		WeekTitleBorder dayBorder = new WeekTitleBorder(dayCheckBox, this, BorderFactory.createEtchedBorder());
 		dayCheckBox.addActionListener(e -> pressDayCheckBox());
 		this.setBorder(dayBorder);
+	}
+	
+	private void cancelSystemCallAboutKeyPress() {
+		stapleFoodTextField.setFocusTraversalKeysEnabled(false);
+		mainCourseTextField.setFocusTraversalKeysEnabled(false);
+		sideDishOneTextField.setFocusTraversalKeysEnabled(false);
+		sideDishSecondTextField.setFocusTraversalKeysEnabled(false);
+		soupTextField .setFocusTraversalKeysEnabled(false);
 	}
 
 	private void pressDayCheckBox() {

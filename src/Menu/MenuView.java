@@ -156,6 +156,7 @@ public class MenuView {
 		frame.add(jScrollPane);
 		frame.pack();
 		frame.setVisible(true);
+        frame.setFocusTraversalKeysEnabled(false);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 	}
 

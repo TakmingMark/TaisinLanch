@@ -1,13 +1,19 @@
 package Menu;
 
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+
+import com.microsoft.schemas.office.visio.x2012.main.impl.VisioDocumentDocument1Impl;
 
 import Component.KeyStrokeAction;
 
@@ -56,74 +62,86 @@ public class MenuController {
 
 	private void initMenuViewKeyStrokeAction() {
 		menuView.getFrame().getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-				.put(KeyStroke.getKeyStroke("F1"), "insertRowView");
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), "insertRowView");
 		menuView.getFrame().getRootPane().getActionMap().put("insertRowView",
 				new KeyStrokeAction(ae -> pressF1KeyStroke()));
 
 		menuView.getFrame().getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-				.put(KeyStroke.getKeyStroke("F2"), "removeRowView");
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), "removeRowView");
 		menuView.getFrame().getRootPane().getActionMap().put("removeRowView",
 				new KeyStrokeAction(ae -> pressF2KeyStroke()));
 
 		menuView.getFrame().getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-				.put(KeyStroke.getKeyStroke("F4"), "pressFinishButton");
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), "pressFinishButton");
 		menuView.getFrame().getRootPane().getActionMap().put("pressFinishButton",
 				new KeyStrokeAction(ae -> pressF4KeyStroke()));
 
 		menuView.getFrame().getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-				.put(KeyStroke.getKeyStroke("F5"), "pressAnalysisButton");
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), "pressAnalysisButton");
 		menuView.getFrame().getRootPane().getActionMap().put("pressAnalysisButton",
 				new KeyStrokeAction(ae -> pressF5KeyStroke()));
 
 		menuView.getFrame().getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-				.put(KeyStroke.getKeyStroke("F9"), "pressRecrordButton");
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), "pressRecrordButton");
 		menuView.getFrame().getRootPane().getActionMap().put("pressRecrordButton",
 				new KeyStrokeAction(ae -> pressF9KeyStroke()));
 
 		menuView.getFrame().getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-				.put(KeyStroke.getKeyStroke("F12"), "pressTestButton");
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), "pressTestButton");
 		menuView.getFrame().getRootPane().getActionMap().put("pressTestButton",
 				new KeyStrokeAction(ae -> pressF12KeyStroke()));
+
+		menuView.getFrame().getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0), "recordEditText");
+		menuView.getFrame().getRootPane().getActionMap().put("recordEditText",
+				new KeyStrokeAction(ae -> pressTabKeyStroke()));
+
 	}
 
-	public void pressFinishButton() {
+	private void pressFinishButton() {
 		menuModel.exportDataToExcel(menuView);
 	}
 
-	public void pressAnalysisButton() {
+	private void pressAnalysisButton() {
 		menuModel.analysisIngredient(menuView);
 	}
 
-	public void pressRecrordButton() {
+	private void pressRecrordButton() {
 		menuModel.recordFoodDataToFoodFile(menuView);
 	}
 
-	public void pressTestButton() {
+	private void pressTestButton() {
 		menuModel.readMenuFileToMenuView(menuView);
 	}
 
-	public void pressF1KeyStroke() {
+	private void pressF1KeyStroke() {
 		menuModel.insertIngredientRowView(menuView);
 	}
 
-	public void pressF2KeyStroke() {
+	private void pressF2KeyStroke() {
 		menuModel.removeIngredientRowView(menuView);
 	}
 
-	public void pressF4KeyStroke() {
+	private void pressF4KeyStroke() {
 		pressFinishButton();
 	}
 
-	public void pressF5KeyStroke() {
+	private void pressF5KeyStroke() {
 		pressAnalysisButton();
 	}
 
-	public void pressF9KeyStroke() {
+	private void pressF9KeyStroke() {
 		pressRecrordButton();
 	}
 
-	public void pressF12KeyStroke() {
+	private void pressF12KeyStroke() {
 		pressTestButton();
+		System.out.println("pressF12");
+	}
+
+	private void pressTabKeyStroke() {
+		menuView.getFrame().getFocusOwner().transferFocus();
+		System.out.println("pressTab");
 	}
 
 }
