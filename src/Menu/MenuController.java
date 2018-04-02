@@ -6,6 +6,7 @@ import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.NotActiveException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -50,6 +51,7 @@ public class MenuController {
 	private void initMenuController() {
 		initMenuViewListener();
 		initMenuViewKeyStrokeAction();
+		initEditHistoryRestore();
 	}
 
 	private void initMenuViewListener() {
@@ -95,7 +97,13 @@ public class MenuController {
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0), "recordEditText");
 		menuView.getFrame().getRootPane().getActionMap().put("recordEditText",
 				new KeyStrokeAction(ae -> pressTabKeyStroke()));
+	}
 
+	private void initEditHistoryRestore() {
+		if (menuModel.showYesOrNoToash())
+			menuModel.readMenuFileToMenuView(menuView, "history.json");
+		else
+			System.out.println("not restore anything");
 	}
 
 	private void pressFinishButton() {
@@ -103,15 +111,15 @@ public class MenuController {
 	}
 
 	private void pressAnalysisButton() {
-		menuModel.analysisIngredient(menuView);
+		menuModel.analysisIngredient(menuView, "food.json");
 	}
 
 	private void pressRecrordButton() {
-		menuModel.recordFoodDataToFoodFile(menuView);
+		menuModel.recordFoodDataToFoodFile(menuView, "food.json");
 	}
 
 	private void pressTestButton() {
-		menuModel.readMenuFileToMenuView(menuView);
+		menuModel.readMenuFileToMenuView(menuView, "menuTest.json");
 	}
 
 	private void pressF1KeyStroke() {
@@ -140,8 +148,9 @@ public class MenuController {
 	}
 
 	private void pressTabKeyStroke() {
+		// resign tab action in system operation
 		menuView.getFrame().getFocusOwner().transferFocus();
-		System.out.println("pressTab");
+		menuModel.recordEditHistory(menuView, "history.json");
 	}
 
 }

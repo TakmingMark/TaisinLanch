@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -27,11 +28,10 @@ import Component.IngredientComponent;
 import Component.MenuDataComponent;
 
 public class MenuDataAndFileConverter {
-
 	public static MenuDataAndFileConverter getMenuDataAndFileConverterObject() {
 		return new MenuDataAndFileConverter();
 	}
-	
+
 	public MenuDataComponent getMenuDataFromMenuFile(String foodFliePath) {
 		JsonReader jsonReader = null;
 		try {
@@ -42,16 +42,16 @@ public class MenuDataAndFileConverter {
 		}
 		return new Gson().fromJson(jsonReader, MenuDataComponent.class);
 	}
-	
-	public void mergeFoodDataToFoodFile(MenuDataComponent menuDataOutput,String foodFliePath) {
-		Map<String, List<IngredientComponent>> oldFoodMap,newFoodMap;
-		oldFoodMap=getFoodMapFromFoodFile(foodFliePath);
-		newFoodMap=getFoodMapFromMenuDataOutput(menuDataOutput);
+
+	public void mergeFoodDataToFoodFile(MenuDataComponent menuDataOutput, String foodFliePath) {
+		Map<String, List<IngredientComponent>> oldFoodMap, newFoodMap;
+		oldFoodMap = getFoodMapFromFoodFile(foodFliePath);
+		newFoodMap = getFoodMapFromMenuDataOutput(menuDataOutput);
 		oldFoodMap.putAll(newFoodMap);
-		
+
 		writeFoodFileFromFoodMap(oldFoodMap);
 	}
-	
+
 	public Map<String, List<IngredientComponent>> getFoodMapFromFoodFile(String foodFliePath) {
 		Map<String, List<IngredientComponent>> foodMap = new HashMap();
 		JsonReader jsonReader = null;
@@ -72,6 +72,23 @@ public class MenuDataAndFileConverter {
 			e.printStackTrace();
 		}
 		return foodMap;
+	}
+
+	public void getHistoryFileFromMenuData(MenuDataComponent menuDataOutput, String historyFliePath) {
+		Gson gson = new Gson();
+		String json = gson.toJson(menuDataOutput);
+		System.out.println(json);
+
+		//Convert object to JSON string and save into a file directly
+		try (BufferedWriter writer = 
+				new BufferedWriter(
+						new OutputStreamWriter(
+								new FileOutputStream(
+										historyFliePath), "UTF-8"))) {
+			gson.toJson(menuDataOutput, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private FoodComponent getFoodFromJSONReader(JsonReader jsonReader) {

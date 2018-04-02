@@ -11,6 +11,7 @@ import Component.IngredientComponent;
 import Component.MenuDataComponent;
 import Component.TextContent;
 import Component.ThreadPoolModel;
+import Component.Toast;
 import Excel.Excel;
 import Parser.MenuDataAndFileConverter;
 import Parser.DataToViewParser;
@@ -27,6 +28,7 @@ public class MenuModel {
 	ViewToDataParser viewToDataParser;
 	DataProgressBar finishButtonProgressBar, analysisButtonProgressBar, recordButtonProgressBar, testButtonProgressBar;
 	ThreadPoolModel threadPool;
+
 	private MenuModel() {
 
 	}
@@ -40,7 +42,7 @@ public class MenuModel {
 		menuDataAndFileConverter = MenuDataAndFileConverter.getMenuDataAndFileConverterObject();
 		dataToViewParser = DataToViewParser.getDataToViewParserObject();
 		viewToDataParser = ViewToDataParser.getViewToDataParserObject();
-		threadPool=ThreadPoolModel.getThreadPoolModelObject(1, 5000);
+		threadPool = ThreadPoolModel.getThreadPoolModelObject(1, 5000);
 
 	}
 
@@ -51,9 +53,9 @@ public class MenuModel {
 		menuView.getWednesday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
 		menuView.getThursday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
 		menuView.getFriday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
-		
+
 	}
-	
+
 	public void initProgressBar(JFrame frame) {
 		finishButtonProgressBar = DataProgressBar.getDataProgressBarObject(frame);
 		analysisButtonProgressBar = DataProgressBar.getDataProgressBarObject(frame);
@@ -61,19 +63,19 @@ public class MenuModel {
 		testButtonProgressBar = DataProgressBar.getDataProgressBarObject(frame);
 	}
 
-	public void readMenuFileToMenuView(MenuView menuView) {
+	public void readMenuFileToMenuView(MenuView menuView,String menuFileName) {
 		startTestButtonProgressBar();
 		threadPool.executeThreadPool(new Runnable() {
 			@Override
 			public void run() {
-				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile("json/menuTest.json");
+				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile("json/"+menuFileName);
 				testButtonProgressBar.addProgressRate();
 				testButtonProgressBar.addProgressRate();
 				dataToViewParser.menuDataInputToMenuView(menuDataInput, menuView);
 				testButtonProgressBar.addProgressRate();
 				testButtonProgressBar.addProgressRate();
 			}
-			
+
 		});
 	}
 
@@ -93,11 +95,11 @@ public class MenuModel {
 				finishButtonProgressBar.addProgressRate();
 				finishButtonProgressBar.addProgressRate();
 			}
-			
+
 		});
 	}
 
-	public void recordFoodDataToFoodFile(MenuView menuView) {
+	public void recordFoodDataToFoodFile(MenuView menuView,String foodFileName) {
 		startRecrordButtonProgressBar();
 		new Thread(new Runnable() {
 			@Override
@@ -105,23 +107,23 @@ public class MenuModel {
 				recordButtonProgressBar.addProgressRate();
 				menuViewFormatToMenuDataOutput(menuView);
 				recordButtonProgressBar.addProgressRate();
-				menuDataAndFileConverter.mergeFoodDataToFoodFile(menuDataOutput, "json/food.json");
+				menuDataAndFileConverter.mergeFoodDataToFoodFile(menuDataOutput, "json/"+foodFileName);
 				recordButtonProgressBar.addProgressRate();
 				recordButtonProgressBar.addProgressRate();
 			}
 		}).start();
 	}
 
-	public void analysisIngredient(MenuView menuView) {
+	public void analysisIngredient(MenuView menuView,String menuFileName) {
 		startAnalysisButtonProgressBar();
 		threadPool.executeThreadPool(new Runnable() {
 			@Override
 			public void run() {
 				analysisButtonProgressBar.addProgressRate();
 				menuViewFormatToMenuDataOutput(menuView);
-				
+
 				Map<String, List<IngredientComponent>> foodMap = menuDataAndFileConverter
-						.getFoodMapFromFoodFile("json/food.json");
+						.getFoodMapFromFoodFile("json/"+menuFileName);
 
 				queryFoodMapAndToDayView(foodMap, menuView.getMonday());
 				queryFoodMapAndToDayView(foodMap, menuView.getTuesday());
@@ -131,9 +133,9 @@ public class MenuModel {
 				queryFoodMapAndToDayView(foodMap, menuView.getThursday());
 				queryFoodMapAndToDayView(foodMap, menuView.getFriday());
 				analysisButtonProgressBar.addProgressRate();
-				//not store in food.json
+				// not store in food.json
 			}
-			
+
 		});
 	}
 
@@ -165,6 +167,7 @@ public class MenuModel {
 			}
 		}
 	}
+
 	public void insertIngredientRowView(MenuView menuView) {
 		if (menuView.getFrame().getFocusOwner().getParent().getParent().getParent() instanceof ZoomRowView) {
 			ZoomRowView zoomRowView = ((ZoomRowView) menuView.getFrame().getFocusOwner().getParent().getParent()
@@ -173,7 +176,7 @@ public class MenuModel {
 			menuView.getFrame().getFocusOwner().requestFocus();
 		}
 	}
-	
+
 	public void removeIngredientRowView(MenuView menuView) {
 		if (menuView.getFrame().getFocusOwner().getParent().getParent().getParent() instanceof ZoomRowView) {
 			ZoomRowView zoomRowView = ((ZoomRowView) menuView.getFrame().getFocusOwner().getParent().getParent()
@@ -184,6 +187,24 @@ public class MenuModel {
 					.requestFocus();
 		}
 	}
+
+	synchronized public void recordEditHistory(MenuView menuView,String historyFileName) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				menuViewFormatToMenuDataOutput(menuView);
+				menuDataAndFileConverter.getHistoryFileFromMenuData(menuDataOutput, "json/"+historyFileName);
+			}
+		}).start();
+	}
+	
+	public boolean showYesOrNoToash() {
+		if(Toast.geYesOrNoToastObject("需要還原上一次關閉的資料嗎?最後一筆需要檢查")==0)
+			return true;
+		else 
+			return false;
+	}
+	
 	private void startTestButtonProgressBar() {
 		testButtonProgressBar.run();
 		testButtonProgressBar.addProgressRate();
@@ -203,7 +224,7 @@ public class MenuModel {
 		finishButtonProgressBar.run();
 		finishButtonProgressBar.addProgressRate();
 	}
-	
+
 	public MenuDataComponent getMenuDataInput() {
 		return menuDataInput;
 	}
