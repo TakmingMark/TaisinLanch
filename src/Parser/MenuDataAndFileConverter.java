@@ -77,8 +77,7 @@ public class MenuDataAndFileConverter {
 	public void getHistoryFileFromMenuData(MenuDataComponent menuDataOutput, String historyFliePath) {
 		Gson gson = new Gson();
 		String json = gson.toJson(menuDataOutput);
-		System.out.println(json);
-
+		
 		//Convert object to JSON string and save into a file directly
 		try (BufferedWriter writer = 
 				new BufferedWriter(

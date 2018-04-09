@@ -5,6 +5,7 @@ import java.awt.KeyboardFocusManager;
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.NotActiveException;
 
@@ -97,6 +98,11 @@ public class MenuController {
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0), "recordEditText");
 		menuView.getFrame().getRootPane().getActionMap().put("recordEditText",
 				new KeyStrokeAction(ae -> pressTabKeyStroke()));
+
+		menuView.getFrame().getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_TAB,InputEvent.SHIFT_MASK ), "backToPrevious");
+		menuView.getFrame().getRootPane().getActionMap().put("backToPrevious",
+				new KeyStrokeAction(ae -> pressShiftTabKeyStroke()));
 	}
 
 	private void initEditHistoryRestore() {
@@ -144,13 +150,16 @@ public class MenuController {
 
 	private void pressF12KeyStroke() {
 		pressTestButton();
-		System.out.println("pressF12");
 	}
 
 	private void pressTabKeyStroke() {
 		// resign tab action in system operation
 		menuView.getFrame().getFocusOwner().transferFocus();
 		menuModel.recordEditHistory(menuView, "history.json");
+		menuModel.recordPreviousComponentPosition(menuView);
 	}
 
+	private void pressShiftTabKeyStroke() {
+		menuModel.restoreFocusComponentPosition();
+	}
 }

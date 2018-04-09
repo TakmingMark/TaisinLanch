@@ -9,6 +9,5 @@ public class Activity {
 		MenuView menuView=MenuView.getMenuViewObject();
 		MenuModel menuModel=MenuModel.getMenuModelObject();
 		MenuController menuController=MenuController.getMenuControllerObject(menuModel, menuView);
-		
 	}
 }

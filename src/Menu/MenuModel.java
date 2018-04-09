@@ -1,8 +1,10 @@
 package Menu;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.xml.soap.Text;
 
@@ -28,7 +30,8 @@ public class MenuModel {
 	ViewToDataParser viewToDataParser;
 	DataProgressBar finishButtonProgressBar, analysisButtonProgressBar, recordButtonProgressBar, testButtonProgressBar;
 	ThreadPoolModel threadPool;
-
+	ArrayList<JComponent> previousFocusComponentList;
+	
 	private MenuModel() {
 
 	}
@@ -43,7 +46,7 @@ public class MenuModel {
 		dataToViewParser = DataToViewParser.getDataToViewParserObject();
 		viewToDataParser = ViewToDataParser.getViewToDataParserObject();
 		threadPool = ThreadPoolModel.getThreadPoolModelObject(1, 5000);
-
+		previousFocusComponentList=new ArrayList<JComponent>();
 	}
 
 	public void initKnowFiledName(MenuView menuView) {
@@ -203,6 +206,17 @@ public class MenuModel {
 			return true;
 		else 
 			return false;
+	}
+	
+	public void recordPreviousComponentPosition(MenuView menuView) {
+		previousFocusComponentList.add((JComponent) menuView.getFrame().getFocusOwner());
+	}
+	
+	public void restoreFocusComponentPosition() {
+		if(previousFocusComponentList.size()!=0) {
+			previousFocusComponentList.get(previousFocusComponentList.size()-1).requestFocusInWindow();
+			previousFocusComponentList.remove(previousFocusComponentList.size()-1);
+		}
 	}
 	
 	private void startTestButtonProgressBar() {
