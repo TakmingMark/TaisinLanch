@@ -21,10 +21,12 @@ import Parser.ViewToDataParser;
 import View.DayView;
 import View.RowView;
 import View.ZoomRowView;
+import word.Word;
 
 public class MenuModel {
 	MenuDataComponent menuDataInput, menuDataOutput;
 	Excel excel;
+	Word word;
 	MenuDataAndFileConverter menuDataAndFileConverter;
 	DataToViewParser dataToViewParser;
 	ViewToDataParser viewToDataParser;
@@ -42,6 +44,7 @@ public class MenuModel {
 
 	public void initMenuModel() {
 		excel = Excel.getExcelObject();
+		word= Word.getWordObject();
 		menuDataAndFileConverter = MenuDataAndFileConverter.getMenuDataAndFileConverterObject();
 		dataToViewParser = DataToViewParser.getDataToViewParserObject();
 		viewToDataParser = ViewToDataParser.getViewToDataParserObject();
@@ -86,7 +89,7 @@ public class MenuModel {
 		menuDataOutput = viewToDataParser.menuViewToMenuDataOutput(menuView);
 	}
 
-	public void exportDataToExcel(MenuView menuView) {
+	public void exportData(MenuView menuView) {
 		startFinishButtonProgressBar();
 		threadPool.executeThreadPool(new Runnable() {
 			@Override
@@ -94,14 +97,22 @@ public class MenuModel {
 				finishButtonProgressBar.addProgressRate();
 				menuViewFormatToMenuDataOutput(menuView);
 				finishButtonProgressBar.addProgressRate();
-				excel.exportDataToExcel(menuDataOutput);
+				exportDataToExcel();
 				finishButtonProgressBar.addProgressRate();
+				exportDataToWord();
 				finishButtonProgressBar.addProgressRate();
 			}
-
 		});
 	}
 
+	private void exportDataToExcel() {
+		excel.exportDataToExcel(menuDataOutput);
+	}
+	
+	private void exportDataToWord() {
+		word.exportDataToExcel(menuDataOutput);
+	}
+	
 	public void recordFoodDataToFoodFile(MenuView menuView,String foodFileName) {
 		startRecrordButtonProgressBar();
 		new Thread(new Runnable() {

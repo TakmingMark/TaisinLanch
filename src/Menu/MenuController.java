@@ -113,7 +113,7 @@ public class MenuController {
 	}
 
 	private void pressFinishButton() {
-		menuModel.exportDataToExcel(menuView);
+		menuModel.exportData(menuView);
 	}
 
 	private void pressAnalysisButton() {
