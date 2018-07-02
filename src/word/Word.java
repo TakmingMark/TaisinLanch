@@ -13,12 +13,14 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTable.XWPFBorderType;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
+import org.w3c.dom.css.RGBColor;
 
 import Component.DayComponent;
 import Component.IngredientComponent;
@@ -40,17 +42,18 @@ public class Word {
 	}
 
 	private void writeWord(MenuDataComponent menuOutputData) {
-		String filePath = "word/taisin" + "第N週" + ".docx";
+		String filePath = "word/taisin" + "第" + menuOutputData.getWeek() + "週" + ".docx";
 		XWPFDocument document = new XWPFDocument();
-		
+
 		setMargin(document);
-		setTitle(document);
+		setTitle(document,menuOutputData);
 		setTitleColumn(document);
 		setMealMenuOfWeek(document, menuOutputData);
 		setBottomLine(document);
 		mergeTitleColumn(document);
 		setNewLine(document);
-		
+		setTableBoderSize(document);
+
 		try {
 			FileOutputStream fileOutputStream = new FileOutputStream(new File(filePath));
 			document.write(fileOutputStream);
@@ -73,13 +76,15 @@ public class Word {
 		pageMar.setBottom(BigInteger.valueOf(1440L));
 	}
 
-	private void setTitle(XWPFDocument document) {
+	private void setTitle(XWPFDocument document, MenuDataComponent menuOutputData) {
+		String title=menuOutputData.getSchoolName()+"午餐第"+menuOutputData.getWeek()+"週菜單食材驗收";
+		String schoolYear=calSchoolYear(menuOutputData.getDate());
 		XWPFParagraph paragraph = document.createParagraph();
 		paragraph.setAlignment(ParagraphAlignment.CENTER);
 		XWPFRun run = paragraph.createRun();
 		run.setFontSize(18);
 		run.setFontFamily("標楷體");
-		run.setText("苗栗縣泰興國民小學(106下)");
+		run.setText(menuOutputData.getSchoolName()+"午餐第"+menuOutputData.getWeek()+"週菜單食材驗收("+schoolYear+")");
 	}
 
 	private void setTitleColumn(XWPFDocument document) {
@@ -237,6 +242,17 @@ public class Word {
 		}
 	}
 
+	private void setTableBoderSize(XWPFDocument document) {
+		for (XWPFTable table : document.getTables()) {
+			table.getCTTbl().getTblPr().getTblBorders().getTop().setSz(BigInteger.valueOf(14));
+			table.getCTTbl().getTblPr().getTblBorders().getLeft().setSz(BigInteger.valueOf(14));
+			table.getCTTbl().getTblPr().getTblBorders().getRight().setSz(BigInteger.valueOf(14));
+			table.getCTTbl().getTblPr().getTblBorders().getBottom().setSz(BigInteger.valueOf(14));
+			table.getCTTbl().getTblPr().getTblBorders().getInsideH().setSz(BigInteger.valueOf(14));
+			table.getCTTbl().getTblPr().getTblBorders().getInsideV().setSz(BigInteger.valueOf(14));
+		}
+	}
+
 	private void mergeTitleColumn(XWPFDocument document) {
 		XWPFTable table = document.getTables().get(0);
 		mergeCellsHorizontal(table, 0, 5, 6);
@@ -348,8 +364,14 @@ public class Word {
 		}
 		return newText;
 	}
-	
-//	private String getSemesterYear(MenuDataComponent menuOutputData) {
-////		SystmenuOutputData.getDate()
-//	}
+
+	private String calSchoolYear(String date) {
+		int year=Integer.valueOf(date.split("\\/")[0])-1911;
+		int month=Integer.valueOf(date.split("\\/")[1]);
+		
+		if(month<7)
+			return year-1+"下";
+		else
+			return year+"上";
+	}
 }
