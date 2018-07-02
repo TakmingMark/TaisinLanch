@@ -25,7 +25,10 @@ import Component.Toast;
 
 public class IngredientExcelModel extends ExcelModel {
 
+	String supplierName;
+	
 	public void writeExcel(MenuDataComponent menuOutputData) {
+		supplierName=menuOutputData.getSupplierName();
 		
 		for (DayComponent day : menuOutputData.getDayArray()) {
 			FileOutputStream fileOutputStream = null;
@@ -33,8 +36,8 @@ public class IngredientExcelModel extends ExcelModel {
 			XSSFSheet xssfSheet = xssfWorkbook.createSheet(ExcelTextContent.ingredientSheetName);
 
 			String fileName = getFileName(day.getDate());
-			
 			String filePath = "excel/ingredient" + fileName + ".xlsx";
+			
 			Object[] columnNames = ExcelTextContent.ingredientColumnNames;
 
 			XSSFRow row = xssfSheet.createRow(0);
@@ -107,7 +110,7 @@ public class IngredientExcelModel extends ExcelModel {
 					cell.setCellValue("");
 					break;
 				case 9:
-					cell.setCellValue(ExcelTextContent.ingredientSupplier);
+					cell.setCellValue(supplierName);
 					break;
 				case 10:
 				case 11:

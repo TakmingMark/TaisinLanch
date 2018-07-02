@@ -28,9 +28,12 @@ public class ViewToDataParser {
 		menuJSONObject.put("schoolName", menuView.getSchoolNameTextField().getText());
 		menuJSONObject.put("date", menuView.getYearComboBox().getSelectedItem() + "/"
 				+ menuView.getMonthComboBox().getSelectedItem() + "/" + menuView.getDayComboBox().getSelectedItem());
+
+		menuJSONObject.put("supplierName", menuView.getSupplierNametextField().getText());
+		menuJSONObject.put("week", menuView.getWeekComboBox().getSelectedItem());
 		JSONArray dayJSONArray = new JSONArray();
 		menuJSONObject.put("dayArray", dayJSONArray);
-		
+
 		if (menuView.getMonday().getDayCheckBox().isSelected() == true)
 			dayJSONArray.add(dayViewToDayJSONObject(menuView.getMonday()));
 

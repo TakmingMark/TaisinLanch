@@ -20,9 +20,9 @@ public class MenuView {
 	private JFrame frame;
 	private JScrollPane jScrollPane;
 	private JPanel panel;
-	private JLabel schoolNameLabel,supplierNameLabel, dateLabel, yearLabel, monthLabel, dayLabel,weekLabel;
-	private JTextField schoolNameTextField,supplierNametextField;
-	private JComboBox<String> yearComboBox, monthComboBox, dayComboBox,weekComboBox;
+	private JLabel schoolNameLabel, supplierNameLabel, dateLabel, yearLabel, monthLabel, dayLabel, weekLabel;
+	private JTextField schoolNameTextField, supplierNametextField;
+	private JComboBox<String> yearComboBox, monthComboBox, dayComboBox, weekComboBox;
 	private JButton finishButton, analysisButton, recordButton, testButton;
 	private DayView monday, tuesday, wednesday, thursday, friday;
 
@@ -41,18 +41,18 @@ public class MenuView {
 		panel = new JPanel();
 		jScrollPane = new JScrollPane(panel);
 		schoolNameLabel = new JLabel(TextContent.schoolLabelText);
-		supplierNameLabel=new JLabel(TextContent.supplierLabelText);
+		supplierNameLabel = new JLabel(TextContent.supplierLabelText);
 		dateLabel = new JLabel(TextContent.dateLabelText);
 		yearLabel = new JLabel(TextContent.yearLabelText);
 		monthLabel = new JLabel(TextContent.monthLabelText);
 		dayLabel = new JLabel(TextContent.dayLabelText);
-		weekLabel=new JLabel(TextContent.weekLabelText);
+		weekLabel = new JLabel(TextContent.weekLabelText);
 		schoolNameTextField = new JTextField(10);
-		supplierNametextField=new JTextField(10);
+		supplierNametextField = new JTextField(10);
 		yearComboBox = new JComboBox<>(TextContent.yearComboBoxText);
 		monthComboBox = new JComboBox<>(TextContent.monthComboBoxText);
 		dayComboBox = new JComboBox<>(TextContent.dayComboBoxText);
-		weekComboBox=new JComboBox<>(TextContent.weekComboBoxText);
+		weekComboBox = new JComboBox<>(TextContent.weekComboBoxText);
 		finishButton = new JButton(TextContent.finishButtonText);
 		analysisButton = new JButton(TextContent.analysisButtonText);
 		recordButton = new JButton(TextContent.recordButtonText);
@@ -99,6 +99,18 @@ public class MenuView {
 														GroupLayout.PREFERRED_SIZE)
 												.addGap(5).addComponent(dayLabel, 0, GroupLayout.DEFAULT_SIZE,
 														GroupLayout.PREFERRED_SIZE)))
+						.addGap(10)
+						.addGroup(groupLayout.createParallelGroup()
+								.addComponent(supplierNameLabel, 0, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(30)
+								.addComponent(weekLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(10)
+						.addGroup(groupLayout.createParallelGroup()
+								.addComponent(supplierNametextField, 0, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(30)
+								.addComponent(weekComboBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(30).addComponent(finishButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGap(15)
 						.addComponent(analysisButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -113,41 +125,34 @@ public class MenuView {
 
 		);
 
-		groupLayout.setVerticalGroup(groupLayout.createSequentialGroup()
-				.addGroup(
-						groupLayout.createParallelGroup(Alignment.CENTER).addGroup(groupLayout
-								.createSequentialGroup().addGap(15).addGroup(groupLayout.createParallelGroup()
-										.addComponent(schoolNameLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(
-												schoolNameTextField, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-								.addGap(15)
-								.addGroup(groupLayout.createParallelGroup(Alignment.CENTER)
-										.addComponent(dateLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(yearComboBox, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(yearLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(monthComboBox, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(
-												monthLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(
-												dayComboBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dayLabel, 0, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)))
-								.addGroup(groupLayout.createSequentialGroup().addGap(20)
-										.addGroup(groupLayout.createParallelGroup()
-												.addComponent(finishButton, 0, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(analysisButton, 0, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(recordButton, 0, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(testButton, 0, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))))
+		groupLayout.setVerticalGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
+				.createParallelGroup(Alignment.CENTER)
+				.addGroup(groupLayout.createSequentialGroup().addGap(15).addGroup(groupLayout.createParallelGroup()
+						.addComponent(schoolNameLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(schoolNameTextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+
+						.addComponent(supplierNameLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+
+						.addComponent(supplierNametextField, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(15)
+						.addGroup(groupLayout.createParallelGroup(Alignment.CENTER)
+								.addComponent(dateLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(yearComboBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(yearLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(monthComboBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(monthLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dayComboBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dayLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+
+								.addComponent(weekLabel, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+
+								.addComponent(weekComboBox, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+				.addGroup(groupLayout.createSequentialGroup().addGap(20)
+						.addGroup(groupLayout.createParallelGroup()
+								.addComponent(finishButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(analysisButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(recordButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(testButton, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 
 				.addComponent(monday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(tuesday, 0, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -161,7 +166,7 @@ public class MenuView {
 		frame.add(jScrollPane);
 		frame.pack();
 		frame.setVisible(true);
-        frame.setFocusTraversalKeysEnabled(false);
+		frame.setFocusTraversalKeysEnabled(false);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 	}
 
@@ -297,4 +302,22 @@ public class MenuView {
 	public void setPanel(JPanel panel) {
 		this.panel = panel;
 	}
+
+	public JTextField getSupplierNametextField() {
+		return supplierNametextField;
+	}
+
+	public void setSupplierNametextField(JTextField supplierNametextField) {
+		this.supplierNametextField = supplierNametextField;
+	}
+
+	public JComboBox<String> getWeekComboBox() {
+		return weekComboBox;
+	}
+
+	public void setWeekComboBox(JComboBox<String> weekComboBox) {
+		this.weekComboBox = weekComboBox;
+	}
+	
+	
 }

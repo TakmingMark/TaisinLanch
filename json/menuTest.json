@@ -9,7 +9,7 @@
         "ingredientArray": [
           {
             "name": "白米",
-            "unit": "25.8斤"
+            "unit": "25.8"
           }
         ]
       },
@@ -18,7 +18,7 @@
         "ingredientArray": [
           {
             "name": "雞肉",
-            "unit": "12斤"
+            "unit": "12"
           }
         ]
       },
@@ -27,11 +27,11 @@
         "ingredientArray": [
           {
             "name": "皮蛋",
-            "unit": "8顆"
+            "unit": "3"
           },
           {
             "name": "鹹蛋",
-            "unit": "8顆"
+            "unit": "3"
           }
         ]
       },
@@ -40,7 +40,7 @@
         "ingredientArray": [
           {
             "name": "菠菜",
-            "unit": "8斤"
+            "unit": "8"
           }
         ]
       },
@@ -49,19 +49,19 @@
         "ingredientArray": [
           {
             "name": "肉羹",
-            "unit": "4斤"
+            "unit": "4"
           },
           {
             "name": "竹筍絲",
-            "unit": "1斤"
+            "unit": "1"
           },
           {
             "name": "木耳",
-            "unit": "1斤"
+            "unit": "1"
           },
           {
             "name": "柴魚片",
-            "unit": "1包"
+            "unit": "0.25"
           }
         ]
       },
@@ -95,7 +95,7 @@
         "ingredientArray": [
           {
             "name": "白米",
-            "unit": "25.8斤"
+            "unit": "25.8"
           }
         ]
       },
@@ -104,7 +104,7 @@
         "ingredientArray": [
           {
             "name": "檸檬雞翅",
-            "unit": "90隻"
+            "unit": "12"
           }
         ]
       },
@@ -113,15 +113,15 @@
         "ingredientArray": [
           {
             "name": "金針菇",
-            "unit": "4斤"
+            "unit": "4"
           },
           {
             "name": "杏鮑菇",
-            "unit": "3斤"
+            "unit": "3"
           },
           {
             "name": "袖珍菇",
-            "unit": "3斤"
+            "unit": "3"
           }
         ]
       },
@@ -130,7 +130,7 @@
         "ingredientArray": [
           {
             "name": "小白菜",
-            "unit": "8斤"
+            "unit": "8"
           }
         ]
       },
@@ -139,15 +139,15 @@
         "ingredientArray": [
           {
             "name": "福菜",
-            "unit": "(庫存)"
+            "unit": "2"
           },
           {
             "name": "竹筍",
-            "unit": "(庫存)"
+            "unit": "3"
           },
           {
             "name": "排骨",
-            "unit": "4斤"
+            "unit": "4"
           }
         ]
       },
@@ -177,7 +177,7 @@
         "ingredientArray": [
           {
           "name": "白米",
-          "unit": "25.8斤"
+          "unit": "25.8"
         }
          
         ]
@@ -187,10 +187,10 @@
         "ingredientArray": [
           {
           "name": "豬肉塊(瘦肉)",
-          "unit": "9斤"
+          "unit": "9"
         },{
             "name": "洋蔥",
-          "unit": "2斤"
+          "unit": "2"
         }
          
         ]
@@ -200,10 +200,10 @@
          "ingredientArray": [
           {
           "name": "包心白",
-          "unit": "10斤"
+          "unit": "10"
         },{
             "name": "豆皮",
-          "unit": "(庫存)"
+          "unit": "3"
         }
        ]
       },
@@ -212,7 +212,7 @@
           "ingredientArray": [
           {
           "name": "吻仔魚",
-          "unit": "0.5斤"
+          "unit": "0.5"
         }
        ]
   
@@ -222,19 +222,19 @@
          "ingredientArray": [
           {
           "name": "紅豆",
-          "unit": "1包"
+          "unit": "1"
         },{
           "name": "綠豆",
-          "unit": "1包"
+          "unit": "1"
         },{
            "name": "熟大豆",
-          "unit": "1包"
+          "unit": "1"
         },{
            "name": "紫米",
-          "unit": "1斤"
+          "unit": "1"
         },{
           "name": "燕麥",
-          "unit": " 0.25斤"
+          "unit": " 0.25"
         }
        ]
       },
@@ -247,7 +247,7 @@
          "ingredientArray": [
           {
           "name": "白米",
-          "unit": "25.8斤"
+          "unit": "25.8"
         }]
         
       },
@@ -256,10 +256,10 @@
           "ingredientArray": [
           {
           "name": "豬肉丁",
-          "unit": "9斤"
+          "unit": "9"
         },{  "name": "豆輪",
-          "unit": "3斤"},{  "name": "紅蘿蔔",
-          "unit": "2斤"}
+          "unit": "3"},{  "name": "紅蘿蔔",
+          "unit": "2"}
         ]
        
       },
@@ -268,9 +268,9 @@
         "ingredientArray": [
           {
           "name": "蛤蠣",
-          "unit": "3斤"
+          "unit": "3"
         },{  "name": "絲瓜",
-          "unit": "8斤"}
+          "unit": "8"}
         ]
         
       },
@@ -279,7 +279,7 @@
         "ingredientArray": [
           {
           "name": "高麗菜",
-          "unit": "8斤"
+          "unit": "8"
         }
         ]
         
@@ -290,10 +290,10 @@
         "ingredientArray": [
           {
           "name": "肉絲",
-          "unit": "3斤"
+          "unit": "3"
         },{
           "name": "榨菜",
-          "unit": "2斤"
+          "unit": "2"
         }
         ]
         
@@ -325,7 +325,7 @@
          "ingredientArray": [
           {
           "name": "白米",
-          "unit": "25.8斤"
+          "unit": "25.8"
         }
         ]
        
@@ -335,7 +335,7 @@
         "ingredientArray": [
           {
           "name": "柳葉魚",
-          "unit": "100隻"
+          "unit": "12"
         }
       ]
       },
@@ -344,16 +344,16 @@
          "ingredientArray": [
           {
           "name": "粉絲",
-          "unit": "1大包"
+          "unit": "1"
         },{
           "name": "紅蘿蔔",
-          "unit": "2斤"
+          "unit": "2"
         },{
           "name": "絞肉",
-          "unit": "2斤"
+          "unit": "2"
         },{
           "name": "高麗菜",
-          "unit": "2斤"
+          "unit": "2"
         }
       ]
       },
@@ -362,7 +362,7 @@
         "ingredientArray": [
           {
           "name": "A菜",
-          "unit": "8斤"
+          "unit": "8"
         }
       ]
        
@@ -372,10 +372,10 @@
         "ingredientArray": [
           {
           "name": "酸菜",
-          "unit": "1斤"
+          "unit": "1"
         },{
           "name": "豬血",
-          "unit": "4斤"
+          "unit": "4"
         }
       ]
        

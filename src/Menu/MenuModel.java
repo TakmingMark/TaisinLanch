@@ -33,7 +33,7 @@ public class MenuModel {
 	DataProgressBar finishButtonProgressBar, analysisButtonProgressBar, recordButtonProgressBar, testButtonProgressBar;
 	ThreadPoolModel threadPool;
 	ArrayList<JComponent> previousFocusComponentList;
-	
+
 	private MenuModel() {
 
 	}
@@ -44,16 +44,17 @@ public class MenuModel {
 
 	public void initMenuModel() {
 		excel = Excel.getExcelObject();
-		word= Word.getWordObject();
+		word = Word.getWordObject();
 		menuDataAndFileConverter = MenuDataAndFileConverter.getMenuDataAndFileConverterObject();
 		dataToViewParser = DataToViewParser.getDataToViewParserObject();
 		viewToDataParser = ViewToDataParser.getViewToDataParserObject();
 		threadPool = ThreadPoolModel.getThreadPoolModelObject(1, 5000);
-		previousFocusComponentList=new ArrayList<JComponent>();
+		previousFocusComponentList = new ArrayList<JComponent>();
 	}
 
 	public void initKnowFiledName(MenuView menuView) {
 		menuView.getSchoolNameTextField().setText(TextContent.schoolName);
+		menuView.getSupplierNametextField().setText(TextContent.supplierName);
 		menuView.getMonday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
 		menuView.getTuesday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
 		menuView.getWednesday().getStapleFoodTextField().setText(TextContent.stapleFoodName);
@@ -69,12 +70,12 @@ public class MenuModel {
 		testButtonProgressBar = DataProgressBar.getDataProgressBarObject(frame);
 	}
 
-	public void readMenuFileToMenuView(MenuView menuView,String menuFileName) {
+	public void readMenuFileToMenuView(MenuView menuView, String menuFileName) {
 		startTestButtonProgressBar();
 		threadPool.executeThreadPool(new Runnable() {
 			@Override
 			public void run() {
-				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile("json/"+menuFileName);
+				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile("json/" + menuFileName);
 				testButtonProgressBar.addProgressRate();
 				testButtonProgressBar.addProgressRate();
 				dataToViewParser.menuDataInputToMenuView(menuDataInput, menuView);
@@ -108,12 +109,12 @@ public class MenuModel {
 	private void exportDataToExcel() {
 		excel.exportDataToExcel(menuDataOutput);
 	}
-	
+
 	private void exportDataToWord() {
 		word.exportDataToExcel(menuDataOutput);
 	}
-	
-	public void recordFoodDataToFoodFile(MenuView menuView,String foodFileName) {
+
+	public void recordFoodDataToFoodFile(MenuView menuView, String foodFileName) {
 		startRecrordButtonProgressBar();
 		new Thread(new Runnable() {
 			@Override
@@ -121,14 +122,14 @@ public class MenuModel {
 				recordButtonProgressBar.addProgressRate();
 				menuViewFormatToMenuDataOutput(menuView);
 				recordButtonProgressBar.addProgressRate();
-				menuDataAndFileConverter.mergeFoodDataToFoodFile(menuDataOutput, "json/"+foodFileName);
+				menuDataAndFileConverter.mergeFoodDataToFoodFile(menuDataOutput, "json/" + foodFileName);
 				recordButtonProgressBar.addProgressRate();
 				recordButtonProgressBar.addProgressRate();
 			}
 		}).start();
 	}
 
-	public void analysisIngredient(MenuView menuView,String menuFileName) {
+	public void analysisIngredient(MenuView menuView, String menuFileName) {
 		startAnalysisButtonProgressBar();
 		threadPool.executeThreadPool(new Runnable() {
 			@Override
@@ -137,7 +138,7 @@ public class MenuModel {
 				menuViewFormatToMenuDataOutput(menuView);
 
 				Map<String, List<IngredientComponent>> foodMap = menuDataAndFileConverter
-						.getFoodMapFromFoodFile("json/"+menuFileName);
+						.getFoodMapFromFoodFile("json/" + menuFileName);
 
 				queryFoodMapAndToDayView(foodMap, menuView.getMonday());
 				queryFoodMapAndToDayView(foodMap, menuView.getTuesday());
@@ -202,34 +203,34 @@ public class MenuModel {
 		}
 	}
 
-	synchronized public void recordEditHistory(MenuView menuView,String historyFileName) {
+	synchronized public void recordEditHistory(MenuView menuView, String historyFileName) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				menuViewFormatToMenuDataOutput(menuView);
-				menuDataAndFileConverter.getHistoryFileFromMenuData(menuDataOutput, "json/"+historyFileName);
+				menuDataAndFileConverter.getHistoryFileFromMenuData(menuDataOutput, "json/" + historyFileName);
 			}
 		}).start();
 	}
-	
+
 	public boolean showYesOrNoToash() {
-		if(Toast.geYesOrNoToastObject("需要還原上一次關閉的資料嗎?最後一筆需要檢查")==0)
+		if (Toast.geYesOrNoToastObject("需要還原上一次關閉的資料嗎?最後一筆需要檢查") == 0)
 			return true;
-		else 
+		else
 			return false;
 	}
-	
+
 	public void recordPreviousComponentPosition(MenuView menuView) {
 		previousFocusComponentList.add((JComponent) menuView.getFrame().getFocusOwner());
 	}
-	
+
 	public void restoreFocusComponentPosition() {
-		if(previousFocusComponentList.size()!=0) {
-			previousFocusComponentList.get(previousFocusComponentList.size()-1).requestFocusInWindow();
-			previousFocusComponentList.remove(previousFocusComponentList.size()-1);
+		if (previousFocusComponentList.size() != 0) {
+			previousFocusComponentList.get(previousFocusComponentList.size() - 1).requestFocusInWindow();
+			previousFocusComponentList.remove(previousFocusComponentList.size() - 1);
 		}
 	}
-	
+
 	private void startTestButtonProgressBar() {
 		testButtonProgressBar.run();
 		testButtonProgressBar.addProgressRate();

@@ -28,6 +28,7 @@ public interface TextContent {
 	String ingredientText = "食材";
 	String acceptanceText = "驗收";
 	String schoolName = "苗栗縣泰安鄉泰興國小";
+	String supplierName="新加南食品行";
 	String stapleFoodName = "白飯";
 
 	String fontStyle = "標楷體";

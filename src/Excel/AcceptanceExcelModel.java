@@ -37,7 +37,9 @@ public class AcceptanceExcelModel extends ExcelModel {
 
 		String fileName = getFileName(menuOutputData.getDate());
 		String filePath = "excel/acceptance" + fileName + ".xlsx";
-
+		
+		String supplierName=menuOutputData.getSupplierName();
+		
 		String[] columnNames = ExcelTextContent.accpetanceColumnNames;
 		String startDate = calculateStartDate(menuOutputData);
 		String endDate = calculateEndDate(menuOutputData);
@@ -85,7 +87,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 					cell.setCellValue(endDate);
 					break;
 				case 6:
-					cell.setCellValue(ExcelTextContent.ingredientSupplier);
+					cell.setCellValue(supplierName);
 					break;
 				case 7:
 				case 8:
