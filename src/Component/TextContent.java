@@ -25,4 +25,7 @@ public interface TextContent {
 	String acceptanceText="驗收";
 	String schoolName="苗栗縣泰安鄉泰興國小";
 	String stapleFoodName="白飯";
+	
+	String fontStyle="標楷體";
+	String wordTitle="學生午餐第週菜單食材驗收";
 }

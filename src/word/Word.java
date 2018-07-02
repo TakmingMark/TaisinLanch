@@ -15,6 +15,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
@@ -40,22 +41,20 @@ public class Word {
 
 	private void writeWord(MenuDataComponent menuOutputData) {
 		String filePath = "word/taisin" + "第N週" + ".docx";
-
 		XWPFDocument document = new XWPFDocument();
+		
 		setMargin(document);
-
 		setTitle(document);
 		setTitleColumn(document);
 		setMealMenuOfWeek(document, menuOutputData);
 		setBottomLine(document);
 		mergeTitleColumn(document);
 		setNewLine(document);
+		
 		try {
 			FileOutputStream fileOutputStream = new FileOutputStream(new File(filePath));
-
 			document.write(fileOutputStream);
 			fileOutputStream.close();
-			System.out.println("createdocument.docx written successully");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,7 +62,6 @@ public class Word {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	private void setMargin(XWPFDocument document) {
@@ -81,7 +79,7 @@ public class Word {
 		XWPFRun run = paragraph.createRun();
 		run.setFontSize(18);
 		run.setFontFamily("標楷體");
-		run.setText("苗栗縣泰興國民小學學生午餐第週菜單食材驗收(106下)");
+		run.setText("苗栗縣泰興國民小學(106下)");
 	}
 
 	private void setTitleColumn(XWPFDocument document) {
@@ -350,4 +348,8 @@ public class Word {
 		}
 		return newText;
 	}
+	
+//	private String getSemesterYear(MenuDataComponent menuOutputData) {
+////		SystmenuOutputData.getDate()
+//	}
 }
