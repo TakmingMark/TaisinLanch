@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.xml.soap.Text;
 
 import Component.TextContent;
 import View.DayView;
@@ -19,9 +20,9 @@ public class MenuView {
 	private JFrame frame;
 	private JScrollPane jScrollPane;
 	private JPanel panel;
-	private JLabel schoolNameLabel, dateLabel, yearLabel, monthLabel, dayLabel;
-	private JTextField schoolNameTextField;
-	private JComboBox<String> yearComboBox, monthComboBox, dayComboBox;
+	private JLabel schoolNameLabel,supplierNameLabel, dateLabel, yearLabel, monthLabel, dayLabel,weekLabel;
+	private JTextField schoolNameTextField,supplierNametextField;
+	private JComboBox<String> yearComboBox, monthComboBox, dayComboBox,weekComboBox;
 	private JButton finishButton, analysisButton, recordButton, testButton;
 	private DayView monday, tuesday, wednesday, thursday, friday;
 
@@ -40,14 +41,18 @@ public class MenuView {
 		panel = new JPanel();
 		jScrollPane = new JScrollPane(panel);
 		schoolNameLabel = new JLabel(TextContent.schoolLabelText);
+		supplierNameLabel=new JLabel(TextContent.supplierLabelText);
 		dateLabel = new JLabel(TextContent.dateLabelText);
 		yearLabel = new JLabel(TextContent.yearLabelText);
 		monthLabel = new JLabel(TextContent.monthLabelText);
 		dayLabel = new JLabel(TextContent.dayLabelText);
+		weekLabel=new JLabel(TextContent.weekLabelText);
 		schoolNameTextField = new JTextField(10);
+		supplierNametextField=new JTextField(10);
 		yearComboBox = new JComboBox<>(TextContent.yearComboBoxText);
 		monthComboBox = new JComboBox<>(TextContent.monthComboBoxText);
 		dayComboBox = new JComboBox<>(TextContent.dayComboBoxText);
+		weekComboBox=new JComboBox<>(TextContent.weekComboBoxText);
 		finishButton = new JButton(TextContent.finishButtonText);
 		analysisButton = new JButton(TextContent.analysisButtonText);
 		recordButton = new JButton(TextContent.recordButtonText);
