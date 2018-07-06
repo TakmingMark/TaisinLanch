@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.security.KeyStore.PrivateKeyEntry;
 import java.util.ArrayList;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
@@ -13,14 +12,11 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.apache.poi.xwpf.usermodel.XWPFTable.XWPFBorderType;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
-import org.w3c.dom.css.RGBColor;
 
 import Component.DayComponent;
 import Component.IngredientComponent;
@@ -117,8 +113,6 @@ public class Word {
 	}
 
 	private void setMealMenuOfWeek(XWPFDocument document, MenuDataComponent menuOutputData) {
-		// setMealMenuOfDay(document, menuOutputData.getDayArray().get(0),
-		// menuOutputData.getDate());
 		for (DayComponent day : menuOutputData.getDayArray()) {
 			setMealMenuOfDay(document, day, menuOutputData.getDate());
 		}
