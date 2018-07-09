@@ -21,7 +21,7 @@ public interface TextContent {
 	String[] weekComboBoxText = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14",
 			"15", "16", "17", "18", "19", "20" };
 	String stapleFoodLabelText = "主食";
-	String manCourseLabelText = "主菜";
+	String mainCourseLabelText = "主菜";
 	String sideDishOneLabelText = "副菜一";
 	String sideDishSecondLabelText = "副菜二";
 	String soupLabelText = "湯品";

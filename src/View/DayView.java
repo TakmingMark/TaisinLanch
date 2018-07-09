@@ -42,7 +42,7 @@ public class DayView extends JPanel {
 
 		dayCheckBox = new JCheckBox(dayCheckBoxName);
 		stapleFoodLabel = new JLabel(TextContent.stapleFoodLabelText);
-		mainCourseLabel = new JLabel(TextContent.manCourseLabelText);
+		mainCourseLabel = new JLabel(TextContent.mainCourseLabelText);
 		sideDishOneLabel = new JLabel(TextContent.sideDishOneLabelText);
 		sideDishSecondLabel = new JLabel(TextContent.sideDishSecondLabelText);
 		soupLabel = new JLabel(TextContent.soupLabelText);
