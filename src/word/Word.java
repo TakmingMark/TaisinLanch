@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.security.KeyStore.PrivateKeyEntry;
 import java.util.ArrayList;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
@@ -15,9 +14,11 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTJc;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 
 import Component.DayComponent;
@@ -25,7 +26,7 @@ import Component.IngredientComponent;
 import Component.MenuDataComponent;
 
 public class Word {
-	private static int maxClsCount = 8;
+	private static final int maxClsCount = 8;
 
 	private Word() {
 
@@ -40,7 +41,7 @@ public class Word {
 	}
 
 	private void writeWord(MenuDataComponent menuOutputData) {
-		String filePath = "word/taisin" + "第" + menuOutputData.getWeek() + "週" + ".docx";
+		String filePath = "word/" + menuOutputData.getSchoolName() + "第" + menuOutputData.getWeek() + "週" + ".docx";
 		XWPFDocument document = new XWPFDocument();
 
 		setMargin(document);
@@ -48,6 +49,7 @@ public class Word {
 		setTitleColumn(document);
 		setMealMenuOfWeek(document, menuOutputData);
 		setBottomLine(document);
+		setTableAlign(document, ParagraphAlignment.CENTER);
 		mergeTitleColumn(document);
 		setNewLine(document);
 		setTableBoderSize(document);
@@ -75,37 +77,26 @@ public class Word {
 	}
 
 	private void setTitle(XWPFDocument document, MenuDataComponent menuOutputData) {
-		String title = menuOutputData.getSchoolName() + "午餐第" + menuOutputData.getWeek() + "週菜單食材驗收";
 		String schoolYear = calSchoolYear(menuOutputData.getDate());
-		XWPFParagraph paragraph = document.createParagraph();
-		paragraph.setAlignment(ParagraphAlignment.CENTER);
-		XWPFRun run = paragraph.createRun();
-		run.setFontSize(18);
-		run.setFontFamily("標楷體");
-		run.setText(menuOutputData.getSchoolName() + "午餐第" + menuOutputData.getWeek() + "週菜單食材驗收(" + schoolYear + ")");
+		String title = menuOutputData.getSchoolName() + "午餐第" + menuOutputData.getWeek() + "週菜單食材驗收(" + schoolYear
+				+ ")";
+		setRunInWord(document, 18, title);
 	}
 
 	private void setTitleColumn(XWPFDocument document) {
-		ArrayList<XWPFRun> runRow1 = new ArrayList<XWPFRun>();
 		int[] cols = { 300, 100, 200, 600, 200, 1200, 1200, 800 };
-		String[] colName = { "日期", "星期", "主食", "副食", "湯", "材料/n(合格v，不合格x)", "", "驗收或說明" };
-		XWPFTable table = document.createTable(1, 8);
 
-		for (int i = 0; i < table.getNumberOfRows(); i++) {
-			XWPFTableRow row = table.getRow(i);
-			int numCells = row.getTableCells().size();
-			for (int j = 0; j < numCells; j++) {
-				XWPFTableCell cell = row.getCell(j);
-				cell.getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf((long) (cols[j] * 3)));
-			}
+		XWPFTable table = document.createTable(1, maxClsCount);
+		XWPFTableRow row = table.getRow(0);
+
+		int numCells = row.getTableCells().size();
+		for (int j = 0; j < numCells; j++) {
+			XWPFTableCell cell = row.getCell(j);
+			cell.getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf((long) (cols[j] * 3)));
 		}
 
 		for (int i = 0; i < maxClsCount; i++) {
-			XWPFRun run = table.getRow(0).getCell(i).getParagraphs().get(0).createRun();
-			run.setFontSize(18);
-			run.setFontFamily("標楷體");
-			run.setText(colName[i]);
-			runRow1.add(table.getRow(0).getCell(i).getParagraphs().get(0).createRun());
+			setRunInField(table, 0, i, WordTextContent.colNames[i]);
 		}
 
 		for (int i = 0; i < table.getRow(0).getTableICells().size(); i++) {
@@ -116,14 +107,14 @@ public class Word {
 
 	private void setMealMenuOfWeek(XWPFDocument document, MenuDataComponent menuOutputData) {
 		for (DayComponent day : menuOutputData.getDayArray()) {
-			setMealMenuOfDay1(document, day, menuOutputData.getDate());
+			setMealMenuOfDay(document, day, menuOutputData.getDate());
 		}
 	}
 
-	private void setMealMenuOfDay1(XWPFDocument document, DayComponent day, String startDay) {
+	private void setMealMenuOfDay(XWPFDocument document, DayComponent day, String startDay) {
 		ArrayList<IngredientComponent> ingredientList = calIngredientArrayList(day);
 		int rows = ingredientList.size() / 2 + ingredientList.size() % 2;
-		XWPFTable table = document.createTable(rows, 8);
+		XWPFTable table = document.createTable(rows, maxClsCount);
 		setDayDateOfDay(table, day, startDay);
 		setNameOfDay(table, day);
 		setStapleFoodOfDay(table, day);
@@ -148,19 +139,19 @@ public class Word {
 
 	private void setDayDateOfDay(XWPFTable table, DayComponent day, String startDay) {
 		String dayDate = calculateExcelDayDate(startDay, day.getName());
-		dayDate=convertVerticalText(dayDate);
-		setRunOfTable(table, 0, 0, dayDate);
+		dayDate = convertVerticalText(dayDate);
+		setRunInCell(table, 0, 0, dayDate);
 	}
 
 	private void setNameOfDay(XWPFTable table, DayComponent day) {
 		String name = day.getName().substring(2);
-		setRunOfTable(table, 0, 1, name);
+		setRunInCell(table, 0, 1, name);
 	}
 
 	private void setStapleFoodOfDay(XWPFTable table, DayComponent day) {
 		String staple = day.getStapleFood().getName();
-		staple=convertVerticalText(staple);
-		setRunOfTable(table, 0, 2, staple);
+		staple = convertVerticalText(staple);
+		setRunInCell(table, 0, 2, staple);
 	}
 
 	private void setSideDishOfDay(XWPFTable table, DayComponent day) {
@@ -168,13 +159,13 @@ public class Word {
 		String sideDishone = day.getSideDishOne().getName();
 		String sideDishSecond = day.getSideDishSecond().getName();
 		String sideDish = mainCourse + "/n" + sideDishone + "/n" + sideDishSecond;
-		setRunOfTable(table, 0, 3, sideDish);
+		setRunInCell(table, 0, 3, sideDish);
 	}
 
 	private void setSoupOfDay(XWPFTable table, DayComponent day) {
 		String soup = day.getSoup().getName();
-		soup=convertVerticalText(soup);
-		setRunOfTable(table, 0, 4, soup);
+		soup = convertVerticalText(soup);
+		setRunInCell(table, 0, 4, soup);
 	}
 
 	private void setIngredientOfDay(XWPFTable table, ArrayList<IngredientComponent> ingredientList) {
@@ -183,9 +174,9 @@ public class Word {
 		for (int i = 0; i < ingredientList.size(); i++) {
 			String ingredient = ingredientList.get(i).getName() + ingredientList.get(i).getUnit();
 			if (i >= rows)
-				setRunOfTable(table, i % rows, 6, ingredient);
+				setRunInCell(table, i % rows, 6, ingredient);
 			else
-				setRunOfTable(table, i % rows, 5, ingredient);
+				setRunInCell(table, i % rows, 5, ingredient);
 		}
 	}
 
@@ -198,17 +189,34 @@ public class Word {
 				acceptance = acceptance + "/n";
 			}
 		}
-		setRunOfTable(table, 0, 7, acceptance);
+		setRunInCell(table, 0, 7, acceptance);
 	}
 
-	private void setRunOfTable(XWPFTable table, int row, int cls, String text) {
+	private void setRunInCell(XWPFTable table, int row, int cls, String text) {
 		XWPFRun run = table.getRow(row).getCell(cls).getParagraphs().get(0).createRun();
 		run.setFontSize(14);
-		run.setFontFamily("標楷體");
+		run.setFontFamily(WordTextContent.fontStyle);
 		run.setText(text);
 	}
-	
-	private void mergeCellsVerticallyInDay(XWPFTable table,int rowDistance) {
+
+	private void setRunInField(XWPFTable table, int row, int cls, String text) {
+		XWPFRun run = table.getRow(row).getCell(cls).getParagraphs().get(0).createRun();
+		run.setFontSize(18);
+		run.setFontFamily(WordTextContent.fontStyle);
+		run.setText(text);
+	}
+
+	private void setRunInWord(XWPFDocument document, int fontSize, String text) {
+		XWPFParagraph paragraph = document.createParagraph();
+		paragraph.setAlignment(ParagraphAlignment.CENTER);
+
+		XWPFRun run = paragraph.createRun();
+		run.setFontSize(fontSize);
+		run.setFontFamily(WordTextContent.fontStyle);
+		run.setText(text);
+	}
+
+	private void mergeCellsVerticallyInDay(XWPFTable table, int rowDistance) {
 		mergeCellsVertically(table, 0, 0, rowDistance - 1);
 		mergeCellsVertically(table, 1, 0, rowDistance - 1);
 		mergeCellsVertically(table, 2, 0, rowDistance - 1);
@@ -216,7 +224,7 @@ public class Word {
 		mergeCellsVertically(table, 4, 0, rowDistance - 1);
 		mergeCellsVertically(table, 7, 0, rowDistance - 1);
 	}
-	
+
 	private void sortCellTextPositionInDay(XWPFTable table) {
 		for (int i = 0; i < table.getRows().size(); i++) {
 			for (int j = 0; j < table.getRows().get(i).getTableCells().size(); j++) {
@@ -235,12 +243,7 @@ public class Word {
 	}
 
 	private void setBottomLine(XWPFDocument document) {
-		XWPFParagraph paragraph = document.createParagraph();
-		XWPFRun run = paragraph.createRun();
-		run.setFontSize(16);
-		run.setFontFamily("標楷體");
-		run.addBreak();
-		run.setText("午餐秘書:                    主任:                    校長:                    ");
+		setRunInWord(document, 16, WordTextContent.buttomText);
 	}
 
 	private void setNewLine(XWPFDocument document) {
@@ -264,7 +267,7 @@ public class Word {
 									afterRun.addBreak();
 							}
 							afterRun.setFontSize(fontSize);
-							afterRun.setFontFamily("標楷體");
+							afterRun.setFontFamily(WordTextContent.fontStyle);
 						}
 					}
 				}
@@ -314,7 +317,17 @@ public class Word {
 		}
 	}
 
-	String calculateExcelDayDate(String date, String day) {
+	private void setTableAlign(XWPFDocument document, ParagraphAlignment align) {
+		for (XWPFTable table : document.getTables()) {
+			CTTblPr tblPr = table.getCTTbl().getTblPr();
+			CTJc jc = (tblPr.isSetJc() ? tblPr.getJc() : tblPr.addNewJc());
+			STJc.Enum en = STJc.Enum.forInt(align.getValue());
+			jc.setVal(en);
+		}
+
+	}
+
+	private String calculateExcelDayDate(String date, String day) {
 		int calYear = Integer.valueOf(date.substring(0, 4));
 		int calMonth = Integer.valueOf(date.substring(5, 7));
 		int calDay = Integer.valueOf(date.substring(8, 10));
