@@ -75,7 +75,7 @@ public class MenuModel {
 		threadPool.executeThreadPool(new Runnable() {
 			@Override
 			public void run() {
-				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile("json/" + menuFileName);
+				menuDataInput = menuDataAndFileConverter.getMenuDataFromMenuFile(TextContent.filePath+"json/" + menuFileName);
 				testButtonProgressBar.addProgressRate();
 				testButtonProgressBar.addProgressRate();
 				dataToViewParser.menuDataInputToMenuView(menuDataInput, menuView);
@@ -122,7 +122,7 @@ public class MenuModel {
 				recordButtonProgressBar.addProgressRate();
 				menuViewFormatToMenuDataOutput(menuView);
 				recordButtonProgressBar.addProgressRate();
-				menuDataAndFileConverter.mergeFoodDataToFoodFile(menuDataOutput, "json/" + foodFileName);
+				menuDataAndFileConverter.mergeFoodDataToFoodFile(menuDataOutput, TextContent.filePath+"json/" + foodFileName);
 				recordButtonProgressBar.addProgressRate();
 				recordButtonProgressBar.addProgressRate();
 			}
@@ -138,7 +138,7 @@ public class MenuModel {
 				menuViewFormatToMenuDataOutput(menuView);
 
 				Map<String, List<IngredientComponent>> foodMap = menuDataAndFileConverter
-						.getFoodMapFromFoodFile("json/" + menuFileName);
+						.getFoodMapFromFoodFile(TextContent.filePath+"json/" + menuFileName);
 
 				queryFoodMapAndToDayView(foodMap, menuView.getMonday());
 				queryFoodMapAndToDayView(foodMap, menuView.getTuesday());

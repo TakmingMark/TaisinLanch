@@ -17,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import Component.DayComponent;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
+import Component.TextContent;
 import Component.Toast;
 
 public class AcceptanceExcelModel extends ExcelModel {
@@ -36,7 +37,7 @@ public class AcceptanceExcelModel extends ExcelModel {
 		XSSFSheet xssfSheet = xssfWorkbook.createSheet(ExcelTextContent.acceptanceSHeetName);
 
 		String fileName = getFileName(menuOutputData.getDate());
-		String filePath = "excel/acceptance" + fileName + ".xlsx";
+		String filePath = TextContent.filePath+"excel/acceptance" + fileName + ".xlsx";
 		
 		String supplierName=menuOutputData.getSupplierName();
 		

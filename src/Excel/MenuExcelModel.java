@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import Component.DayComponent;
 import Component.MenuDataComponent;
+import Component.TextContent;
 
 public class MenuExcelModel extends ExcelModel {
 
@@ -22,7 +23,7 @@ public class MenuExcelModel extends ExcelModel {
 		Random random = new Random();
 		
 		String fileName=getFileName(menuOutputData.getDate());
-		String filePath = "excel/menu" + fileName + ".xlsx";
+		String filePath = TextContent.filePath+"excel/menu" + fileName + ".xlsx";
 		String[] columnNames = ExcelTextContent.menuColumnNames;
 
 		int rowNum = 0;

@@ -24,6 +24,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 import Component.DayComponent;
 import Component.IngredientComponent;
 import Component.MenuDataComponent;
+import Component.TextContent;
 
 public class Word {
 	private static final int maxClsCount = 8;
@@ -41,7 +42,7 @@ public class Word {
 	}
 
 	private void writeWord(MenuDataComponent menuOutputData) {
-		String filePath = "word/" + menuOutputData.getSchoolName() + "²Ä" + menuOutputData.getWeek() + "¶g" + ".docx";
+		String filePath = TextContent.filePath+"word/" + menuOutputData.getSchoolName() + "²Ä" + menuOutputData.getWeek() + "¶g" + ".docx";
 		XWPFDocument document = new XWPFDocument();
 
 		setMargin(document);

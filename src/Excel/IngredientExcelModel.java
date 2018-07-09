@@ -36,7 +36,7 @@ public class IngredientExcelModel extends ExcelModel {
 			XSSFSheet xssfSheet = xssfWorkbook.createSheet(ExcelTextContent.ingredientSheetName);
 
 			String fileName = getFileName(day.getDate());
-			String filePath = "excel/ingredient" + fileName + ".xlsx";
+			String filePath = TextContent.filePath+"excel/ingredient" + fileName + ".xlsx";
 			
 			Object[] columnNames = ExcelTextContent.ingredientColumnNames;
 

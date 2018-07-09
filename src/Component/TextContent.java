@@ -1,6 +1,7 @@
 package Component;
 
 public interface TextContent {
+	String filePath="D:/LunchSpace/";
 	String schoolLabelText = "學校";
 	String supplierLabelText = "供應商";
 	String dateLabelText = "日期";
