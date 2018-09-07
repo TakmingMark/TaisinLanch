@@ -42,7 +42,7 @@ public class Word {
 	}
 
 	private void writeWord(MenuDataComponent menuOutputData) {
-		String filePath = TextContent.filePath+"word/" + menuOutputData.getSchoolName() + "��" + menuOutputData.getWeek() + "�g" + ".docx";
+		String filePath = TextContent.filePath+"word/" + menuOutputData.getSchoolName() + "第" + menuOutputData.getWeek() + "週" + ".docx";
 		XWPFDocument document = new XWPFDocument();
 
 		setMargin(document);
@@ -334,24 +334,25 @@ public class Word {
 		int calDay = Integer.valueOf(date.substring(8, 10));
 
 		switch (day) {
-		case "�P���@":
+		case "星期一":
 			calDay = calDay;
 			break;
-		case "�P���G":
+		case "星期二":
 			calDay = calDay + 1;
 			break;
-		case "�P���T":
+		case "星期三":
 			calDay = calDay + 2;
 			break;
-		case "�P���|":
+		case "星期四":
 			calDay = calDay + 3;
 			break;
-		case "�P����":
+		case "星期五":
 			calDay = calDay + 4;
 			break;
 		default:
 			break;
 		}
+
 
 		switch (calMonth) {
 		case 4:
@@ -397,7 +398,7 @@ public class Word {
 			}
 			break;
 		}
-		date = (String.valueOf(calMonth) + "��" + String.valueOf(calDay) + "��");
+		date = (String.valueOf(calMonth) + "月" + String.valueOf(calDay) + "日");
 		return date;
 	}
 
@@ -414,8 +415,8 @@ public class Word {
 		int month = Integer.valueOf(date.split("\\/")[1]);
 
 		if (month < 7)
-			return year - 1 + "�U";
+			return year - 1 + "下";
 		else
-			return year + "�W";
+			return year + "上";
 	}
 }
