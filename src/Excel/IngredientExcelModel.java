@@ -137,7 +137,7 @@ public class IngredientExcelModel extends ExcelModel {
 	}
 	
 	private String converterJinToKg(String unitJin) {
-		String matchStr=patternUnit(unitJin,"[¤½¤ç]{1,}");
+		String matchStr=patternUnit(unitJin,"[å…¬æ–¤]{1,}");
 		
 		if(matchStr!=null) {
 			//Unit=Kg
@@ -158,7 +158,7 @@ public class IngredientExcelModel extends ExcelModel {
 			}
 			else {
 				//Unit= not weight
-				matchStr=patternUnit(unitJin, "[®w¦s]{1,}");
+				matchStr=patternUnit(unitJin, "[åº«å­˜]{1,}");
 				return matchStr;
 			}
 		}

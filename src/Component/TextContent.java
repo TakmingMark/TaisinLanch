@@ -2,36 +2,36 @@ package Component;
 
 public interface TextContent {
 	String filePath="D:/LunchSpace/";
-	String schoolLabelText = "¾Ç®Õ";
-	String supplierLabelText = "¨ÑÀ³°Ó";
-	String dateLabelText = "¤é´Á";
-	String yearLabelText = "¦~";
-	String monthLabelText = "¤ë";
-	String dayLabelText = "¤é";
-	String weekLabelText = "²Ä´X©P";
+	String schoolLabelText = "å­¸æ ¡";
+	String supplierLabelText = "ä¾›æ‡‰å•†";
+	String dateLabelText = "æ—¥æœŸ";
+	String yearLabelText = "å¹´";
+	String monthLabelText = "æœˆ";
+	String dayLabelText = "æ—¥";
+	String weekLabelText = "ç¬¬å¹¾å‘¨";
 	String[] yearComboBoxText = { "2018", "2019", "2020", "2021", "2022", "2023" };
 	String[] monthComboBoxText = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
 	String[] dayComboBoxText = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14",
 			"15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
-	String finishButtonText = "¿é¤J§¹¦¨";
-	String analysisButtonText = "¤ÀªR­¹§÷";
-	String recordButtonText = "¬ö¿ı­¹§÷";
-	String testButtonText = "´ú¸Õ¸ê®Æ";
-	String[] weekChineseText = { "¬P´Á¤@", "¬P´Á¤G", "¬P´Á¤T", "¬P´Á¥|", "¬P´Á¤­" };
+	String finishButtonText = "è¼¸å…¥å®Œæˆ";
+	String analysisButtonText = "åˆ†æé£Ÿæ";
+	String recordButtonText = "ç´€éŒ„é£Ÿæ";
+	String testButtonText = "æ¸¬è©¦è³‡æ–™";
+	String[] weekChineseText = { "æ˜ŸæœŸä¸€", "æ˜ŸæœŸäºŒ", "æ˜ŸæœŸä¸‰", "æ˜ŸæœŸå››", "æ˜ŸæœŸäº”" };
 	String[] weekEnglishText = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
 	String[] weekComboBoxText = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14",
 			"15", "16", "17", "18", "19", "20" };
-	String stapleFoodLabelText = "¥D­¹";
-	String mainCourseLabelText = "¥Dµæ";
-	String sideDishOneLabelText = "°Æµæ¤@";
-	String sideDishSecondLabelText = "°Æµæ¤G";
-	String soupLabelText = "´ö«~";
-	String ingredientText = "­¹§÷";
-	String acceptanceText = "Åç¦¬";
-	String schoolName = "­]®ß¿¤®õ¦w¶m®õ¿³°ê¤p";
-	String supplierName="·s¥[«n­¹«~¦æ";
-	String stapleFoodName = "¥Õ¶º";
+	String stapleFoodLabelText = "ä¸»é£Ÿ";
+	String mainCourseLabelText = "ä¸»èœ";
+	String sideDishOneLabelText = "å‰¯èœä¸€";
+	String sideDishSecondLabelText = "å‰¯èœäºŒ";
+	String soupLabelText = "æ¹¯å“";
+	String ingredientText = "é£Ÿæ";
+	String acceptanceText = "é©—æ”¶";
+	String schoolName = "è‹—æ —ç¸£æ³°å®‰é„‰æ³°èˆˆåœ‹å°";
+	String supplierName="æ–°åŠ å—é£Ÿå“è¡Œ";
+	String stapleFoodName = "ç™½é£¯";
 
-	String fontStyle = "¼Ğ·¢Åé";
-	String wordTitle = "¾Ç¥Í¤ÈÀ\²Ä¶gµæ³æ­¹§÷Åç¦¬";
+	String fontStyle = "æ¨™æ¥·é«”";
+	String wordTitle = "å­¸ç”Ÿåˆé¤ç¬¬é€±èœå–®é£Ÿæé©—æ”¶";
 }

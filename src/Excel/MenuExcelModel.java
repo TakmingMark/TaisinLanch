@@ -120,8 +120,8 @@ public class MenuExcelModel extends ExcelModel {
 	}
 	
 	private String getFileName(String targetDate) {
-		String fileName = calculateMenuDayDate(targetDate, "¬P´Á¤@") + "-"
-				+ calculateMenuDayDate(targetDate, "¬P´Á¤­");
+		String fileName = calculateMenuDayDate(targetDate, "æ˜ŸæœŸä¸€") + "-"
+				+ calculateMenuDayDate(targetDate, "æ˜ŸæœŸäº”");
 		fileName = backSlashToDot(fileName);
 		return fileName;
 	}

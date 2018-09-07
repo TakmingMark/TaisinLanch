@@ -8,7 +8,7 @@ import Component.MenuDataComponent;
 public class ExcelModel {
 	
 	protected void calculateParchaseDate(MenuDataComponent menuOutputData) {
-		String parchaseDateOne="¬P´Á¤@",parchaseDateSecond="¬P´Á¤T";
+		String parchaseDateOne="æ˜ŸæœŸä¸€",parchaseDateSecond="æ˜ŸæœŸä¸‰";
 		ArrayList<String> dayNameArrayList=new ArrayList<>();
 		
 		for (DayComponent day : menuOutputData.getDayArray()) {
@@ -19,19 +19,19 @@ public class ExcelModel {
 		
 		for (DayComponent day : menuOutputData.getDayArray()) {
 			switch (day.getName()) {
-			case "¬P´Á¤@":
+			case "æ˜ŸæœŸä¸€":
 				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateOne));
 				break;
-			case "¬P´Á¤G":
+			case "æ˜ŸæœŸäºŒ":
 				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateOne));
 				break;
-			case "¬P´Á¤T":
+			case "æ˜ŸæœŸä¸‰":
 				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateSecond));
 				break;
-			case "¬P´Á¥|":
+			case "æ˜ŸæœŸå››":
 				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(),parchaseDateSecond));
 				break;
-			case "¬P´Á¤­":
+			case "æ˜ŸæœŸäº”":
 				day.setParchaseDate(calculateMenuDayDate(menuOutputData.getDate(), parchaseDateSecond));
 				break;
 			default:
@@ -52,19 +52,19 @@ public class ExcelModel {
 		int calDay = Integer.valueOf(date.substring(8, 10));
 
 		switch (day) {
-		case "¬P´Á¤@":
+		case "æ˜ŸæœŸä¸€":
 			calDay = calDay;
 			break;
-		case "¬P´Á¤G":
+		case "æ˜ŸæœŸäºŒ":
 			calDay = calDay + 1;
 			break;
-		case "¬P´Á¤T":
+		case "æ˜ŸæœŸä¸‰":
 			calDay = calDay + 2;
 			break;
-		case "¬P´Á¥|":
+		case "æ˜ŸæœŸå››":
 			calDay = calDay + 3;
 			break;
-		case "¬P´Á¤­":
+		case "æ˜ŸæœŸäº”":
 			calDay = calDay + 4;
 			break;
 		default:
@@ -122,16 +122,16 @@ public class ExcelModel {
 	protected String purchaseDate(String date, String day) {
 
 		switch (day) {
-		case "¬P´Á¤@":
-			return calculateMenuDayDate(date,"¬P´Á¤@");
-		case "¬P´Á¤G":
-			return calculateMenuDayDate(date,"¬P´Á¤@");
-		case "¬P´Á¤T":
-			return calculateMenuDayDate(date,"¬P´Á¤@");
-		case "¬P´Á¥|":
-			return calculateMenuDayDate(date,"¬P´Á¥|");
-		case "¬P´Á¤­":
-			return calculateMenuDayDate(date,"¬P´Á¥|");
+		case "æ˜ŸæœŸä¸€":
+			return calculateMenuDayDate(date,"æ˜ŸæœŸä¸€");
+		case "æ˜ŸæœŸäºŒ":
+			return calculateMenuDayDate(date,"æ˜ŸæœŸä¸€");
+		case "æ˜ŸæœŸä¸‰":
+			return calculateMenuDayDate(date,"æ˜ŸæœŸä¸€");
+		case "æ˜ŸæœŸå››":
+			return calculateMenuDayDate(date,"æ˜ŸæœŸå››");
+		case "æ˜ŸæœŸäº”":
+			return calculateMenuDayDate(date,"æ˜ŸæœŸå››");
 		default:
 			return null;
 		}

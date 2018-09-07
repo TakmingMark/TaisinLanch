@@ -25,7 +25,7 @@ public class DataProgressBar {
 		jDialog = new JDialog(frame, "Data Progress", true);
 		jProgressBar = new JProgressBar(0, 100);
 		jDialog.add(BorderLayout.CENTER, jProgressBar);
-		jDialog.add(BorderLayout.NORTH, new JLabel("¸ê®Æ³B²z¤¤¡A½Ğµy­Ô..."));
+		jDialog.add(BorderLayout.NORTH, new JLabel("è³‡æ–™è™•ç†ä¸­ï¼Œè«‹ç¨å€™..."));
 		jDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		jDialog.setSize(300, 75);
 		jDialog.setLocationRelativeTo(frame);

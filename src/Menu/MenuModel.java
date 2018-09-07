@@ -214,7 +214,7 @@ public class MenuModel {
 	}
 
 	public boolean showYesOrNoToash() {
-		if (Toast.geYesOrNoToastObject("»İ­nÁÙ­ì¤W¤@¦¸Ãö³¬ªº¸ê®Æ¶Ü?³Ì«á¤@µ§»İ­nÀË¬d") == 0)
+		if (Toast.geYesOrNoToastObject("éœ€è¦é‚„åŸä¸Šä¸€æ¬¡é—œé–‰çš„è³‡æ–™å—?æœ€å¾Œä¸€ç­†éœ€è¦æª¢æŸ¥") == 0)
 			return true;
 		else
 			return false;

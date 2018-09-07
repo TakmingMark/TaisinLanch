@@ -3,7 +3,7 @@ package word;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 public interface WordTextContent {
-	String[] colNames = { "¤é´Á", "¬P´Á", "¥D­¹", "°Æ­¹", "´ö", "§÷®Æ/n(¦X®æv¡A¤£¦X®æx)", "", "Åç¦¬©Î»¡©ú" };
-	String fontStyle="¼Ğ·¢Åé";
-	String buttomText="¤ÈÀ\¯µ®Ñ:                    ¥D¥ô:                  ®Õªø:                  ";
+	String[] colNames = { "æ—¥æœŸ", "æ˜ŸæœŸ", "ä¸»é£Ÿ", "å‰¯é£Ÿ", "æ¹¯", "ææ–™/n(åˆæ ¼vï¼Œä¸åˆæ ¼x)", "", "é©—æ”¶æˆ–èªªæ˜" };
+	String fontStyle="æ¨™æ¥·é«”";
+	String buttomText="åˆé¤ç§˜æ›¸:                    ä¸»ä»»:                  æ ¡é•·:                  ";
 }

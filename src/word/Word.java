@@ -42,7 +42,7 @@ public class Word {
 	}
 
 	private void writeWord(MenuDataComponent menuOutputData) {
-		String filePath = TextContent.filePath+"word/" + menuOutputData.getSchoolName() + "²Ä" + menuOutputData.getWeek() + "¶g" + ".docx";
+		String filePath = TextContent.filePath+"word/" + menuOutputData.getSchoolName() + "ï¿½ï¿½" + menuOutputData.getWeek() + "ï¿½g" + ".docx";
 		XWPFDocument document = new XWPFDocument();
 
 		setMargin(document);
@@ -79,7 +79,7 @@ public class Word {
 
 	private void setTitle(XWPFDocument document, MenuDataComponent menuOutputData) {
 		String schoolYear = calSchoolYear(menuOutputData.getDate());
-		String title = menuOutputData.getSchoolName() + "¤ÈÀ\²Ä" + menuOutputData.getWeek() + "¶gµæ³æ­¹§÷Åç¦¬(" + schoolYear
+		String title = menuOutputData.getSchoolName() + "ç¬¬" + menuOutputData.getWeek() + "é€±" + schoolYear
 				+ ")";
 		setRunInWord(document, 18, title);
 	}
@@ -334,19 +334,19 @@ public class Word {
 		int calDay = Integer.valueOf(date.substring(8, 10));
 
 		switch (day) {
-		case "¬P´Á¤@":
+		case "ï¿½Pï¿½ï¿½ï¿½@":
 			calDay = calDay;
 			break;
-		case "¬P´Á¤G":
+		case "ï¿½Pï¿½ï¿½ï¿½G":
 			calDay = calDay + 1;
 			break;
-		case "¬P´Á¤T":
+		case "ï¿½Pï¿½ï¿½ï¿½T":
 			calDay = calDay + 2;
 			break;
-		case "¬P´Á¥|":
+		case "ï¿½Pï¿½ï¿½ï¿½|":
 			calDay = calDay + 3;
 			break;
-		case "¬P´Á¤­":
+		case "ï¿½Pï¿½ï¿½ï¿½ï¿½":
 			calDay = calDay + 4;
 			break;
 		default:
@@ -397,7 +397,7 @@ public class Word {
 			}
 			break;
 		}
-		date = (String.valueOf(calMonth) + "¤ë" + String.valueOf(calDay) + "¤é");
+		date = (String.valueOf(calMonth) + "ï¿½ï¿½" + String.valueOf(calDay) + "ï¿½ï¿½");
 		return date;
 	}
 
@@ -414,8 +414,8 @@ public class Word {
 		int month = Integer.valueOf(date.split("\\/")[1]);
 
 		if (month < 7)
-			return year - 1 + "¤U";
+			return year - 1 + "ï¿½U";
 		else
-			return year + "¤W";
+			return year + "ï¿½W";
 	}
 }

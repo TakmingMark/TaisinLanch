@@ -160,13 +160,13 @@ public class AcceptanceExcelModel extends ExcelModel {
 						new ingredientQuantity(Double.valueOf(seasoningWeight), seasoningUnit));
 			}
 		} catch (NumberFormatException e) {
-			Toast.getWarningToastObject("³æ¦ì¤£¯à¬°°ê¦r¡A½Ğ¿é¤J¼Æ¦r");
+			Toast.getWarningToastObject("å–®ä½ä¸èƒ½ç‚ºåœ‹å­—ï¼Œè«‹è¼¸å…¥æ•¸å­—");
 			throw new NumberFormatException("the seasoning wegiht must number unit");
 		}
 	}
 
 	private String getFileName(String targetDate) {
-		String fileName = calculateMenuDayDate(targetDate, "¬P´Á¤@") + "-" + calculateMenuDayDate(targetDate, "¬P´Á¤­");
+		String fileName = calculateMenuDayDate(targetDate, "æ˜ŸæœŸä¸€") + "-" + calculateMenuDayDate(targetDate, "æ˜ŸæœŸäº”");
 		fileName = backSlashToDot(fileName);
 		return fileName;
 	}

@@ -25,19 +25,19 @@ public class DataToViewParser {
 
 		for (DayComponent day : menuDataInput.getDayArray()) {
 			switch (day.getName()) {
-			case "¬P´Á¤@":
+			case "æ˜ŸæœŸä¸€":
 				dayDataToDayView(menuView.getMonday(), day);
 				break;
-			case "¬P´Á¤G":
+			case "æ˜ŸæœŸäºŒ":
 				dayDataToDayView(menuView.getTuesday(), day);
 				break;
-			case "¬P´Á¤T":
+			case "æ˜ŸæœŸä¸‰":
 				dayDataToDayView(menuView.getWednesday(), day);
 				break;
-			case "¬P´Á¥|":
+			case "æ˜ŸæœŸå››":
 				dayDataToDayView(menuView.getThursday(), day);
 				break;
-			case "¬P´Á¤­":
+			case "æ˜ŸæœŸäº”":
 				dayDataToDayView(menuView.getFriday(), day);
 				break;
 			default:
